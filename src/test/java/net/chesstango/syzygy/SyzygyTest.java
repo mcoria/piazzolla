@@ -1,0 +1,422 @@
+package net.chesstango.syzygy;
+
+import net.chesstango.board.Color;
+import net.chesstango.board.position.BitBoard;
+import net.chesstango.board.position.Position;
+import net.chesstango.board.position.PositionState;
+import net.chesstango.board.representations.fen.FEN;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static net.chesstango.syzygy.SyzygyConstants.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
+
+/**
+ * @author Mauricio Coria
+ */
+public class SyzygyTest {
+
+    public static final String PATH = "C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5";
+
+    private Syzygy syzygy;
+
+    @BeforeEach
+    public void setUp() throws Exception {
+        syzygy = new Syzygy();
+        syzygy.tb_init(PATH);
+    }
+
+    @Test
+    public void test_tb_init() {
+        syzygy.tb_init(PATH);
+
+        assertEquals(650, syzygy.pieceEntry.length);
+        assertEquals(861, syzygy.pawnEntry.length);
+        assertEquals(4096, syzygy.tbHash.length);
+
+        assertEquals(5, syzygy.TB_LARGEST);
+        assertEquals(5, syzygy.TB_MaxCardinality);
+        assertEquals(0, syzygy.TB_MaxCardinalityDTM);
+        assertEquals(84, syzygy.tbNumPiece);
+        assertEquals(61, syzygy.tbNumPawn);
+        assertEquals(145, syzygy.numWdl);
+        assertEquals(0, syzygy.numDtm);
+        assertEquals(145, syzygy.numDtz);
+    }
+
+    @Test
+    public void test_tb_probe_root_KQvK_white() {
+        FEN fen = FEN.of("7k/8/7K/7Q/8/8/8/8 w - - 0 1");
+        Position chessPosition = fen.toChessPosition();
+        BitPosition bitPosition = from(chessPosition);
+
+        int[] results = new int[TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(bitPosition, results);
+
+        assertNotEquals(TB_RESULT_FAILED, res);
+
+        assertEquals(TB_WIN, TB_GET_WDL(res));
+        assertEquals(1, TB_GET_DTZ(res));
+
+        assertEquals(15, count(results, TB_WIN));
+        assertEquals(0, count(results, TB_CURSED_WIN));
+        assertEquals(5, count(results, TB_DRAW));
+        assertEquals(0, count(results, TB_BLESSED_LOSS));
+        assertEquals(0, count(results, TB_LOSS));
+    }
+
+    @Test
+    public void test_tb_probe_root_KQvK_black() {
+        FEN fen = FEN.of("7k/8/7K/7Q/8/8/8/8 b - - 0 1");
+        Position chessPosition = fen.toChessPosition();
+        BitPosition bitPosition = from(chessPosition);
+
+        int[] results = new int[TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(bitPosition, results);
+
+        assertNotEquals(TB_RESULT_FAILED, res);
+
+        assertEquals(TB_LOSS, TB_GET_WDL(res));
+        assertEquals(2, TB_GET_DTZ(res));
+
+        assertEquals(0, count(results, TB_WIN));
+        assertEquals(0, count(results, TB_CURSED_WIN));
+        assertEquals(0, count(results, TB_DRAW));
+        assertEquals(0, count(results, TB_BLESSED_LOSS));
+        assertEquals(1, count(results, TB_LOSS));
+    }
+
+    @Test
+    public void test_tb_probe_root_KQvKR_white() {
+        FEN fen = FEN.of("7k/r7/7K/7Q/8/8/8/8 w - - 0 1");
+        Position chessPosition = fen.toChessPosition();
+        BitPosition bitPosition = from(chessPosition);
+
+        int[] results = new int[TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(bitPosition, results);
+
+        assertNotEquals(TB_RESULT_FAILED, res);
+
+        assertEquals(TB_WIN, TB_GET_WDL(res));
+        assertEquals(1, TB_GET_DTZ(res));
+
+        assertEquals(12, count(results, TB_WIN));
+        assertEquals(0, count(results, TB_CURSED_WIN));
+        assertEquals(3, count(results, TB_DRAW));
+        assertEquals(0, count(results, TB_BLESSED_LOSS));
+        assertEquals(5, count(results, TB_LOSS));
+    }
+
+    @Test
+    public void test_tb_probe_root_KQvKR_black() {
+        FEN fen = FEN.of("7k/r7/7K/7Q/8/8/8/8 b - - 0 1");
+        Position chessPosition = fen.toChessPosition();
+        BitPosition bitPosition = from(chessPosition);
+
+        int[] results = new int[TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(bitPosition, results);
+
+        assertNotEquals(TB_RESULT_FAILED, res);
+
+        assertEquals(TB_DRAW, TB_GET_WDL(res));
+        assertEquals(0, TB_GET_DTZ(res));
+
+        assertEquals(0, count(results, TB_WIN));
+        assertEquals(0, count(results, TB_CURSED_WIN));
+        assertEquals(1, count(results, TB_DRAW));
+        assertEquals(0, count(results, TB_BLESSED_LOSS));
+        assertEquals(14, count(results, TB_LOSS));
+    }
+
+    @Test
+    public void test_tb_probe_root_KQvKQ_white() {
+        FEN fen = FEN.of("7k/q7/7K/7Q/8/8/8/8 w - - 0 1");
+        Position chessPosition = fen.toChessPosition();
+        BitPosition bitPosition = from(chessPosition);
+
+        int[] results = new int[TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(bitPosition, results);
+
+        assertNotEquals(TB_RESULT_FAILED, res);
+
+        assertEquals(TB_WIN, TB_GET_WDL(res));
+        assertEquals(1, TB_GET_DTZ(res));
+
+        assertEquals(3, count(results, TB_WIN));
+        assertEquals(0, count(results, TB_CURSED_WIN));
+        assertEquals(10, count(results, TB_DRAW));
+        assertEquals(0, count(results, TB_BLESSED_LOSS));
+        assertEquals(7, count(results, TB_LOSS));
+    }
+
+    @Test
+    public void test_tb_probe_root_KQvKQ_black() {
+        FEN fen = FEN.of("7k/q7/7K/7Q/8/8/8/8 b - - 0 1");
+        Position chessPosition = fen.toChessPosition();
+        BitPosition bitPosition = from(chessPosition);
+
+        int[] results = new int[TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(bitPosition, results);
+
+        assertNotEquals(TB_RESULT_FAILED, res);
+
+        assertEquals(TB_WIN, TB_GET_WDL(res));
+        assertEquals(1, TB_GET_DTZ(res));
+
+        assertEquals(1, count(results, TB_WIN));
+        assertEquals(0, count(results, TB_CURSED_WIN));
+        assertEquals(6, count(results, TB_DRAW));
+        assertEquals(0, count(results, TB_BLESSED_LOSS));
+        assertEquals(15, count(results, TB_LOSS));
+    }
+
+    @Test
+    public void test_tb_probe_root_KQNvKQ_white() {
+        FEN fen = FEN.of("7k/q7/7K/7Q/4N3/8/8/8 w - - 0 1");
+        Position chessPosition = fen.toChessPosition();
+        BitPosition bitPosition = from(chessPosition);
+
+        int[] results = new int[TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(bitPosition, results);
+
+        assertNotEquals(TB_RESULT_FAILED, res);
+
+        assertEquals(TB_WIN, TB_GET_WDL(res));
+        assertEquals(1, TB_GET_DTZ(res));
+
+        assertEquals(3, count(results, TB_WIN));
+        assertEquals(0, count(results, TB_CURSED_WIN));
+        assertEquals(11, count(results, TB_DRAW));
+        assertEquals(0, count(results, TB_BLESSED_LOSS));
+        assertEquals(14, count(results, TB_LOSS));
+    }
+
+    @Test
+    public void test_tb_probe_root_KQNvKQ_black() {
+        FEN fen = FEN.of("7k/q7/7K/7Q/4N3/8/8/8 b - - 0 1");
+        Position chessPosition = fen.toChessPosition();
+        BitPosition bitPosition = from(chessPosition);
+
+        int[] results = new int[TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(bitPosition, results);
+
+        assertNotEquals(TB_RESULT_FAILED, res);
+
+        assertEquals(TB_WIN, TB_GET_WDL(res));
+        assertEquals(1, TB_GET_DTZ(res));
+
+        assertEquals(1, count(results, TB_WIN));
+        assertEquals(0, count(results, TB_CURSED_WIN));
+        assertEquals(4, count(results, TB_DRAW));
+        assertEquals(0, count(results, TB_BLESSED_LOSS));
+        assertEquals(17, count(results, TB_LOSS));
+    }
+
+
+    @Test
+    public void test_tb_probe_root_KPvK_white() {
+        FEN fen = FEN.of("8/P7/4K3/7k/8/8/8/8 w - - 0 1");
+        Position chessPosition = fen.toChessPosition();
+        BitPosition bitPosition = from(chessPosition);
+
+        int[] results = new int[TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(bitPosition, results);
+
+        assertNotEquals(TB_RESULT_FAILED, res);
+
+        assertEquals(TB_WIN, TB_GET_WDL(res));
+        assertEquals(1, TB_GET_DTZ(res));
+
+        assertEquals(10, count(results, TB_WIN));
+        assertEquals(0, count(results, TB_CURSED_WIN));
+        assertEquals(2, count(results, TB_DRAW));
+        assertEquals(0, count(results, TB_BLESSED_LOSS));
+        assertEquals(0, count(results, TB_LOSS));
+    }
+
+    @Test
+    public void test_tb_probe_root_KPvK_black() {
+        FEN fen = FEN.of("8/P7/4K3/7k/8/8/8/8 b - - 0 1");
+        Position chessPosition = fen.toChessPosition();
+        BitPosition bitPosition = from(chessPosition);
+
+        int[] results = new int[TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(bitPosition, results);
+
+        assertNotEquals(TB_RESULT_FAILED, res);
+
+        assertEquals(TB_LOSS, TB_GET_WDL(res));
+        assertEquals(2, TB_GET_DTZ(res));
+
+        assertEquals(0, count(results, TB_WIN));
+        assertEquals(0, count(results, TB_CURSED_WIN));
+        assertEquals(0, count(results, TB_DRAW));
+        assertEquals(0, count(results, TB_BLESSED_LOSS));
+        assertEquals(5, count(results, TB_LOSS));
+    }
+
+    @Test
+    public void test_tb_probe_root_KPvKP_white() {
+        FEN fen = FEN.of("8/P7/4K3/7k/6p1/8/8/8 w - - 0 1");
+        Position chessPosition = fen.toChessPosition();
+        BitPosition bitPosition = from(chessPosition);
+
+        int[] results = new int[TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(bitPosition, results);
+
+        assertNotEquals(TB_RESULT_FAILED, res);
+
+        assertEquals(TB_WIN, TB_GET_WDL(res));
+        assertEquals(1, TB_GET_DTZ(res));
+
+        assertEquals(10, count(results, TB_WIN));
+        assertEquals(0, count(results, TB_CURSED_WIN));
+        assertEquals(1, count(results, TB_DRAW));
+        assertEquals(0, count(results, TB_BLESSED_LOSS));
+        assertEquals(1, count(results, TB_LOSS));
+    }
+
+    @Test
+    public void test_tb_probe_root_KPPvKP_black() {
+        FEN fen = FEN.of("8/8/1k2P2K/6P1/8/3p4/8/8 b - - 0 1");
+        Position chessPosition = fen.toChessPosition();
+        BitPosition bitPosition = from(chessPosition);
+
+        int[] results = new int[TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(bitPosition, results);
+
+        assertNotEquals(TB_RESULT_FAILED, res);
+
+        assertEquals(TB_BLESSED_LOSS, TB_GET_WDL(res));
+        assertEquals(104, TB_GET_DTZ(res));
+
+        assertEquals(0, count(results, TB_WIN));
+        assertEquals(0, count(results, TB_CURSED_WIN));
+        assertEquals(0, count(results, TB_DRAW));
+        assertEquals(2, count(results, TB_BLESSED_LOSS));
+        assertEquals(7, count(results, TB_LOSS));
+    }
+
+    @Test
+    public void test_tb_probe_root_longest_3() {
+        FEN fen = FEN.of("8/8/8/8/8/8/2Rk4/1K6 b - - 0 1");
+        Position chessPosition = fen.toChessPosition();
+        BitPosition bitPosition = from(chessPosition);
+
+        int[] results = new int[TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(bitPosition, results);
+
+        assertNotEquals(TB_RESULT_FAILED, res);
+
+        assertEquals(TB_LOSS, TB_GET_WDL(res));
+        assertEquals(32, TB_GET_DTZ(res));
+
+        assertEquals(0, count(results, TB_WIN));
+        assertEquals(0, count(results, TB_CURSED_WIN));
+        assertEquals(0, count(results, TB_DRAW));
+        assertEquals(0, count(results, TB_BLESSED_LOSS));
+        assertEquals(4, count(results, TB_LOSS));
+    }
+
+    @Test
+    public void test_tb_probe_root_longest_4() {
+        FEN fen = FEN.of("8/8/8/6B1/8/8/4k3/1K5N b - - 0 1");
+        Position chessPosition = fen.toChessPosition();
+        BitPosition bitPosition = from(chessPosition);
+
+        int[] results = new int[TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(bitPosition, results);
+
+        assertNotEquals(TB_RESULT_FAILED, res);
+
+        assertEquals(TB_LOSS, TB_GET_WDL(res));
+        assertEquals(65, TB_GET_DTZ(res));
+
+        assertEquals(0, count(results, TB_WIN));
+        assertEquals(0, count(results, TB_CURSED_WIN));
+        assertEquals(0, count(results, TB_DRAW));
+        assertEquals(0, count(results, TB_BLESSED_LOSS));
+        assertEquals(5, count(results, TB_LOSS));
+    }
+
+    @Test
+    public void test_tb_probe_root_longest_5() {
+        FEN fen = FEN.of("K7/N7/k7/8/3p4/8/N7/8 w - - 0 1");
+        Position chessPosition = fen.toChessPosition();
+        BitPosition bitPosition = from(chessPosition);
+
+        int[] results = new int[TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(bitPosition, results);
+
+        assertNotEquals(TB_RESULT_FAILED, res);
+
+        assertEquals(TB_CURSED_WIN, TB_GET_WDL(res));
+        assertEquals(164, TB_GET_DTZ(res));
+
+        assertEquals(0, count(results, TB_WIN));
+        assertEquals(1, count(results, TB_CURSED_WIN));
+        assertEquals(6, count(results, TB_DRAW));
+        assertEquals(0, count(results, TB_BLESSED_LOSS));
+        assertEquals(0, count(results, TB_LOSS));
+    }
+
+    static int count(int[] results, int wdl) {
+        int count = 0;
+        for (int i = 0; i < results.length && results[i] != TB_RESULT_FAILED; i++) {
+            if (TB_GET_WDL(results[i]) == wdl) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public static BitPosition from(Position chessPosition) {
+        BitBoard bitBoard = chessPosition.getBitBoard();
+        PositionState positionState = chessPosition.getPositionState();
+
+        BitPosition bitPosition = new BitPosition();
+
+        bitPosition.black = bitBoard.getPositions(Color.BLACK);
+        bitPosition.white = bitBoard.getPositions(Color.WHITE);
+
+        bitPosition.kings = bitBoard.getKingPositions();
+        bitPosition.queens = bitBoard.getQueenPositions();
+        bitPosition.rooks = bitBoard.getRookPositions();
+        bitPosition.bishops = bitBoard.getBishopPositions();
+        bitPosition.knights = bitBoard.getKnightPositions();
+        bitPosition.pawns = bitBoard.getPawnPositions();
+
+        byte rule50 = 0;
+
+
+        if (positionState.getEnPassantSquare() != null) {
+            bitPosition.ep = (byte) positionState.getEnPassantSquare().toIdx();
+        }
+
+        bitPosition.turn = positionState.getCurrentTurn() == Color.WHITE;
+
+        bitPosition.castling = positionState.isCastlingWhiteKingAllowed() ||
+                positionState.isCastlingWhiteQueenAllowed() ||
+                positionState.isCastlingBlackKingAllowed() ||
+                positionState.isCastlingBlackQueenAllowed() ? 1 : 0;
+
+        return bitPosition;
+    }
+}
+
