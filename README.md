@@ -1,3 +1,4 @@
+[![Java CI with Maven](https://github.com/mcoria/piazzolla/actions/workflows/maven.yml/badge.svg)](https://github.com/mcoria/piazzolla/actions/workflows/maven.yml)
 # Piazzolla
 
 Piazzolla is a Java library designed for working with Syzygy Endgame Tablebases (EGTB) and Polyglot opening books. It provides tools for loading and searching both types of chess data.
