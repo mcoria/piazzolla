@@ -9,12 +9,12 @@
 
     <name>piazzolla</name>
     <description>Syzygy EGTB prober library</description>
-    <url>https://github.com/mcoria/syzygy-prober</url>
+    <url>https://github.com/mcoria/piazzolla</url>
 
     <licenses>
         <license>
             <name>BSD 3-Clause License</name>
-            <url>https://github.com/mcoria/syzygy-prober?tab=BSD-3-Clause-1-ov-file</url>
+            <url>https://github.com/mcoria/piazzolla?tab=BSD-3-Clause-1-ov-file</url>
         </license>
     </licenses>
 
@@ -26,9 +26,9 @@
     </developers>
 
     <scm>
-        <connection>scm:git:https://github.com/mcoria/syzygy-prober.git</connection>
-        <developerConnection>scm:git:https://github.com/mcoria/syzygy-prober.git</developerConnection>
-        <url>https://github.com/mcoria/syzygy-prober/tree/main</url>
+        <connection>scm:git:https://github.com/mcoria/piazzolla.git</connection>
+        <developerConnection>scm:git:https://github.com/mcoria/piazzolla.git</developerConnection>
+        <url>https://github.com/mcoria/piazzolla/tree/main</url>
         <tag>HEAD</tag>
     </scm>
 
