@@ -1,10 +1,9 @@
 package net.chesstango.syzygy;
 
-import net.chesstango.board.position.Position;
-import net.chesstango.board.representations.fen.FEN;
+
+import net.chesstango.gardel.fen.FEN;
 import org.junit.jupiter.api.Test;
 
-import static net.chesstango.syzygy.SyzygyTest.from;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -16,9 +15,8 @@ public class BitPositionTest {
     @Test
     public void test_toPosition() {
         FEN fen = FEN.of("7k/8/7K/7Q/8/8/8/8 w - - 0 1");
-        Position chessPosition = fen.toChessPosition();
 
-        BitPosition bitPosition = from(chessPosition);
+        BitPosition bitPosition = BitPosition.from(fen);
 
         assertEquals(0x0000808000000000L, bitPosition.white);
         assertEquals(0x8000000000000000L, bitPosition.black);

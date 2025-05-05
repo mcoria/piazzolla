@@ -1,6 +1,8 @@
 package net.chesstango.syzygy;
 
 
+import net.chesstango.gardel.fen.FEN;
+
 import static net.chesstango.syzygy.SyzygyConstants.Color.WHITE;
 
 /**
@@ -31,5 +33,11 @@ public class BitPosition {
             case QUEEN -> queens & mask;
             case KING -> kings & mask;
         };
+    }
+
+    static BitPosition from(FEN fen){
+        BitPositionBuilder bitPositionBuilder = new BitPositionBuilder();
+        fen.export(bitPositionBuilder);
+        return bitPositionBuilder.getPositionRepresentation();
     }
 }

@@ -1,7 +1,7 @@
 package net.chesstango.syzygy;
 
-import net.chesstango.board.position.Position;
-import net.chesstango.board.representations.fen.FEN;
+
+import net.chesstango.gardel.fen.FEN;
 import org.junit.jupiter.api.Test;
 
 import static net.chesstango.syzygy.BaseEntry.calc_key_from_pcs;
@@ -9,7 +9,7 @@ import static net.chesstango.syzygy.BaseEntry.tableName_to_pcs;
 import static net.chesstango.syzygy.Syzygy.calcKey;
 import static net.chesstango.syzygy.SyzygyConstants.TB_HASHBITS;
 import static net.chesstango.syzygy.SyzygyConstants.prt_str;
-import static net.chesstango.syzygy.SyzygyTest.from;
+
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -46,9 +46,7 @@ public class SyzygyConstantsTest {
     public void test_calcKey() {
         FEN fen = FEN.of("7k/8/7K/7Q/8/8/8/8 w - - 0 1");
 
-        Position chessPosition = fen.toChessPosition();
-
-        BitPosition bitPosition = from(chessPosition);
+        BitPosition bitPosition = BitPosition.from(fen);
 
         assertEquals(0xa3ec1abc71e90863L, calcKey(bitPosition));
 
@@ -60,9 +58,7 @@ public class SyzygyConstantsTest {
     public void test_prt_str() {
         FEN fen = FEN.of("7k/8/7K/7Q/8/8/8/8 w - - 0 1");
 
-        Position chessPosition = fen.toChessPosition();
-
-        BitPosition bitPosition = from(chessPosition);
+        BitPosition bitPosition = BitPosition.from(fen);
 
         assertEquals("KQvK", prt_str(bitPosition, false));
     }

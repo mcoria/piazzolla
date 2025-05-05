@@ -1,10 +1,7 @@
 package net.chesstango.syzygy;
 
-import net.chesstango.board.Color;
-import net.chesstango.board.position.BitBoard;
-import net.chesstango.board.position.Position;
-import net.chesstango.board.position.PositionState;
-import net.chesstango.board.representations.fen.FEN;
+
+import net.chesstango.gardel.fen.FEN;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -48,8 +45,8 @@ public class SyzygyTest {
     @Test
     public void test_tb_probe_root_KQvK_white() {
         FEN fen = FEN.of("7k/8/7K/7Q/8/8/8/8 w - - 0 1");
-        Position chessPosition = fen.toChessPosition();
-        BitPosition bitPosition = from(chessPosition);
+
+        BitPosition bitPosition = BitPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
@@ -70,8 +67,8 @@ public class SyzygyTest {
     @Test
     public void test_tb_probe_root_KQvK_black() {
         FEN fen = FEN.of("7k/8/7K/7Q/8/8/8/8 b - - 0 1");
-        Position chessPosition = fen.toChessPosition();
-        BitPosition bitPosition = from(chessPosition);
+
+        BitPosition bitPosition = BitPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
@@ -92,8 +89,8 @@ public class SyzygyTest {
     @Test
     public void test_tb_probe_root_KQvKR_white() {
         FEN fen = FEN.of("7k/r7/7K/7Q/8/8/8/8 w - - 0 1");
-        Position chessPosition = fen.toChessPosition();
-        BitPosition bitPosition = from(chessPosition);
+
+        BitPosition bitPosition = BitPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
@@ -114,8 +111,8 @@ public class SyzygyTest {
     @Test
     public void test_tb_probe_root_KQvKR_black() {
         FEN fen = FEN.of("7k/r7/7K/7Q/8/8/8/8 b - - 0 1");
-        Position chessPosition = fen.toChessPosition();
-        BitPosition bitPosition = from(chessPosition);
+
+        BitPosition bitPosition = BitPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
@@ -136,8 +133,8 @@ public class SyzygyTest {
     @Test
     public void test_tb_probe_root_KQvKQ_white() {
         FEN fen = FEN.of("7k/q7/7K/7Q/8/8/8/8 w - - 0 1");
-        Position chessPosition = fen.toChessPosition();
-        BitPosition bitPosition = from(chessPosition);
+
+        BitPosition bitPosition = BitPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
@@ -158,8 +155,8 @@ public class SyzygyTest {
     @Test
     public void test_tb_probe_root_KQvKQ_black() {
         FEN fen = FEN.of("7k/q7/7K/7Q/8/8/8/8 b - - 0 1");
-        Position chessPosition = fen.toChessPosition();
-        BitPosition bitPosition = from(chessPosition);
+
+        BitPosition bitPosition = BitPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
@@ -180,8 +177,8 @@ public class SyzygyTest {
     @Test
     public void test_tb_probe_root_KQNvKQ_white() {
         FEN fen = FEN.of("7k/q7/7K/7Q/4N3/8/8/8 w - - 0 1");
-        Position chessPosition = fen.toChessPosition();
-        BitPosition bitPosition = from(chessPosition);
+
+        BitPosition bitPosition = BitPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
@@ -202,8 +199,8 @@ public class SyzygyTest {
     @Test
     public void test_tb_probe_root_KQNvKQ_black() {
         FEN fen = FEN.of("7k/q7/7K/7Q/4N3/8/8/8 b - - 0 1");
-        Position chessPosition = fen.toChessPosition();
-        BitPosition bitPosition = from(chessPosition);
+
+        BitPosition bitPosition = BitPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
@@ -225,8 +222,8 @@ public class SyzygyTest {
     @Test
     public void test_tb_probe_root_KPvK_white() {
         FEN fen = FEN.of("8/P7/4K3/7k/8/8/8/8 w - - 0 1");
-        Position chessPosition = fen.toChessPosition();
-        BitPosition bitPosition = from(chessPosition);
+
+        BitPosition bitPosition = BitPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
@@ -247,8 +244,8 @@ public class SyzygyTest {
     @Test
     public void test_tb_probe_root_KPvK_black() {
         FEN fen = FEN.of("8/P7/4K3/7k/8/8/8/8 b - - 0 1");
-        Position chessPosition = fen.toChessPosition();
-        BitPosition bitPosition = from(chessPosition);
+
+        BitPosition bitPosition = BitPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
@@ -269,8 +266,8 @@ public class SyzygyTest {
     @Test
     public void test_tb_probe_root_KPvKP_white() {
         FEN fen = FEN.of("8/P7/4K3/7k/6p1/8/8/8 w - - 0 1");
-        Position chessPosition = fen.toChessPosition();
-        BitPosition bitPosition = from(chessPosition);
+
+        BitPosition bitPosition = BitPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
@@ -291,8 +288,8 @@ public class SyzygyTest {
     @Test
     public void test_tb_probe_root_KPPvKP_black() {
         FEN fen = FEN.of("8/8/1k2P2K/6P1/8/3p4/8/8 b - - 0 1");
-        Position chessPosition = fen.toChessPosition();
-        BitPosition bitPosition = from(chessPosition);
+
+        BitPosition bitPosition = BitPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
@@ -313,8 +310,8 @@ public class SyzygyTest {
     @Test
     public void test_tb_probe_root_longest_3() {
         FEN fen = FEN.of("8/8/8/8/8/8/2Rk4/1K6 b - - 0 1");
-        Position chessPosition = fen.toChessPosition();
-        BitPosition bitPosition = from(chessPosition);
+
+        BitPosition bitPosition = BitPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
@@ -335,8 +332,8 @@ public class SyzygyTest {
     @Test
     public void test_tb_probe_root_longest_4() {
         FEN fen = FEN.of("8/8/8/6B1/8/8/4k3/1K5N b - - 0 1");
-        Position chessPosition = fen.toChessPosition();
-        BitPosition bitPosition = from(chessPosition);
+
+        BitPosition bitPosition = BitPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
@@ -357,8 +354,8 @@ public class SyzygyTest {
     @Test
     public void test_tb_probe_root_longest_5() {
         FEN fen = FEN.of("K7/N7/k7/8/3p4/8/N7/8 w - - 0 1");
-        Position chessPosition = fen.toChessPosition();
-        BitPosition bitPosition = from(chessPosition);
+
+        BitPosition bitPosition = BitPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
@@ -386,37 +383,5 @@ public class SyzygyTest {
         return count;
     }
 
-    public static BitPosition from(Position chessPosition) {
-        BitBoard bitBoard = chessPosition.getBitBoard();
-        PositionState positionState = chessPosition.getPositionState();
-
-        BitPosition bitPosition = new BitPosition();
-
-        bitPosition.black = bitBoard.getPositions(Color.BLACK);
-        bitPosition.white = bitBoard.getPositions(Color.WHITE);
-
-        bitPosition.kings = bitBoard.getKingPositions();
-        bitPosition.queens = bitBoard.getQueenPositions();
-        bitPosition.rooks = bitBoard.getRookPositions();
-        bitPosition.bishops = bitBoard.getBishopPositions();
-        bitPosition.knights = bitBoard.getKnightPositions();
-        bitPosition.pawns = bitBoard.getPawnPositions();
-
-        byte rule50 = 0;
-
-
-        if (positionState.getEnPassantSquare() != null) {
-            bitPosition.ep = (byte) positionState.getEnPassantSquare().toIdx();
-        }
-
-        bitPosition.turn = positionState.getCurrentTurn() == Color.WHITE;
-
-        bitPosition.castling = positionState.isCastlingWhiteKingAllowed() ||
-                positionState.isCastlingWhiteQueenAllowed() ||
-                positionState.isCastlingBlackKingAllowed() ||
-                positionState.isCastlingBlackQueenAllowed() ? 1 : 0;
-
-        return bitPosition;
-    }
 }
 

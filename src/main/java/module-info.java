@@ -1,5 +1,5 @@
 module net.chesstango.syzygy.prober {
-    requires net.chesstango.board;
+    requires net.chesstango.gardel;
 
     requires static lombok;
 }
