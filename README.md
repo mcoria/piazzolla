@@ -12,7 +12,6 @@ Piazzolla is a Java library designed for working with Syzygy Endgame Tablebases 
 ## Requirements
 
 - Java 21 or higher
-- Maven 3.8.0 or higher
 
 ## Installation
 
@@ -22,7 +21,7 @@ Add the following dependency to your `pom.xml`:
 <dependency>
     <groupId>net.chesstango</groupId>
     <artifactId>piazzolla</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 </dependency>
 ```
 
