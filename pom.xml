@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>net.chesstango</groupId>
-    <artifactId>syzygy-prober</artifactId>
+    <artifactId>piazzolla</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>syzygy-prober</name>
+    <name>piazzolla</name>
     <description>Syzygy EGTB prober library</description>
     <url>https://github.com/mcoria/syzygy-prober</url>
 
