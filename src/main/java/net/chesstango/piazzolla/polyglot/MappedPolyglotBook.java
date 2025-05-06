@@ -1,6 +1,5 @@
 package net.chesstango.piazzolla.polyglot;
 
-import java.io.Closeable;
 import java.io.IOException;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
@@ -14,24 +13,24 @@ import java.util.List;
 /**
  * @author Mauricio Coria
  */
-public class MappedPolyglotBook implements PolyglotBook, Closeable {
+class MappedPolyglotBook implements PolyglotBook {
     private final static int ENTRY_SIZE = 16;
     private FileChannel fileChannel;
     private MappedByteBuffer mappedByteBuffer;
     private int maxEntry = 0;
 
+    void load(Path pathToRead) throws IOException {
+        fileChannel = (FileChannel) Files.newByteChannel(pathToRead, EnumSet.of(StandardOpenOption.READ));
+
+        maxEntry = (int) (fileChannel.size() / ENTRY_SIZE) - 1;
+
+        mappedByteBuffer = fileChannel.map(FileChannel.MapMode.READ_ONLY, 0, fileChannel.size());
+    }
+
     @Override
-    public void load(Path pathToRead) {
-        try {
-
-            fileChannel = (FileChannel) Files.newByteChannel(pathToRead, EnumSet.of(StandardOpenOption.READ));
-
-            maxEntry = ((int) fileChannel.size() / ENTRY_SIZE) - 1;
-
-            mappedByteBuffer = fileChannel.map(FileChannel.MapMode.READ_ONLY, 0, fileChannel.size());
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public void close() throws IOException {
+        if (fileChannel != null) {
+            fileChannel.close();
         }
     }
 
@@ -79,18 +78,6 @@ public class MappedPolyglotBook implements PolyglotBook, Closeable {
         }
 
         return polyglotEntryList;
-    }
-
-    @Override
-    public boolean isLoaded() {
-        return fileChannel != null;
-    }
-
-    @Override
-    public void close() throws IOException {
-        if (fileChannel != null) {
-            fileChannel.close();
-        }
     }
 
     private int findIndex(long key, int lowerBoundIdx, int upperBoundIdx) {
