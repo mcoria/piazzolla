@@ -52,7 +52,7 @@ class MappedPolyglotBook implements PolyglotBook {
 
                 int moveAndWeight = mappedByteBuffer.getInt(idx * ENTRY_SIZE + 8);
 
-                PolyglotEntry entry = getPolyglotEntry(key, moveAndWeight);
+                PolyglotEntry entry = createPolyglotEntry(key, moveAndWeight);
 
                 polyglotEntryList.add(entry);
 
@@ -89,7 +89,7 @@ class MappedPolyglotBook implements PolyglotBook {
         return mappedByteBuffer.getLong(idx * ENTRY_SIZE);
     }
 
-    private static PolyglotEntry getPolyglotEntry(long key, int moveAndWeight) {
+    private static PolyglotEntry createPolyglotEntry(long key, int moveAndWeight) {
         int weight = moveAndWeight & 0b00000000_00000000_11111111_11111111;
 
         int toFile = ((moveAndWeight & 0b00000000_00000111_00000000_00000000) >>> (16));
