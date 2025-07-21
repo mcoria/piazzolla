@@ -3,7 +3,7 @@ package net.chesstango.piazzolla.syzygy;
 /**
  * @author Mauricio Coria
  */
-public class PieceEncInfo extends EncInfo {
+class PieceEncInfo extends EncInfo {
     final PieceEntry pieceEntry;
 
     PieceEncInfo(PieceEntry pieceEntry) {

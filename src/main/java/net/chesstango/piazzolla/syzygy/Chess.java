@@ -7,7 +7,7 @@ import static net.chesstango.piazzolla.syzygy.SyzygyConstants.Color.WHITE;
 /**
  * @author Mauricio Coria
  */
-public class Chess {
+class Chess {
     static final int BEST_NONE = 0xFFFF;
     static final short SCORE_ILLEGAL = 0x7FFF;
 
