@@ -47,7 +47,8 @@
 
         <lombok.version>1.18.30</lombok.version>
         <junit-jupiter.version>5.9.2</junit-jupiter.version>
-        <gardel.varsion>1.0.1</gardel.varsion>
+
+        <gardel.varsion>1.0.4</gardel.varsion>
     </properties>
 
     <dependencies>
