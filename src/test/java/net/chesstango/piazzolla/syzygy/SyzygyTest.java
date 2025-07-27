@@ -46,11 +46,11 @@ public class SyzygyTest {
     public void test_tb_probe_root_KQvK_white() {
         FEN fen = FEN.of("7k/8/7K/7Q/8/8/8/8 w - - 0 1");
 
-        BitPosition bitPosition = BitPosition.from(fen);
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
-        int res = syzygy.tb_probe_root(bitPosition, results);
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
 
         assertNotEquals(TB_RESULT_FAILED, res);
 
@@ -68,11 +68,11 @@ public class SyzygyTest {
     public void test_tb_probe_root_KQvK_black() {
         FEN fen = FEN.of("7k/8/7K/7Q/8/8/8/8 b - - 0 1");
 
-        BitPosition bitPosition = BitPosition.from(fen);
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
-        int res = syzygy.tb_probe_root(bitPosition, results);
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
 
         assertNotEquals(TB_RESULT_FAILED, res);
 
@@ -90,11 +90,11 @@ public class SyzygyTest {
     public void test_tb_probe_root_KQvKR_white() {
         FEN fen = FEN.of("7k/r7/7K/7Q/8/8/8/8 w - - 0 1");
 
-        BitPosition bitPosition = BitPosition.from(fen);
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
-        int res = syzygy.tb_probe_root(bitPosition, results);
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
 
         assertNotEquals(TB_RESULT_FAILED, res);
 
@@ -112,11 +112,11 @@ public class SyzygyTest {
     public void test_tb_probe_root_KQvKR_black() {
         FEN fen = FEN.of("7k/r7/7K/7Q/8/8/8/8 b - - 0 1");
 
-        BitPosition bitPosition = BitPosition.from(fen);
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
-        int res = syzygy.tb_probe_root(bitPosition, results);
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
 
         assertNotEquals(TB_RESULT_FAILED, res);
 
@@ -134,11 +134,11 @@ public class SyzygyTest {
     public void test_tb_probe_root_KQvKQ_white() {
         FEN fen = FEN.of("7k/q7/7K/7Q/8/8/8/8 w - - 0 1");
 
-        BitPosition bitPosition = BitPosition.from(fen);
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
-        int res = syzygy.tb_probe_root(bitPosition, results);
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
 
         assertNotEquals(TB_RESULT_FAILED, res);
 
@@ -156,11 +156,11 @@ public class SyzygyTest {
     public void test_tb_probe_root_KQvKQ_black() {
         FEN fen = FEN.of("7k/q7/7K/7Q/8/8/8/8 b - - 0 1");
 
-        BitPosition bitPosition = BitPosition.from(fen);
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
-        int res = syzygy.tb_probe_root(bitPosition, results);
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
 
         assertNotEquals(TB_RESULT_FAILED, res);
 
@@ -178,11 +178,11 @@ public class SyzygyTest {
     public void test_tb_probe_root_KQNvKQ_white() {
         FEN fen = FEN.of("7k/q7/7K/7Q/4N3/8/8/8 w - - 0 1");
 
-        BitPosition bitPosition = BitPosition.from(fen);
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
-        int res = syzygy.tb_probe_root(bitPosition, results);
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
 
         assertNotEquals(TB_RESULT_FAILED, res);
 
@@ -200,11 +200,11 @@ public class SyzygyTest {
     public void test_tb_probe_root_KQNvKQ_black() {
         FEN fen = FEN.of("7k/q7/7K/7Q/4N3/8/8/8 b - - 0 1");
 
-        BitPosition bitPosition = BitPosition.from(fen);
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
-        int res = syzygy.tb_probe_root(bitPosition, results);
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
 
         assertNotEquals(TB_RESULT_FAILED, res);
 
@@ -223,11 +223,11 @@ public class SyzygyTest {
     public void test_tb_probe_root_KPvK_white() {
         FEN fen = FEN.of("8/P7/4K3/7k/8/8/8/8 w - - 0 1");
 
-        BitPosition bitPosition = BitPosition.from(fen);
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
-        int res = syzygy.tb_probe_root(bitPosition, results);
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
 
         assertNotEquals(TB_RESULT_FAILED, res);
 
@@ -245,11 +245,11 @@ public class SyzygyTest {
     public void test_tb_probe_root_KPvK_black() {
         FEN fen = FEN.of("8/P7/4K3/7k/8/8/8/8 b - - 0 1");
 
-        BitPosition bitPosition = BitPosition.from(fen);
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
-        int res = syzygy.tb_probe_root(bitPosition, results);
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
 
         assertNotEquals(TB_RESULT_FAILED, res);
 
@@ -267,11 +267,11 @@ public class SyzygyTest {
     public void test_tb_probe_root_KPvKP_white() {
         FEN fen = FEN.of("8/P7/4K3/7k/6p1/8/8/8 w - - 0 1");
 
-        BitPosition bitPosition = BitPosition.from(fen);
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
-        int res = syzygy.tb_probe_root(bitPosition, results);
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
 
         assertNotEquals(TB_RESULT_FAILED, res);
 
@@ -289,11 +289,11 @@ public class SyzygyTest {
     public void test_tb_probe_root_KPPvKP_black() {
         FEN fen = FEN.of("8/8/1k2P2K/6P1/8/3p4/8/8 b - - 0 1");
 
-        BitPosition bitPosition = BitPosition.from(fen);
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
-        int res = syzygy.tb_probe_root(bitPosition, results);
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
 
         assertNotEquals(TB_RESULT_FAILED, res);
 
@@ -311,11 +311,11 @@ public class SyzygyTest {
     public void test_tb_probe_root_longest_3() {
         FEN fen = FEN.of("8/8/8/8/8/8/2Rk4/1K6 b - - 0 1");
 
-        BitPosition bitPosition = BitPosition.from(fen);
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
-        int res = syzygy.tb_probe_root(bitPosition, results);
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
 
         assertNotEquals(TB_RESULT_FAILED, res);
 
@@ -333,11 +333,11 @@ public class SyzygyTest {
     public void test_tb_probe_root_longest_4() {
         FEN fen = FEN.of("8/8/8/6B1/8/8/4k3/1K5N b - - 0 1");
 
-        BitPosition bitPosition = BitPosition.from(fen);
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
-        int res = syzygy.tb_probe_root(bitPosition, results);
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
 
         assertNotEquals(TB_RESULT_FAILED, res);
 
@@ -355,11 +355,11 @@ public class SyzygyTest {
     public void test_tb_probe_root_longest_5() {
         FEN fen = FEN.of("K7/N7/k7/8/3p4/8/N7/8 w - - 0 1");
 
-        BitPosition bitPosition = BitPosition.from(fen);
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
         int[] results = new int[TB_MAX_MOVES];
 
-        int res = syzygy.tb_probe_root(bitPosition, results);
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
 
         assertNotEquals(TB_RESULT_FAILED, res);
 

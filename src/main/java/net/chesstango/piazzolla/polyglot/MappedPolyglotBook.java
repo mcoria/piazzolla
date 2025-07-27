@@ -40,13 +40,12 @@ class MappedPolyglotBook implements PolyglotBook {
         int idx = findIndex(key, 0, maxUpperBoundIdx + 1);
 
         if (getKey(idx) == key) {
-            int previousIdx = idx - 1;
-            while (previousIdx >= 0 && getKey(previousIdx) == key) {
-                idx--;
-                previousIdx--;
-            }
-
             List<PolyglotEntry> polyglotEntryList = new ArrayList<>();
+
+            // Corregir idx para encontrar la base
+            while (idx > 0 && getKey(idx - 1) == key) {
+                idx--;
+            }
 
             while (idx <= maxUpperBoundIdx && getKey(idx) == key) {
 

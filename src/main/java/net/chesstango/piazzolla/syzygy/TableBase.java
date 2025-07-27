@@ -41,7 +41,7 @@ abstract class TableBase {
      */
     abstract boolean init_table_imp();
 
-    abstract int probe_table_imp(BitPosition pos, long key, int score);
+    abstract int probe_table_imp(SyzygyPosition pos, long key, int score);
 
     public TableBase(TableType tableType, BaseEntry baseEntry) {
         this.tableType = tableType;
@@ -85,7 +85,7 @@ abstract class TableBase {
         return init_success;
     }
 
-    int probe_table(BitPosition pos, long key, int s) {
+    int probe_table(SyzygyPosition pos, long key, int s) {
         if (!ready || error) {
             baseEntry.syzygy.success = 0;
             return 0;

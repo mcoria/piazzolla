@@ -48,7 +48,8 @@
         <lombok.version>1.18.30</lombok.version>
         <junit-jupiter.version>5.9.2</junit-jupiter.version>
 
-        <gardel.varsion>1.0.4</gardel.varsion>
+        <!-- Decoding/encoding to different chess representations: FEN, EPD, PGN, SAN, LAN -->
+        <gardel.varsion>1.0.5</gardel.varsion>
     </properties>
 
     <dependencies>

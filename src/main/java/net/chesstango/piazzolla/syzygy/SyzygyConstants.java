@@ -151,21 +151,21 @@ class SyzygyConstants {
     // Given a position, produce a text string of the form KQPvKRP, where
     // "KQP" represents the white pieces if flip == false and the black pieces
     // if flip == true.
-    static String prt_str(BitPosition bitPosition, boolean flip) {
-        var whiteKings = Long.bitCount(bitPosition.white & bitPosition.kings);
-        var whiteQueens = Long.bitCount(bitPosition.white & bitPosition.queens);
-        var whiteRooks = Long.bitCount(bitPosition.white & bitPosition.rooks);
-        var whiteBishops = Long.bitCount(bitPosition.white & bitPosition.bishops);
-        var whiteKnights = Long.bitCount(bitPosition.white & bitPosition.knights);
-        var whitePawns = Long.bitCount(bitPosition.white & bitPosition.pawns);
+    static String prt_str(SyzygyPosition syzygyPosition, boolean flip) {
+        var whiteKings = Long.bitCount(syzygyPosition.white & syzygyPosition.kings);
+        var whiteQueens = Long.bitCount(syzygyPosition.white & syzygyPosition.queens);
+        var whiteRooks = Long.bitCount(syzygyPosition.white & syzygyPosition.rooks);
+        var whiteBishops = Long.bitCount(syzygyPosition.white & syzygyPosition.bishops);
+        var whiteKnights = Long.bitCount(syzygyPosition.white & syzygyPosition.knights);
+        var whitePawns = Long.bitCount(syzygyPosition.white & syzygyPosition.pawns);
         var whiteStr = piecesToString(whiteKings, whiteQueens, whiteRooks, whiteBishops, whiteKnights, whitePawns);
 
-        var blackKings = Long.bitCount(bitPosition.black & bitPosition.kings);
-        var blackQueens = Long.bitCount(bitPosition.black & bitPosition.queens);
-        var blackRooks = Long.bitCount(bitPosition.black & bitPosition.rooks);
-        var blackBishops = Long.bitCount(bitPosition.black & bitPosition.bishops);
-        var blackKnights = Long.bitCount(bitPosition.black & bitPosition.knights);
-        var blackPawns = Long.bitCount(bitPosition.black & bitPosition.pawns);
+        var blackKings = Long.bitCount(syzygyPosition.black & syzygyPosition.kings);
+        var blackQueens = Long.bitCount(syzygyPosition.black & syzygyPosition.queens);
+        var blackRooks = Long.bitCount(syzygyPosition.black & syzygyPosition.rooks);
+        var blackBishops = Long.bitCount(syzygyPosition.black & syzygyPosition.bishops);
+        var blackKnights = Long.bitCount(syzygyPosition.black & syzygyPosition.knights);
+        var blackPawns = Long.bitCount(syzygyPosition.black & syzygyPosition.pawns);
         var blackStr = piecesToString(blackKings, blackQueens, blackRooks, blackBishops, blackKnights, blackPawns);
 
         return flip ? blackStr + "v" + whiteStr : whiteStr + "v" + blackStr;

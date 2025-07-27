@@ -1,6 +1,7 @@
 package net.chesstango.piazzolla.syzygy;
 
 
+import lombok.Setter;
 import net.chesstango.gardel.fen.FEN;
 
 import static net.chesstango.piazzolla.syzygy.SyzygyConstants.Color.WHITE;
@@ -8,7 +9,8 @@ import static net.chesstango.piazzolla.syzygy.SyzygyConstants.Color.WHITE;
 /**
  * @author Mauricio Coria
  */
-public class BitPosition {
+@Setter
+public class SyzygyPosition {
     long white;
     long black;
     long kings;
@@ -22,6 +24,11 @@ public class BitPosition {
     int ep;
     boolean turn;
 
+    static SyzygyPosition from(FEN fen) {
+        SyzygyPositionBuilder syzygyPositionBuilder = new SyzygyPositionBuilder();
+        fen.export(syzygyPositionBuilder);
+        return syzygyPositionBuilder.getPositionRepresentation();
+    }
 
     long pieces_by_type(SyzygyConstants.Color c, SyzygyConstants.PieceType p) {
         long mask = (c == WHITE) ? white : black;
@@ -33,11 +40,5 @@ public class BitPosition {
             case QUEEN -> queens & mask;
             case KING -> kings & mask;
         };
-    }
-
-    static BitPosition from(FEN fen){
-        BitPositionBuilder bitPositionBuilder = new BitPositionBuilder();
-        fen.export(bitPositionBuilder);
-        return bitPositionBuilder.getPositionRepresentation();
     }
 }

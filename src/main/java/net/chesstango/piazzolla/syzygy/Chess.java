@@ -34,7 +34,7 @@ class Chess {
         return Long.numberOfTrailingZeros(b);
     }
 
-    static boolean is_valid(BitPosition pos) {
+    static boolean is_valid(SyzygyPosition pos) {
         if (popcount(pos.kings) != 2)
             return false;
         if (popcount(pos.kings & pos.white) != 1)
@@ -159,7 +159,7 @@ class Chess {
         return anti2board_table[(a)];
     }
 
-    static PieceType type_of_piece_moved(BitPosition pos, short move) {
+    static PieceType type_of_piece_moved(SyzygyPosition pos, short move) {
         for (PieceType pt : PieceType.values()) {
             if ((pieces_by_type(pos, pos.turn ? WHITE : BLACK, pt) & board(move_from(move))) != 0) {
                 return pt;
@@ -168,7 +168,7 @@ class Chess {
         throw new RuntimeException("No piece found");
     }
 
-    static long pieces_by_type(BitPosition pos, Color c, PieceType p) {
+    static long pieces_by_type(SyzygyPosition pos, Color c, PieceType p) {
         long mask = (c == WHITE) ? pos.white : pos.black;
         return switch (p) {
             case PAWN -> pos.pawns & mask;
@@ -180,7 +180,7 @@ class Chess {
         };
     }
 
-    static boolean is_en_passant(BitPosition pos, short move) {
+    static boolean is_en_passant(SyzygyPosition pos, short move) {
         short from = move_from(move);
         short to = move_to(move);
         long us = (pos.turn ? pos.white : pos.black);
@@ -195,7 +195,7 @@ class Chess {
     /*
      * Test if the king is in check.
      */
-    static boolean is_check(BitPosition pos) {
+    static boolean is_check(SyzygyPosition pos) {
         long occ = pos.white | pos.black;
         long us = (pos.turn ? pos.white : pos.black),
                 them = (pos.turn ? pos.black : pos.white);
@@ -220,13 +220,13 @@ class Chess {
     /*
      * Test if the king is in checkmate.
      */
-    static boolean is_mate(BitPosition pos) {
+    static boolean is_mate(SyzygyPosition pos) {
 
         if (!is_check(pos))
             return false;
         short[] moves = new short[MAX_MOVES];
         int totalMoves = gen_moves(pos, moves);
-        BitPosition pos1 = new BitPosition();
+        SyzygyPosition pos1 = new SyzygyPosition();
         for (int i = 0; i < totalMoves; i++) {
             if (do_move(pos1, pos, moves[i])) {
                 return false;
@@ -239,7 +239,7 @@ class Chess {
      * Test if the given position is legal.
      * (Pawns on backrank? Can the king be captured?)
      */
-    static boolean is_legal(BitPosition pos) {
+    static boolean is_legal(SyzygyPosition pos) {
         long occ = pos.white | pos.black;
         long us = (pos.turn ? pos.black : pos.white),
                 them = (pos.turn ? pos.white : pos.black);
@@ -267,15 +267,15 @@ class Chess {
     /*
      * Test if the given move is a capture.
      */
-    static boolean is_capture(BitPosition pos, short move) {
+    static boolean is_capture(SyzygyPosition pos, short move) {
         long to = move_to(move);
         long them = (pos.turn ? pos.black : pos.white);
         return (them & board((int) to)) != 0 || is_en_passant(pos, move);
     }
 
 
-    static boolean legal_move(BitPosition pos, short move) {
-        BitPosition pos1 = new BitPosition();
+    static boolean legal_move(SyzygyPosition pos, short move) {
+        SyzygyPosition pos1 = new SyzygyPosition();
         return do_move(pos1, pos, move);
     }
 
@@ -284,7 +284,7 @@ class Chess {
                 ((((b) >> (from)) & 0x1) << (to)));
     }
 
-    static boolean do_move(BitPosition pos, BitPosition pos0, short move) {
+    static boolean do_move(SyzygyPosition pos, SyzygyPosition pos0, short move) {
         int from = move_from(move);
         int to = move_to(move);
         int promotes = move_promotes(move);
@@ -462,7 +462,7 @@ class Chess {
     /*
      * Generate all legal moves.
      */
-    static int gen_legal(BitPosition pos, short[] moves) {
+    static int gen_legal(SyzygyPosition pos, short[] moves) {
         int results = 0;
         short[] pl_moves = new short[TB_MAX_MOVES];
         int totalMoves = gen_moves(pos, pl_moves);
@@ -477,7 +477,7 @@ class Chess {
     /*
      * Generate all moves.
      */
-    static int gen_moves(BitPosition pos, short[] moves) {
+    static int gen_moves(SyzygyPosition pos, short[] moves) {
         long occ = pos.white | pos.black;
         long us = (pos.turn ? pos.white : pos.black), them = (pos.turn ? pos.black : pos.white);
         long b, att;
@@ -545,7 +545,7 @@ class Chess {
     /*
      * Generate all captures, including all underpomotions
      */
-    static int gen_captures(BitPosition pos, short[] moves) {
+    static int gen_captures(SyzygyPosition pos, short[] moves) {
         long occ = pos.white | pos.black;
         long us = (pos.turn ? pos.white : pos.black),
                 them = (pos.turn ? pos.black : pos.white);

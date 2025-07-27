@@ -168,10 +168,7 @@ public class Syzygy {
      * - This function is NOT thread safe.  For engines this function should only
      * be called once at the root per search.
      */
-    public int tb_probe_root(
-            BitPosition pos,
-            int[] results) {
-
+    public int tb_probe_root(SyzygyPosition pos, int[] results) {
         if (pos.castling != 0)
             return TB_RESULT_FAILED;
 
@@ -220,7 +217,7 @@ public class Syzygy {
      * - Engines should use this function during search.
      */
 
-    public int tb_probe_wdl(BitPosition pos) {
+    public int tb_probe_wdl(SyzygyPosition pos) {
         if (pos.castling != 0)
             return TB_RESULT_FAILED;
 
@@ -277,7 +274,7 @@ public class Syzygy {
     }
 
 
-    short probe_root(BitPosition pos, int[] results) {
+    short probe_root(SyzygyPosition pos, int[] results) {
         dtz = probe_dtz(pos);
         if (success == 0) return 0;
 
@@ -286,7 +283,7 @@ public class Syzygy {
         int len = gen_moves(pos, moves);
         int num_draw = 0;
         int j = 0;
-        BitPosition pos1 = new BitPosition();
+        SyzygyPosition pos1 = new SyzygyPosition();
         for (int i = 0; i < len; i++) {
             if (!do_move(pos1, pos, moves[i])) {
                 scores[i] = SCORE_ILLEGAL;
@@ -408,7 +405,7 @@ public class Syzygy {
     // In short, if a move is available resulting in dtz + 50-move-counter <= 99,
     // then do not accept moves leading to dtz + 50-move-counter == 100.
     //
-    int probe_dtz(BitPosition pos) {
+    int probe_dtz(SyzygyPosition pos) {
         int wdl = probe_wdl(pos);
         if (success == 0) return 0;
 
@@ -422,7 +419,7 @@ public class Syzygy {
         short[] moves = new short[TB_MAX_MOVES];
         short m = 0;
 
-        BitPosition pos1 = new BitPosition();
+        SyzygyPosition pos1 = new SyzygyPosition();
         int totalMoves = 0;
 
         // If winning, check for a winning pawn move.
@@ -513,7 +510,7 @@ public class Syzygy {
     //  0 : draw
     //  1 : win, but draw under 50-move rule
     //  2 : win
-    int probe_wdl(BitPosition pos) {
+    int probe_wdl(SyzygyPosition pos) {
         success = 1;
 
         // Generate (at least) all legal captures including (under)promotions.
@@ -525,7 +522,7 @@ public class Syzygy {
         // capture without ep rights and letting bestEp keep track of still
         // better ep captures if they exist.
 
-        BitPosition pos1 = new BitPosition();
+        SyzygyPosition pos1 = new SyzygyPosition();
         for (int i = 0; i < moveCount; i++) {
             short move = moves0[i];
             if (!is_capture(pos, move))
@@ -595,7 +592,7 @@ public class Syzygy {
     }
 
     // probe_ab() is not called for positions with en passant captures.
-    int probe_ab(BitPosition pos, int alpha, int beta) {
+    int probe_ab(SyzygyPosition pos, int alpha, int beta) {
         assert (pos.ep == 0);
 
         short[] moves0 = new short[TB_MAX_CAPTURES];
@@ -603,7 +600,7 @@ public class Syzygy {
         // It is OK to generate more, as long as they are filtered out below.
         int totalMoves = gen_captures(pos, moves0);
 
-        BitPosition pos1 = new BitPosition();
+        SyzygyPosition pos1 = new SyzygyPosition();
         for (int m = 0; m < totalMoves; m++) {
             short move = moves0[m];
             if (!is_capture(pos, move))
@@ -624,20 +621,20 @@ public class Syzygy {
         return Math.max(alpha, v);
     }
 
-    int probe_wdl_table(BitPosition pos) {
+    int probe_wdl_table(SyzygyPosition pos) {
         return probe_table(pos, 0, WDL);
     }
 
-    int probe_dtm_table(BitPosition pos, int won) {
+    int probe_dtm_table(SyzygyPosition pos, int won) {
         return probe_table(pos, won, DTM);
     }
 
-    int probe_dtz_table(BitPosition pos, int wdl) {
+    int probe_dtz_table(SyzygyPosition pos, int wdl) {
         return probe_table(pos, wdl, DTZ);
     }
 
-    int probe_table(BitPosition bitPosition, int s, TableBase.TableType type) {
-        long key = calcKey(bitPosition);
+    int probe_table(SyzygyPosition syzygyPosition, int s, TableBase.TableType type) {
+        long key = calcKey(syzygyPosition);
 
         int hashIdx = (int) (key >>> (64 - TB_HASHBITS));
         final int hashIdxStart = hashIdx;
@@ -652,8 +649,8 @@ public class Syzygy {
         BaseEntry be = tbHash[hashIdx].ptr;
 
         return switch (type) {
-            case WDL -> be.probe_wdl(bitPosition, key, s);
-            case DTZ -> be.probe_dtz(bitPosition, key, s);
+            case WDL -> be.probe_wdl(syzygyPosition, key, s);
+            case DTZ -> be.probe_dtz(syzygyPosition, key, s);
             default -> throw new IllegalArgumentException("Unknown table type: " + type);
         };
     }
@@ -661,7 +658,7 @@ public class Syzygy {
     /*
      * Given a position, produce a 64-bit material signature key.
      */
-    static long calcKey(BitPosition pos, boolean mirror) {
+    static long calcKey(SyzygyPosition pos, boolean mirror) {
         long white = pos.white, black = pos.black;
         if (mirror) {
             long tmp = white;
@@ -674,7 +671,7 @@ public class Syzygy {
                 pos.pawns);
     }
 
-    static long calcKey(BitPosition pos) {
+    static long calcKey(SyzygyPosition pos) {
         return calcKey(pos.white, pos.black,
                 pos.queens, pos.rooks,
                 pos.bishops, pos.knights,

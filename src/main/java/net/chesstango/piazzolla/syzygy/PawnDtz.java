@@ -85,7 +85,7 @@ class PawnDtz extends TableBase {
     }
 
     @Override
-    int probe_table_imp(BitPosition pos, long key, int score) {
+    int probe_table_imp(SyzygyPosition pos, long key, int score) {
         boolean flip = key != pawnEntry.key;
         boolean bside = pos.turn == flip;
 

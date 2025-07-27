@@ -46,9 +46,9 @@ public class SyzygyConstantsTest {
     public void test_calcKey() {
         FEN fen = FEN.of("7k/8/7K/7Q/8/8/8/8 w - - 0 1");
 
-        BitPosition bitPosition = BitPosition.from(fen);
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
-        assertEquals(0xa3ec1abc71e90863L, calcKey(bitPosition));
+        assertEquals(0xa3ec1abc71e90863L, calcKey(syzygyPosition));
 
         assertEquals(2622, 0xa3ec1abc71e90863L >>> (64 - TB_HASHBITS));
     }
@@ -58,9 +58,9 @@ public class SyzygyConstantsTest {
     public void test_prt_str() {
         FEN fen = FEN.of("7k/8/7K/7Q/8/8/8/8 w - - 0 1");
 
-        BitPosition bitPosition = BitPosition.from(fen);
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
-        assertEquals("KQvK", prt_str(bitPosition, false));
+        assertEquals("KQvK", prt_str(syzygyPosition, false));
     }
 
     @Test
