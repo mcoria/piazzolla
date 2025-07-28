@@ -2,6 +2,8 @@ package net.chesstango.piazzolla.syzygy;
 
 import lombok.Setter;
 
+import java.nio.file.Path;
+
 import static net.chesstango.piazzolla.syzygy.Chess.*;
 import static net.chesstango.piazzolla.syzygy.SyzygyConstants.Piece.*;
 import static net.chesstango.piazzolla.syzygy.SyzygyConstants.*;
@@ -55,18 +57,18 @@ public class Syzygy {
     int dtz;
 
     @Setter
-    String path;
+    Path syzygyDirectory;
 
     /**
-     * Initializes the tablebase system with the specified path.
+     * Initializes the tablebase system with the specified syzygyDirectory.
      * This method resets all counters and properties related to the tablebase,
-     * sets the path for the tablebase files, and initializes the first five
+     * sets the syzygyDirectory for the tablebase files, and initializes the first five
      * tablebases using predefined tableType names. It also updates the largest
      * cardinality values based on the initialized tablebases.
      *
-     * @param path the file path to the tablebase directory
+     * @param syzygyDirectory the file syzygyDirectory to the tablebase directory
      */
-    public void tb_init(String path) {
+    public void tb_init(Path syzygyDirectory) {
         // Reset counters and properties
         tbNumPiece = 0;
         tbNumPawn = 0;
@@ -77,8 +79,8 @@ public class Syzygy {
         TB_MaxCardinalityDTM = 0;
         TB_LARGEST = 0;
 
-        // Set the path for the tablebase files
-        setPath(path);
+        // Set the syzygyDirectory for the tablebase files
+        setSyzygyDirectory(syzygyDirectory);
 
         PieceType[] pieces = {QUEEN, ROOK, BISHOP, KNIGHT, PAWN};
 

@@ -39,7 +39,7 @@ import java.nio.file.Path;
 public class Main {
     public static void main(String[] args) {
         PolyglotBook book = new MappedPolyglotBook();
-        book.load(Path.of("path/to/polyglot/book.bin"));
+        book.load(Path.of("syzygyDirectory/to/polyglot/book.bin"));
 
         if (book.isLoaded()) {
             System.out.println("Polyglot book loaded successfully!");
@@ -61,7 +61,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         PolyglotBook book = new MappedPolyglotBook();
-        book.load(Path.of("path/to/polyglot/book.bin"));
+        book.load(Path.of("syzygyDirectory/to/polyglot/book.bin"));
 
         long key = 123456789L; // Example key
         List<PolyglotEntry> entries = book.search(key);
@@ -81,7 +81,7 @@ import java.nio.file.Path;
 public class Main {
     public static void main(String[] args) {
         SyzygyTablebase tablebase = new SyzygyTablebase();
-        tablebase.load(Path.of("path/to/syzygy/tablebase"));
+        tablebase.load(Path.of("syzygyDirectory/to/syzygy/tablebase"));
 
         if (tablebase.isLoaded()) {
             System.out.println("Syzygy tablebase loaded successfully!");

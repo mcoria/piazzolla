@@ -19,11 +19,11 @@ public interface PolyglotBook extends Closeable {
     List<PolyglotEntry> search(long key);
 
     /**
-     * Opens a Polyglot book from the specified file path.
+     * Opens a Polyglot book from the specified file syzygyDirectory.
      * The method initializes a {@code MappedPolyglotBook} instance
-     * and loads its data from the given file path.
+     * and loads its data from the given file syzygyDirectory.
      *
-     * @param path the file path from which to load the Polyglot book; must not be null
+     * @param path the file syzygyDirectory from which to load the Polyglot book; must not be null
      * @return a {@code PolyglotBook} instance representing the loaded book
      * @throws IOException if an I/O error occurs while reading the file
      */

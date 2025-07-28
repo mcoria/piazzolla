@@ -3,13 +3,15 @@ package net.chesstango.piazzolla.syzygy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.Path;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Mauricio Coria
  */
 public class PieceEntryTest {
-    public static final String PATH = "C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5";
+    public static final Path PATH = Path.of("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5");
 
     private Syzygy syzygy;
     private PieceEntry pieceEntry;
@@ -25,7 +27,7 @@ public class PieceEntryTest {
      */
     @Test
     public void test_init_table_KQvK() {
-        syzygy.setPath(PATH);
+        syzygy.setSyzygyDirectory(PATH);
         syzygy.init_tb("KQvK");
 
         assertEquals(1, syzygy.numWdl);
@@ -145,7 +147,7 @@ public class PieceEntryTest {
      */
     @Test
     public void test_init_table_KQvKR() {
-        syzygy.setPath(PATH);
+        syzygy.setSyzygyDirectory(PATH);
         syzygy.init_tb("KQvKR");
 
         assertEquals(1, syzygy.numWdl);
@@ -267,7 +269,7 @@ public class PieceEntryTest {
 
     @Test
     public void test_init_table_KQvKQ() {
-        syzygy.setPath("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5");
+        syzygy.setSyzygyDirectory(Path.of("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5"));
         pieceEntry.init_tb("KQvKQ");
 
         assertEquals("KQvKQ", pieceEntry.tableName);

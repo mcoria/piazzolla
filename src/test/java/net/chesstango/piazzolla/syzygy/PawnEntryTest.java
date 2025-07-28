@@ -3,13 +3,15 @@ package net.chesstango.piazzolla.syzygy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.Path;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * @author Mauricio Coria
  */
 public class PawnEntryTest {
-    public static final String PATH = "C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5";
+    public static final Path PATH = Path.of("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5");
 
     private Syzygy syzygy;
     private PawnEntry pawnEntry;
@@ -25,7 +27,7 @@ public class PawnEntryTest {
      */
     @Test
     public void test_init_tb_KPvKP() {
-        syzygy.setPath(PATH);
+        syzygy.setSyzygyDirectory(PATH);
         syzygy.init_tb("KPvKP");
 
         assertEquals(1, syzygy.numWdl);
@@ -297,7 +299,7 @@ public class PawnEntryTest {
      */
     @Test
     public void test_init_tb_KPvK() {
-        syzygy.setPath(PATH);
+        syzygy.setSyzygyDirectory(PATH);
         syzygy.init_tb("KPvK");
 
         assertEquals(1, syzygy.numWdl);
@@ -644,7 +646,7 @@ public class PawnEntryTest {
      */
     @Test
     public void test_init_tb_KPPvKP() {
-        syzygy.setPath(PATH);
+        syzygy.setSyzygyDirectory(PATH);
         syzygy.init_tb("KPPvKP");
     }
 }

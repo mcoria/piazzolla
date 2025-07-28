@@ -6,7 +6,6 @@ import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.EnumSet;
 
@@ -17,8 +16,8 @@ class MappedFile {
     FileChannel channel;
     MappedByteBuffer buffer;
 
-    boolean map_tb(String basePath, String fileName, String suffix) {
-        Path pathToRead = Path.of(basePath, String.format("%s%s", fileName, suffix));
+    boolean map_tb(Path directory, String fileName, String suffix) {
+        Path pathToRead = directory.resolve(String.format("%s%s", fileName, suffix));
         try {
 
             channel = (FileChannel) Files.newByteChannel(pathToRead, EnumSet.of(StandardOpenOption.READ));
@@ -51,8 +50,8 @@ class MappedFile {
         return buffer.getLong(idx);
     }
 
-    static boolean test_tb(String basePath, String fileName, String suffix) {
-        Path path = Paths.get(basePath, String.format("%s%s", fileName, suffix));
-        return path.toFile().exists();
+    static boolean test_tb(Path directory, String fileName, String suffix) {
+        Path file = directory.resolve(String.format("%s%s", fileName, suffix));
+        return Files.exists(file);
     }
 }

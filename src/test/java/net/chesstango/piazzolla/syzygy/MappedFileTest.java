@@ -2,6 +2,8 @@ package net.chesstango.piazzolla.syzygy;
 
 import org.junit.jupiter.api.Test;
 
+import java.nio.file.Path;
+
 import static net.chesstango.piazzolla.syzygy.MappedFile.test_tb;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
@@ -12,6 +14,6 @@ public class MappedFileTest {
 
     @Test
     public void test_test_tb() {
-        assertFalse(test_tb("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5", "KQvK", ".rtbm"));
+        assertFalse(test_tb(Path.of("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5"), "KQvK", ".rtbm"));
     }
 }
