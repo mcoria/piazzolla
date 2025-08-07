@@ -381,7 +381,7 @@ public class SyzygyImpTest {
 
     @Test
     public void test_maxpieces() {
-
+        assertEquals(5, syzygy.tb_largest());
     }
 
     static int count(int[] results, int wdl) {

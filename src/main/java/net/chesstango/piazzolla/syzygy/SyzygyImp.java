@@ -27,7 +27,7 @@ import static net.chesstango.piazzolla.syzygy.TableBase.TableType.*;
  *
  * @author Mauricio Coria
  */
-public class SyzygyImp {
+public class SyzygyImp implements Syzygy {
     static class HashEntry {
         long key;
         BaseEntry ptr;
@@ -59,11 +59,9 @@ public class SyzygyImp {
         this.syzygyDirectory = syzygyDirectory;
     }
 
-
-    public static SyzygyImp open(Path syzygyDirectory) {
-        SyzygyImp syzygy = new SyzygyImp(syzygyDirectory);
-        syzygy.tb_init();
-        return syzygy;
+    @Override
+    public int tb_largest() {
+        return TB_LARGEST;
     }
 
     /**
@@ -279,7 +277,8 @@ public class SyzygyImp {
     }
 
 
-    short probe_root(SyzygyPosition pos, int[] results) {
+    @Override
+    public short probe_root(SyzygyPosition pos, int[] results) {
         dtz = probe_dtz(pos);
         if (success == 0) return 0;
 
