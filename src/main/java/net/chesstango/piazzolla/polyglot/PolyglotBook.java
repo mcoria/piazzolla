@@ -23,13 +23,13 @@ public interface PolyglotBook extends Closeable {
      * The method initializes a {@code MappedPolyglotBook} instance
      * and loads its data from the given file syzygyDirectory.
      *
-     * @param path the file syzygyDirectory from which to load the Polyglot book; must not be null
+     * @param filePath the file syzygyDirectory from which to load the Polyglot book; must not be null
      * @return a {@code PolyglotBook} instance representing the loaded book
      * @throws IOException if an I/O error occurs while reading the file
      */
-    static PolyglotBook open(Path path) throws IOException {
+    static PolyglotBook open(Path filePath) throws IOException {
         MappedPolyglotBook book = new MappedPolyglotBook();
-        book.load(path);
+        book.load(filePath);
         return book;
     }
 }
