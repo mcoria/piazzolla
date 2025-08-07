@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
 
-import static net.chesstango.piazzolla.syzygy.SyzygyConstants.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -54,20 +53,20 @@ public class SyzygyImpTest {
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
-        int[] results = new int[TB_MAX_MOVES];
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
 
         int res = syzygy.tb_probe_root(syzygyPosition, results);
 
-        assertNotEquals(TB_RESULT_FAILED, res);
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
 
-        assertEquals(TB_WIN, TB_GET_WDL(res));
-        assertEquals(1, TB_GET_DTZ(res));
+        assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
+        assertEquals(1, Syzygy.TB_GET_DTZ(res));
 
-        assertEquals(15, count(results, TB_WIN));
-        assertEquals(0, count(results, TB_CURSED_WIN));
-        assertEquals(5, count(results, TB_DRAW));
-        assertEquals(0, count(results, TB_BLESSED_LOSS));
-        assertEquals(0, count(results, TB_LOSS));
+        assertEquals(15, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(5, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(0, count(results, Syzygy.TB_LOSS));
     }
 
     @Test
@@ -76,20 +75,20 @@ public class SyzygyImpTest {
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
-        int[] results = new int[TB_MAX_MOVES];
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
 
         int res = syzygy.tb_probe_root(syzygyPosition, results);
 
-        assertNotEquals(TB_RESULT_FAILED, res);
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
 
-        assertEquals(TB_LOSS, TB_GET_WDL(res));
-        assertEquals(2, TB_GET_DTZ(res));
+        assertEquals(Syzygy.TB_LOSS, Syzygy.TB_GET_WDL(res));
+        assertEquals(2, Syzygy.TB_GET_DTZ(res));
 
-        assertEquals(0, count(results, TB_WIN));
-        assertEquals(0, count(results, TB_CURSED_WIN));
-        assertEquals(0, count(results, TB_DRAW));
-        assertEquals(0, count(results, TB_BLESSED_LOSS));
-        assertEquals(1, count(results, TB_LOSS));
+        assertEquals(0, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(0, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(1, count(results, Syzygy.TB_LOSS));
     }
 
     @Test
@@ -98,20 +97,20 @@ public class SyzygyImpTest {
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
-        int[] results = new int[TB_MAX_MOVES];
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
 
         int res = syzygy.tb_probe_root(syzygyPosition, results);
 
-        assertNotEquals(TB_RESULT_FAILED, res);
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
 
-        assertEquals(TB_WIN, TB_GET_WDL(res));
-        assertEquals(1, TB_GET_DTZ(res));
+        assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
+        assertEquals(1, Syzygy.TB_GET_DTZ(res));
 
-        assertEquals(12, count(results, TB_WIN));
-        assertEquals(0, count(results, TB_CURSED_WIN));
-        assertEquals(3, count(results, TB_DRAW));
-        assertEquals(0, count(results, TB_BLESSED_LOSS));
-        assertEquals(5, count(results, TB_LOSS));
+        assertEquals(12, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(3, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(5, count(results, Syzygy.TB_LOSS));
     }
 
     @Test
@@ -120,20 +119,20 @@ public class SyzygyImpTest {
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
-        int[] results = new int[TB_MAX_MOVES];
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
 
         int res = syzygy.tb_probe_root(syzygyPosition, results);
 
-        assertNotEquals(TB_RESULT_FAILED, res);
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
 
-        assertEquals(TB_DRAW, TB_GET_WDL(res));
-        assertEquals(0, TB_GET_DTZ(res));
+        assertEquals(Syzygy.TB_DRAW, Syzygy.TB_GET_WDL(res));
+        assertEquals(0, Syzygy.TB_GET_DTZ(res));
 
-        assertEquals(0, count(results, TB_WIN));
-        assertEquals(0, count(results, TB_CURSED_WIN));
-        assertEquals(1, count(results, TB_DRAW));
-        assertEquals(0, count(results, TB_BLESSED_LOSS));
-        assertEquals(14, count(results, TB_LOSS));
+        assertEquals(0, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(1, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(14, count(results, Syzygy.TB_LOSS));
     }
 
     @Test
@@ -142,20 +141,20 @@ public class SyzygyImpTest {
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
-        int[] results = new int[TB_MAX_MOVES];
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
 
         int res = syzygy.tb_probe_root(syzygyPosition, results);
 
-        assertNotEquals(TB_RESULT_FAILED, res);
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
 
-        assertEquals(TB_WIN, TB_GET_WDL(res));
-        assertEquals(1, TB_GET_DTZ(res));
+        assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
+        assertEquals(1, Syzygy.TB_GET_DTZ(res));
 
-        assertEquals(3, count(results, TB_WIN));
-        assertEquals(0, count(results, TB_CURSED_WIN));
-        assertEquals(10, count(results, TB_DRAW));
-        assertEquals(0, count(results, TB_BLESSED_LOSS));
-        assertEquals(7, count(results, TB_LOSS));
+        assertEquals(3, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(10, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(7, count(results, Syzygy.TB_LOSS));
     }
 
     @Test
@@ -164,20 +163,20 @@ public class SyzygyImpTest {
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
-        int[] results = new int[TB_MAX_MOVES];
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
 
         int res = syzygy.tb_probe_root(syzygyPosition, results);
 
-        assertNotEquals(TB_RESULT_FAILED, res);
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
 
-        assertEquals(TB_WIN, TB_GET_WDL(res));
-        assertEquals(1, TB_GET_DTZ(res));
+        assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
+        assertEquals(1, Syzygy.TB_GET_DTZ(res));
 
-        assertEquals(1, count(results, TB_WIN));
-        assertEquals(0, count(results, TB_CURSED_WIN));
-        assertEquals(6, count(results, TB_DRAW));
-        assertEquals(0, count(results, TB_BLESSED_LOSS));
-        assertEquals(15, count(results, TB_LOSS));
+        assertEquals(1, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(6, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(15, count(results, Syzygy.TB_LOSS));
     }
 
     @Test
@@ -186,20 +185,20 @@ public class SyzygyImpTest {
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
-        int[] results = new int[TB_MAX_MOVES];
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
 
         int res = syzygy.tb_probe_root(syzygyPosition, results);
 
-        assertNotEquals(TB_RESULT_FAILED, res);
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
 
-        assertEquals(TB_WIN, TB_GET_WDL(res));
-        assertEquals(1, TB_GET_DTZ(res));
+        assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
+        assertEquals(1, Syzygy.TB_GET_DTZ(res));
 
-        assertEquals(3, count(results, TB_WIN));
-        assertEquals(0, count(results, TB_CURSED_WIN));
-        assertEquals(11, count(results, TB_DRAW));
-        assertEquals(0, count(results, TB_BLESSED_LOSS));
-        assertEquals(14, count(results, TB_LOSS));
+        assertEquals(3, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(11, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(14, count(results, Syzygy.TB_LOSS));
     }
 
     @Test
@@ -208,20 +207,20 @@ public class SyzygyImpTest {
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
-        int[] results = new int[TB_MAX_MOVES];
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
 
         int res = syzygy.tb_probe_root(syzygyPosition, results);
 
-        assertNotEquals(TB_RESULT_FAILED, res);
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
 
-        assertEquals(TB_WIN, TB_GET_WDL(res));
-        assertEquals(1, TB_GET_DTZ(res));
+        assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
+        assertEquals(1, Syzygy.TB_GET_DTZ(res));
 
-        assertEquals(1, count(results, TB_WIN));
-        assertEquals(0, count(results, TB_CURSED_WIN));
-        assertEquals(4, count(results, TB_DRAW));
-        assertEquals(0, count(results, TB_BLESSED_LOSS));
-        assertEquals(17, count(results, TB_LOSS));
+        assertEquals(1, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(4, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(17, count(results, Syzygy.TB_LOSS));
     }
 
 
@@ -231,20 +230,20 @@ public class SyzygyImpTest {
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
-        int[] results = new int[TB_MAX_MOVES];
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
 
         int res = syzygy.tb_probe_root(syzygyPosition, results);
 
-        assertNotEquals(TB_RESULT_FAILED, res);
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
 
-        assertEquals(TB_WIN, TB_GET_WDL(res));
-        assertEquals(1, TB_GET_DTZ(res));
+        assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
+        assertEquals(1, Syzygy.TB_GET_DTZ(res));
 
-        assertEquals(10, count(results, TB_WIN));
-        assertEquals(0, count(results, TB_CURSED_WIN));
-        assertEquals(2, count(results, TB_DRAW));
-        assertEquals(0, count(results, TB_BLESSED_LOSS));
-        assertEquals(0, count(results, TB_LOSS));
+        assertEquals(10, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(2, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(0, count(results, Syzygy.TB_LOSS));
     }
 
     @Test
@@ -253,20 +252,20 @@ public class SyzygyImpTest {
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
-        int[] results = new int[TB_MAX_MOVES];
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
 
         int res = syzygy.tb_probe_root(syzygyPosition, results);
 
-        assertNotEquals(TB_RESULT_FAILED, res);
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
 
-        assertEquals(TB_LOSS, TB_GET_WDL(res));
-        assertEquals(2, TB_GET_DTZ(res));
+        assertEquals(Syzygy.TB_LOSS, Syzygy.TB_GET_WDL(res));
+        assertEquals(2, Syzygy.TB_GET_DTZ(res));
 
-        assertEquals(0, count(results, TB_WIN));
-        assertEquals(0, count(results, TB_CURSED_WIN));
-        assertEquals(0, count(results, TB_DRAW));
-        assertEquals(0, count(results, TB_BLESSED_LOSS));
-        assertEquals(5, count(results, TB_LOSS));
+        assertEquals(0, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(0, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(5, count(results, Syzygy.TB_LOSS));
     }
 
     @Test
@@ -275,20 +274,20 @@ public class SyzygyImpTest {
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
-        int[] results = new int[TB_MAX_MOVES];
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
 
         int res = syzygy.tb_probe_root(syzygyPosition, results);
 
-        assertNotEquals(TB_RESULT_FAILED, res);
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
 
-        assertEquals(TB_WIN, TB_GET_WDL(res));
-        assertEquals(1, TB_GET_DTZ(res));
+        assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
+        assertEquals(1, Syzygy.TB_GET_DTZ(res));
 
-        assertEquals(10, count(results, TB_WIN));
-        assertEquals(0, count(results, TB_CURSED_WIN));
-        assertEquals(1, count(results, TB_DRAW));
-        assertEquals(0, count(results, TB_BLESSED_LOSS));
-        assertEquals(1, count(results, TB_LOSS));
+        assertEquals(10, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(1, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(1, count(results, Syzygy.TB_LOSS));
     }
 
     @Test
@@ -297,20 +296,20 @@ public class SyzygyImpTest {
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
-        int[] results = new int[TB_MAX_MOVES];
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
 
         int res = syzygy.tb_probe_root(syzygyPosition, results);
 
-        assertNotEquals(TB_RESULT_FAILED, res);
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
 
-        assertEquals(TB_BLESSED_LOSS, TB_GET_WDL(res));
-        assertEquals(104, TB_GET_DTZ(res));
+        assertEquals(Syzygy.TB_BLESSED_LOSS, Syzygy.TB_GET_WDL(res));
+        assertEquals(104, Syzygy.TB_GET_DTZ(res));
 
-        assertEquals(0, count(results, TB_WIN));
-        assertEquals(0, count(results, TB_CURSED_WIN));
-        assertEquals(0, count(results, TB_DRAW));
-        assertEquals(2, count(results, TB_BLESSED_LOSS));
-        assertEquals(7, count(results, TB_LOSS));
+        assertEquals(0, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(0, count(results, Syzygy.TB_DRAW));
+        assertEquals(2, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(7, count(results, Syzygy.TB_LOSS));
     }
 
     @Test
@@ -319,20 +318,20 @@ public class SyzygyImpTest {
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
-        int[] results = new int[TB_MAX_MOVES];
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
 
         int res = syzygy.tb_probe_root(syzygyPosition, results);
 
-        assertNotEquals(TB_RESULT_FAILED, res);
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
 
-        assertEquals(TB_LOSS, TB_GET_WDL(res));
-        assertEquals(32, TB_GET_DTZ(res));
+        assertEquals(Syzygy.TB_LOSS, Syzygy.TB_GET_WDL(res));
+        assertEquals(32, Syzygy.TB_GET_DTZ(res));
 
-        assertEquals(0, count(results, TB_WIN));
-        assertEquals(0, count(results, TB_CURSED_WIN));
-        assertEquals(0, count(results, TB_DRAW));
-        assertEquals(0, count(results, TB_BLESSED_LOSS));
-        assertEquals(4, count(results, TB_LOSS));
+        assertEquals(0, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(0, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(4, count(results, Syzygy.TB_LOSS));
     }
 
     @Test
@@ -341,20 +340,20 @@ public class SyzygyImpTest {
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
-        int[] results = new int[TB_MAX_MOVES];
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
 
         int res = syzygy.tb_probe_root(syzygyPosition, results);
 
-        assertNotEquals(TB_RESULT_FAILED, res);
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
 
-        assertEquals(TB_LOSS, TB_GET_WDL(res));
-        assertEquals(65, TB_GET_DTZ(res));
+        assertEquals(Syzygy.TB_LOSS, Syzygy.TB_GET_WDL(res));
+        assertEquals(65, Syzygy.TB_GET_DTZ(res));
 
-        assertEquals(0, count(results, TB_WIN));
-        assertEquals(0, count(results, TB_CURSED_WIN));
-        assertEquals(0, count(results, TB_DRAW));
-        assertEquals(0, count(results, TB_BLESSED_LOSS));
-        assertEquals(5, count(results, TB_LOSS));
+        assertEquals(0, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(0, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(5, count(results, Syzygy.TB_LOSS));
     }
 
     @Test
@@ -363,20 +362,20 @@ public class SyzygyImpTest {
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
-        int[] results = new int[TB_MAX_MOVES];
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
 
         int res = syzygy.tb_probe_root(syzygyPosition, results);
 
-        assertNotEquals(TB_RESULT_FAILED, res);
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
 
-        assertEquals(TB_CURSED_WIN, TB_GET_WDL(res));
-        assertEquals(164, TB_GET_DTZ(res));
+        assertEquals(Syzygy.TB_CURSED_WIN, Syzygy.TB_GET_WDL(res));
+        assertEquals(164, Syzygy.TB_GET_DTZ(res));
 
-        assertEquals(0, count(results, TB_WIN));
-        assertEquals(1, count(results, TB_CURSED_WIN));
-        assertEquals(6, count(results, TB_DRAW));
-        assertEquals(0, count(results, TB_BLESSED_LOSS));
-        assertEquals(0, count(results, TB_LOSS));
+        assertEquals(0, count(results, Syzygy.TB_WIN));
+        assertEquals(1, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(6, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(0, count(results, Syzygy.TB_LOSS));
     }
 
     @Test
@@ -386,8 +385,8 @@ public class SyzygyImpTest {
 
     static int count(int[] results, int wdl) {
         int count = 0;
-        for (int i = 0; i < results.length && results[i] != TB_RESULT_FAILED; i++) {
-            if (TB_GET_WDL(results[i]) == wdl) {
+        for (int i = 0; i < results.length && results[i] != Syzygy.TB_RESULT_FAILED; i++) {
+            if (Syzygy.TB_GET_WDL(results[i]) == wdl) {
                 count++;
             }
         }

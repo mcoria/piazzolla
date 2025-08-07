@@ -7,12 +7,6 @@ import lombok.Getter;
  */
 class SyzygyConstants {
 
-    static final int TB_LOSS = 0;               /* LOSS */
-    static final int TB_BLESSED_LOSS = 1;       /* LOSS but 50-move draw */
-    static final int TB_DRAW = 2;               /* DRAW */
-    static final int TB_CURSED_WIN = 3;         /* WIN but 50-move draw  */
-    static final int TB_WIN = 4;                /* WIN  */
-
     static final int TB_PROMOTES_NONE = 0;
     static final int TB_PROMOTES_QUEEN = 1;
     static final int TB_PROMOTES_ROOK = 2;
@@ -48,12 +42,7 @@ class SyzygyConstants {
     static final short TB_MAX_SYMS = 4096;
     static final short TB_HASHBITS = (TB_PIECES < 7 ? 11 : 12);
 
-    static final int TB_MAX_MOVES = (192 + 1);
     static final int TB_MAX_CAPTURES = 64;
-
-    static final int TB_RESULT_CHECKMATE = TB_SET_WDL(0, TB_WIN);
-    static final int TB_RESULT_STALEMATE = TB_SET_WDL(0, TB_DRAW);
-    static final int TB_RESULT_FAILED = 0xFFFFFFFF;
 
     static final int TB_RESULT_WDL_MASK = 0x0000000F;
     static final int TB_RESULT_TO_MASK = 0x000003F0;
@@ -189,14 +178,6 @@ class SyzygyConstants {
         return wdl + 2;
     }
 
-
-    static int TB_GET_WDL(int _res) {
-        return ((_res) & TB_RESULT_WDL_MASK) >>> TB_RESULT_WDL_SHIFT;
-    }
-
-    static int TB_GET_DTZ(int _res) {
-        return ((_res) & TB_RESULT_DTZ_MASK) >> TB_RESULT_DTZ_SHIFT;
-    }
 
     static int TB_GET_FROM(int _res) {
         return ((_res) & TB_RESULT_FROM_MASK) >> TB_RESULT_FROM_SHIFT;

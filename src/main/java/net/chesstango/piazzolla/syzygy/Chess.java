@@ -11,7 +11,7 @@ class Chess {
     static final int BEST_NONE = 0xFFFF;
     static final short SCORE_ILLEGAL = 0x7FFF;
 
-    static final int MAX_MOVES = TB_MAX_MOVES;
+    static final int MAX_MOVES = Syzygy.TB_MAX_MOVES;
 
     static final short MOVE_STALEMATE = (short) 0xFFFF;
     static final short MOVE_CHECKMATE = (short) 0xFFFE;
@@ -464,7 +464,7 @@ class Chess {
      */
     static int gen_legal(SyzygyPosition pos, short[] moves) {
         int results = 0;
-        short[] pl_moves = new short[TB_MAX_MOVES];
+        short[] pl_moves = new short[Syzygy.TB_MAX_MOVES];
         int totalMoves = gen_moves(pos, pl_moves);
         for (int i = 0; i < totalMoves; i++) {
             if (legal_move(pos, pl_moves[i])) {
