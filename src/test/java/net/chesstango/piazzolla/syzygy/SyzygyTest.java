@@ -2,6 +2,7 @@ package net.chesstango.piazzolla.syzygy;
 
 
 import net.chesstango.gardel.fen.FEN;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -22,14 +23,17 @@ public class SyzygyTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        syzygy = new Syzygy();
-        syzygy.tb_init(PATH);
+        syzygy = new Syzygy(PATH);
+        syzygy.tb_init();
+    }
+
+    @AfterEach
+    public void tearDown() {
+        //syzygy.close();
     }
 
     @Test
     public void test_tb_init() {
-        syzygy.tb_init(PATH);
-
         assertEquals(650, syzygy.pieceEntry.length);
         assertEquals(861, syzygy.pawnEntry.length);
         assertEquals(4096, syzygy.tbHash.length);

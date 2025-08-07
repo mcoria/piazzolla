@@ -18,7 +18,7 @@ public class PieceEntryTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        syzygy = new Syzygy();
+        syzygy = new Syzygy(PATH);
         pieceEntry = new PieceEntry(syzygy);
     }
 
@@ -27,7 +27,6 @@ public class PieceEntryTest {
      */
     @Test
     public void test_init_table_KQvK() {
-        syzygy.setSyzygyDirectory(PATH);
         syzygy.init_tb("KQvK");
 
         assertEquals(1, syzygy.numWdl);
@@ -147,7 +146,6 @@ public class PieceEntryTest {
      */
     @Test
     public void test_init_table_KQvKR() {
-        syzygy.setSyzygyDirectory(PATH);
         syzygy.init_tb("KQvKR");
 
         assertEquals(1, syzygy.numWdl);
@@ -269,7 +267,6 @@ public class PieceEntryTest {
 
     @Test
     public void test_init_table_KQvKQ() {
-        syzygy.setSyzygyDirectory(Path.of("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5"));
         pieceEntry.init_tb("KQvKQ");
 
         assertEquals("KQvKQ", pieceEntry.tableName);

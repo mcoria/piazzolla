@@ -18,7 +18,7 @@ public class PawnEntryTest {
 
     @BeforeEach
     public void setUp() throws Exception {
-        syzygy = new Syzygy();
+        syzygy = new Syzygy(PATH);
         pawnEntry = new PawnEntry(syzygy);
     }
 
@@ -27,7 +27,6 @@ public class PawnEntryTest {
      */
     @Test
     public void test_init_tb_KPvKP() {
-        syzygy.setSyzygyDirectory(PATH);
         syzygy.init_tb("KPvKP");
 
         assertEquals(1, syzygy.numWdl);
@@ -299,7 +298,6 @@ public class PawnEntryTest {
      */
     @Test
     public void test_init_tb_KPvK() {
-        syzygy.setSyzygyDirectory(PATH);
         syzygy.init_tb("KPvK");
 
         assertEquals(1, syzygy.numWdl);
@@ -646,7 +644,6 @@ public class PawnEntryTest {
      */
     @Test
     public void test_init_tb_KPPvKP() {
-        syzygy.setSyzygyDirectory(PATH);
         syzygy.init_tb("KPPvKP");
     }
 }

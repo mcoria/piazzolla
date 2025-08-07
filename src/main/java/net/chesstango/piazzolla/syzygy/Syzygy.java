@@ -1,7 +1,5 @@
 package net.chesstango.piazzolla.syzygy;
 
-import lombok.Setter;
-
 import java.nio.file.Path;
 
 import static net.chesstango.piazzolla.syzygy.Chess.*;
@@ -39,6 +37,7 @@ public class Syzygy {
     static final int[] WdlToMap = new int[]{1, 3, 0, 2, 0};
     static final byte[] PAFlags = new byte[]{8, 0, 0, 0, 4};
 
+    final Path syzygyDirectory;
     final HashEntry[] tbHash = new HashEntry[1 << TB_HASHBITS];
     final PieceEntry[] pieceEntry = new PieceEntry[TB_MAX_PIECE];
     final PawnEntry[] pawnEntry = new PawnEntry[TB_MAX_PAWN];
@@ -56,8 +55,16 @@ public class Syzygy {
     int score;
     int dtz;
 
-    @Setter
-    Path syzygyDirectory;
+    Syzygy(Path syzygyDirectory) {
+        this.syzygyDirectory = syzygyDirectory;
+    }
+
+
+    public static Syzygy open(Path syzygyDirectory) {
+        Syzygy syzygy = new Syzygy(syzygyDirectory);
+        syzygy.tb_init();
+        return syzygy;
+    }
 
     /**
      * Initializes the tablebase system with the specified syzygyDirectory.
@@ -66,9 +73,8 @@ public class Syzygy {
      * tablebases using predefined tableType names. It also updates the largest
      * cardinality values based on the initialized tablebases.
      *
-     * @param syzygyDirectory the file syzygyDirectory to the tablebase directory
      */
-    public void tb_init(Path syzygyDirectory) {
+    public void tb_init() {
         // Reset counters and properties
         tbNumPiece = 0;
         tbNumPawn = 0;
@@ -78,9 +84,6 @@ public class Syzygy {
         TB_MaxCardinality = 0;
         TB_MaxCardinalityDTM = 0;
         TB_LARGEST = 0;
-
-        // Set the syzygyDirectory for the tablebase files
-        setSyzygyDirectory(syzygyDirectory);
 
         PieceType[] pieces = {QUEEN, ROOK, BISHOP, KNIGHT, PAWN};
 
