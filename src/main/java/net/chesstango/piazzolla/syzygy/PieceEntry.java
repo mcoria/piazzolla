@@ -6,7 +6,7 @@ package net.chesstango.piazzolla.syzygy;
 class PieceEntry extends BaseEntry {
     boolean kk_enc;
 
-    PieceEntry(Syzygy syzygy) {
+    PieceEntry(SyzygyImp syzygy) {
         super(syzygy);
     }
 

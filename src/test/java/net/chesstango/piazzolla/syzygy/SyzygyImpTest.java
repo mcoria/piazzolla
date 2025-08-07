@@ -15,15 +15,15 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 /**
  * @author Mauricio Coria
  */
-public class SyzygyTest {
+public class SyzygyImpTest {
 
     public static final Path PATH = Path.of("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5");
 
-    private Syzygy syzygy;
+    private SyzygyImp syzygy;
 
     @BeforeEach
     public void setUp() throws Exception {
-        syzygy = new Syzygy(PATH);
+        syzygy = new SyzygyImp(PATH);
         syzygy.tb_init();
     }
 
@@ -377,6 +377,11 @@ public class SyzygyTest {
         assertEquals(6, count(results, TB_DRAW));
         assertEquals(0, count(results, TB_BLESSED_LOSS));
         assertEquals(0, count(results, TB_LOSS));
+    }
+
+    @Test
+    public void test_maxpieces() {
+
     }
 
     static int count(int[] results, int wdl) {

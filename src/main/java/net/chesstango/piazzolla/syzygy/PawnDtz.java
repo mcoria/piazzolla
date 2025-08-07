@@ -1,7 +1,7 @@
 package net.chesstango.piazzolla.syzygy;
 
-import static net.chesstango.piazzolla.syzygy.Syzygy.PAFlags;
-import static net.chesstango.piazzolla.syzygy.Syzygy.WdlToMap;
+import static net.chesstango.piazzolla.syzygy.SyzygyImp.PAFlags;
+import static net.chesstango.piazzolla.syzygy.SyzygyImp.WdlToMap;
 import static net.chesstango.piazzolla.syzygy.SyzygyConstants.TB_PIECES;
 import static net.chesstango.piazzolla.syzygy.TableBase.TableType.DTZ;
 

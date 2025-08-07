@@ -8,7 +8,7 @@ import static net.chesstango.piazzolla.syzygy.SyzygyConstants.Piece;
 class PawnEntry extends BaseEntry {
     byte[] pawns = new byte[2];
 
-    PawnEntry(Syzygy syzygy) {
+    PawnEntry(SyzygyImp syzygy) {
         super(syzygy);
     }
 

@@ -9,7 +9,7 @@ import static net.chesstango.piazzolla.syzygy.TableBase.TableType.*;
  * @author Mauricio Coria
  */
 abstract class BaseEntry {
-    final Syzygy syzygy;
+    final SyzygyImp syzygy;
 
     String tableName;
 
@@ -27,7 +27,7 @@ abstract class BaseEntry {
 
     abstract void init_tb(int[] pcs);
 
-    BaseEntry(Syzygy syzygy) {
+    BaseEntry(SyzygyImp syzygy) {
         this.syzygy = syzygy;
     }
 

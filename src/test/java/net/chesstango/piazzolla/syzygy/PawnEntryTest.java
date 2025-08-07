@@ -13,12 +13,12 @@ import static org.junit.jupiter.api.Assertions.*;
 public class PawnEntryTest {
     public static final Path PATH = Path.of("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5");
 
-    private Syzygy syzygy;
+    private SyzygyImp syzygy;
     private PawnEntry pawnEntry;
 
     @BeforeEach
     public void setUp() throws Exception {
-        syzygy = new Syzygy(PATH);
+        syzygy = new SyzygyImp(PATH);
         pawnEntry = new PawnEntry(syzygy);
     }
 
@@ -44,7 +44,7 @@ public class PawnEntryTest {
         /**
          * HashEntry assertions
          */
-        Syzygy.HashEntry tbHash = null;
+        SyzygyImp.HashEntry tbHash = null;
 
         tbHash = syzygy.tbHash[2277];
         assertEquals(0x8E59ED7027C162EAL, tbHash.key);
@@ -311,7 +311,7 @@ public class PawnEntryTest {
         assertEquals(1, pawnEntry.pawns[0]);
         assertEquals(0, pawnEntry.pawns[1]);
 
-        Syzygy.HashEntry tbHash = null;
+        SyzygyImp.HashEntry tbHash = null;
 
         tbHash = syzygy.tbHash[3776];
         assertEquals(0XEC0ADE190C0F6003L, tbHash.key);

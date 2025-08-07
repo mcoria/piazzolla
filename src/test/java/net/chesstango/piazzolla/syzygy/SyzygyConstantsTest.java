@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import static net.chesstango.piazzolla.syzygy.BaseEntry.calc_key_from_pcs;
 import static net.chesstango.piazzolla.syzygy.BaseEntry.tableName_to_pcs;
-import static net.chesstango.piazzolla.syzygy.Syzygy.calcKey;
+import static net.chesstango.piazzolla.syzygy.SyzygyImp.calcKey;
 import static net.chesstango.piazzolla.syzygy.SyzygyConstants.TB_HASHBITS;
 import static net.chesstango.piazzolla.syzygy.SyzygyConstants.prt_str;
 
