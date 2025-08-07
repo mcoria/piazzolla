@@ -171,6 +171,7 @@ public class SyzygyImp implements Syzygy {
      * - This function is NOT thread safe.  For engines this function should only
      * be called once at the root per search.
      */
+    @Override
     public int tb_probe_root(SyzygyPosition pos, int[] results) {
         if (pos.castling != 0)
             return TB_RESULT_FAILED;
@@ -277,8 +278,8 @@ public class SyzygyImp implements Syzygy {
     }
 
 
-    @Override
-    public short probe_root(SyzygyPosition pos, int[] results) {
+
+    private short probe_root(SyzygyPosition pos, int[] results) {
         dtz = probe_dtz(pos);
         if (success == 0) return 0;
 
@@ -409,7 +410,7 @@ public class SyzygyImp implements Syzygy {
     // In short, if a move is available resulting in dtz + 50-move-counter <= 99,
     // then do not accept moves leading to dtz + 50-move-counter == 100.
     //
-    int probe_dtz(SyzygyPosition pos) {
+    private int probe_dtz(SyzygyPosition pos) {
         int wdl = probe_wdl(pos);
         if (success == 0) return 0;
 
@@ -514,7 +515,7 @@ public class SyzygyImp implements Syzygy {
     //  0 : draw
     //  1 : win, but draw under 50-move rule
     //  2 : win
-    int probe_wdl(SyzygyPosition pos) {
+    private int probe_wdl(SyzygyPosition pos) {
         success = 1;
 
         // Generate (at least) all legal captures including (under)promotions.
@@ -596,7 +597,7 @@ public class SyzygyImp implements Syzygy {
     }
 
     // probe_ab() is not called for positions with en passant captures.
-    int probe_ab(SyzygyPosition pos, int alpha, int beta) {
+    private int probe_ab(SyzygyPosition pos, int alpha, int beta) {
         assert (pos.ep == 0);
 
         short[] moves0 = new short[TB_MAX_CAPTURES];
@@ -625,19 +626,19 @@ public class SyzygyImp implements Syzygy {
         return Math.max(alpha, v);
     }
 
-    int probe_wdl_table(SyzygyPosition pos) {
+    private int probe_wdl_table(SyzygyPosition pos) {
         return probe_table(pos, 0, WDL);
     }
 
-    int probe_dtm_table(SyzygyPosition pos, int won) {
+    private int probe_dtm_table(SyzygyPosition pos, int won) {
         return probe_table(pos, won, DTM);
     }
 
-    int probe_dtz_table(SyzygyPosition pos, int wdl) {
+    private int probe_dtz_table(SyzygyPosition pos, int wdl) {
         return probe_table(pos, wdl, DTZ);
     }
 
-    int probe_table(SyzygyPosition syzygyPosition, int s, TableBase.TableType type) {
+    private int probe_table(SyzygyPosition syzygyPosition, int s, TableBase.TableType type) {
         long key = calcKey(syzygyPosition);
 
         int hashIdx = (int) (key >>> (64 - TB_HASHBITS));

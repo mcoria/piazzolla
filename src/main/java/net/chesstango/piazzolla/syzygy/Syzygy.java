@@ -6,7 +6,7 @@ import java.nio.file.Path;
  * @author Mauricio Coria
  */
 public interface Syzygy {
-    short probe_root(SyzygyPosition pos, int[] results);
+    int tb_probe_root(SyzygyPosition pos, int[] results);
 
     int tb_largest();
 
