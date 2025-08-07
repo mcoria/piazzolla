@@ -1,15 +1,12 @@
 package net.chesstango.piazzolla.polyglot;
 
 import net.chesstango.gardel.fen.FEN;
-import net.chesstango.gardel.polyglot.PolyglotKeyBuilder;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
-
-import static net.chesstango.gardel.fen.FENParser.INITIAL_FEN;
 
 /**
  * @author Mauricio Coria
