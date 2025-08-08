@@ -61,6 +61,8 @@ public class SyzygyImpTest {
 
         assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
         assertEquals(1, Syzygy.TB_GET_DTZ(res));
+        assertEquals(39, Syzygy.TB_GET_FROM(res));
+        assertEquals(60, Syzygy.TB_GET_TO(res));
 
         assertEquals(15, count(results, Syzygy.TB_WIN));
         assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
@@ -83,6 +85,8 @@ public class SyzygyImpTest {
 
         assertEquals(Syzygy.TB_LOSS, Syzygy.TB_GET_WDL(res));
         assertEquals(2, Syzygy.TB_GET_DTZ(res));
+        assertEquals(63, Syzygy.TB_GET_FROM(res));
+        assertEquals(62, Syzygy.TB_GET_TO(res));
 
         assertEquals(0, count(results, Syzygy.TB_WIN));
         assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
@@ -105,6 +109,8 @@ public class SyzygyImpTest {
 
         assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
         assertEquals(1, Syzygy.TB_GET_DTZ(res));
+        assertEquals(39, Syzygy.TB_GET_FROM(res));
+        assertEquals(60, Syzygy.TB_GET_TO(res));
 
         assertEquals(12, count(results, Syzygy.TB_WIN));
         assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
@@ -127,6 +133,8 @@ public class SyzygyImpTest {
 
         assertEquals(Syzygy.TB_DRAW, Syzygy.TB_GET_WDL(res));
         assertEquals(0, Syzygy.TB_GET_DTZ(res));
+        assertEquals(48, Syzygy.TB_GET_FROM(res));
+        assertEquals(55, Syzygy.TB_GET_TO(res));
 
         assertEquals(0, count(results, Syzygy.TB_WIN));
         assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
@@ -149,6 +157,8 @@ public class SyzygyImpTest {
 
         assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
         assertEquals(1, Syzygy.TB_GET_DTZ(res));
+        assertEquals(39, Syzygy.TB_GET_FROM(res));
+        assertEquals(60, Syzygy.TB_GET_TO(res));
 
         assertEquals(3, count(results, Syzygy.TB_WIN));
         assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
@@ -171,6 +181,8 @@ public class SyzygyImpTest {
 
         assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
         assertEquals(1, Syzygy.TB_GET_DTZ(res));
+        assertEquals(48, Syzygy.TB_GET_FROM(res));
+        assertEquals(54, Syzygy.TB_GET_TO(res));
 
         assertEquals(1, count(results, Syzygy.TB_WIN));
         assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
@@ -193,6 +205,8 @@ public class SyzygyImpTest {
 
         assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
         assertEquals(1, Syzygy.TB_GET_DTZ(res));
+        assertEquals(39, Syzygy.TB_GET_FROM(res));
+        assertEquals(60, Syzygy.TB_GET_TO(res));
 
         assertEquals(3, count(results, Syzygy.TB_WIN));
         assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
@@ -215,6 +229,8 @@ public class SyzygyImpTest {
 
         assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
         assertEquals(1, Syzygy.TB_GET_DTZ(res));
+        assertEquals(48, Syzygy.TB_GET_FROM(res));
+        assertEquals(54, Syzygy.TB_GET_TO(res));
 
         assertEquals(1, count(results, Syzygy.TB_WIN));
         assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
@@ -238,6 +254,8 @@ public class SyzygyImpTest {
 
         assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
         assertEquals(1, Syzygy.TB_GET_DTZ(res));
+        assertEquals(48, Syzygy.TB_GET_FROM(res));
+        assertEquals(56, Syzygy.TB_GET_TO(res));
 
         assertEquals(10, count(results, Syzygy.TB_WIN));
         assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
@@ -260,6 +278,8 @@ public class SyzygyImpTest {
 
         assertEquals(Syzygy.TB_LOSS, Syzygy.TB_GET_WDL(res));
         assertEquals(2, Syzygy.TB_GET_DTZ(res));
+        assertEquals(39, Syzygy.TB_GET_FROM(res));
+        assertEquals(30, Syzygy.TB_GET_TO(res));
 
         assertEquals(0, count(results, Syzygy.TB_WIN));
         assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
@@ -282,6 +302,8 @@ public class SyzygyImpTest {
 
         assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
         assertEquals(1, Syzygy.TB_GET_DTZ(res));
+        assertEquals(48, Syzygy.TB_GET_FROM(res));
+        assertEquals(56, Syzygy.TB_GET_TO(res));
 
         assertEquals(10, count(results, Syzygy.TB_WIN));
         assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
@@ -304,6 +326,8 @@ public class SyzygyImpTest {
 
         assertEquals(Syzygy.TB_BLESSED_LOSS, Syzygy.TB_GET_WDL(res));
         assertEquals(104, Syzygy.TB_GET_DTZ(res));
+        assertEquals(41, Syzygy.TB_GET_FROM(res));
+        assertEquals(42, Syzygy.TB_GET_TO(res));
 
         assertEquals(0, count(results, Syzygy.TB_WIN));
         assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
@@ -326,6 +350,8 @@ public class SyzygyImpTest {
 
         assertEquals(Syzygy.TB_LOSS, Syzygy.TB_GET_WDL(res));
         assertEquals(32, Syzygy.TB_GET_DTZ(res));
+        assertEquals(11, Syzygy.TB_GET_FROM(res));
+        assertEquals(19, Syzygy.TB_GET_TO(res));
 
         assertEquals(0, count(results, Syzygy.TB_WIN));
         assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
@@ -348,6 +374,8 @@ public class SyzygyImpTest {
 
         assertEquals(Syzygy.TB_LOSS, Syzygy.TB_GET_WDL(res));
         assertEquals(65, Syzygy.TB_GET_DTZ(res));
+        assertEquals(12, Syzygy.TB_GET_FROM(res));
+        assertEquals(21, Syzygy.TB_GET_TO(res));
 
         assertEquals(0, count(results, Syzygy.TB_WIN));
         assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
@@ -370,6 +398,8 @@ public class SyzygyImpTest {
 
         assertEquals(Syzygy.TB_CURSED_WIN, Syzygy.TB_GET_WDL(res));
         assertEquals(164, Syzygy.TB_GET_DTZ(res));
+        assertEquals(8, Syzygy.TB_GET_FROM(res));
+        assertEquals(25, Syzygy.TB_GET_TO(res));
 
         assertEquals(0, count(results, Syzygy.TB_WIN));
         assertEquals(1, count(results, Syzygy.TB_CURSED_WIN));
@@ -379,7 +409,7 @@ public class SyzygyImpTest {
     }
 
     @Test
-    public void test_maxpieces() {
+    public void testMaxPieces() {
         assertEquals(5, syzygy.tb_largest());
     }
 

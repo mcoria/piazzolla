@@ -179,14 +179,6 @@ class SyzygyConstants {
     }
 
 
-    static int TB_GET_FROM(int _res) {
-        return ((_res) & TB_RESULT_FROM_MASK) >> TB_RESULT_FROM_SHIFT;
-    }
-
-    static int TB_GET_TO(int _res) {
-        return ((_res) & TB_RESULT_TO_MASK) >> TB_RESULT_TO_SHIFT;
-    }
-
     static int TB_SET_WDL(int _res, int _wdl) {
         return (((_res) & ~TB_RESULT_WDL_MASK) |
                 (((_wdl) << TB_RESULT_WDL_SHIFT) & TB_RESULT_WDL_MASK));

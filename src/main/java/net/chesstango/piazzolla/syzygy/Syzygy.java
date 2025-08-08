@@ -24,6 +24,14 @@ public interface Syzygy {
         return ((_res) & SyzygyConstants.TB_RESULT_DTZ_MASK) >> SyzygyConstants.TB_RESULT_DTZ_SHIFT;
     }
 
+    static int TB_GET_FROM(int _res) {
+        return ((_res) & SyzygyConstants.TB_RESULT_FROM_MASK) >> SyzygyConstants.TB_RESULT_FROM_SHIFT;
+    }
+
+    static int TB_GET_TO(int _res) {
+        return ((_res) & SyzygyConstants.TB_RESULT_TO_MASK) >> SyzygyConstants.TB_RESULT_TO_SHIFT;
+    }
+
     int tb_probe_root(SyzygyPosition pos, int[] results);
 
     int tb_largest();
