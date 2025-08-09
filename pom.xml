@@ -4,7 +4,7 @@
 
     <groupId>net.chesstango</groupId>
     <artifactId>piazzolla</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.3-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>piazzolla</name>
