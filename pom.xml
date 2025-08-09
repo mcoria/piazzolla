@@ -4,7 +4,7 @@
 
     <groupId>net.chesstango</groupId>
     <artifactId>piazzolla</artifactId>
-    <version>1.0.2-SNAPSHOT</version>
+    <version>1.0.2</version>
     <packaging>jar</packaging>
 
     <name>piazzolla</name>
@@ -29,7 +29,7 @@
         <connection>scm:git:https://github.com/mcoria/piazzolla.git</connection>
         <developerConnection>scm:git:https://github.com/mcoria/piazzolla.git</developerConnection>
         <url>https://github.com/mcoria/piazzolla/tree/main</url>
-        <tag>HEAD</tag>
+        <tag>v1.0.2</tag>
     </scm>
 
     <properties>
@@ -49,7 +49,7 @@
         <junit-jupiter.version>5.9.2</junit-jupiter.version>
 
         <!-- Decoding/encoding to different chess representations: FEN, EPD, PGN, SAN, LAN -->
-        <gardel.varsion>1.0.7</gardel.varsion>
+        <gardel.varsion>1.0.6</gardel.varsion>
     </properties>
 
     <dependencies>
