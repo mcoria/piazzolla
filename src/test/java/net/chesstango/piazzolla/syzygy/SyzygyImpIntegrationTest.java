@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 /**
  * @author Mauricio Coria
  */
-public class SyzygyImpTest {
+public class SyzygyImpIntegrationTest {
 
     public static final Path PATH = Path.of("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5");
 
