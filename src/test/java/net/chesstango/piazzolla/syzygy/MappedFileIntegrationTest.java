@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 /**
  * @author Mauricio Coria
  */
-public class MappedFileTest {
+public class MappedFileIntegrationTest {
 
     @Test
     public void test_test_tb() {

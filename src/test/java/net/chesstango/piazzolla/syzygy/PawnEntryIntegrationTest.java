@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * @author Mauricio Coria
  */
-public class PawnEntryTest {
+public class PawnEntryIntegrationTest {
     public static final Path PATH = Path.of("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5");
 
     private SyzygyImp syzygy;
