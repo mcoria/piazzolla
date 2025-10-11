@@ -34,6 +34,8 @@ public interface Syzygy {
 
     int tb_probe_root(SyzygyPosition pos, int[] results);
 
+    int tb_probe_wdl(SyzygyPosition pos);
+
     int tb_largest();
 
     static Syzygy open(Path syzygyDirectory) {

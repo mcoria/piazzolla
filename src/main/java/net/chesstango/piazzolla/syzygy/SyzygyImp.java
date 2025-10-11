@@ -221,6 +221,7 @@ public class SyzygyImp implements Syzygy {
      * - Engines should use this function during search.
      */
 
+    @Override
     public int tb_probe_wdl(SyzygyPosition pos) {
         if (pos.castling != 0)
             return TB_RESULT_FAILED;
