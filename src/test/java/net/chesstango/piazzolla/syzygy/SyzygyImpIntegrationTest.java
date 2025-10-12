@@ -21,7 +21,7 @@ public class SyzygyImpIntegrationTest {
     private SyzygyImp syzygy;
 
     @BeforeEach
-    public void setUp() throws Exception {
+    public void setUp() {
         syzygy = new SyzygyImp(PATH);
         syzygy.tb_init();
     }
@@ -346,6 +346,9 @@ public class SyzygyImpIntegrationTest {
 
         int res = syzygy.tb_probe_root(syzygyPosition, results);
 
+        //System.out.printf("0x%s", Integer.toHexString(res).toUpperCase());
+        assertEquals(0x2002D30, res);
+
         assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
 
         assertEquals(Syzygy.TB_LOSS, Syzygy.TB_GET_WDL(res));
@@ -406,6 +409,46 @@ public class SyzygyImpIntegrationTest {
         assertEquals(6, count(results, Syzygy.TB_DRAW));
         assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
         assertEquals(0, count(results, Syzygy.TB_LOSS));
+    }
+
+    @Test
+    public void test_tb_probe_root_KRvK() {
+        FEN fen = FEN.of("8/8/8/8/8/4k3/2R5/1K6 w - - 0 1");
+
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
+
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
+
+        //System.out.printf("0x%s", Integer.toHexString(res).toUpperCase());
+        assertEquals(0x1B029A4, res);
+
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
+
+        assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
+        assertEquals(27, Syzygy.TB_GET_DTZ(res));
+        assertEquals(10, Syzygy.TB_GET_FROM(res));
+        assertEquals(26, Syzygy.TB_GET_TO(res));
+
+        assertEquals(15, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(3, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(0, count(results, Syzygy.TB_LOSS));
+    }
+
+    @Test
+    public void test_tb_probe_wdl_KRvK() {
+        FEN fen = FEN.of("8/8/8/8/8/8/2Rk4/1K6 b - - 0 1");
+
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
+
+        int res = syzygy.tb_probe_wdl(syzygyPosition);
+
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
+
+        assertEquals(Syzygy.TB_LOSS, res);
     }
 
     @Test
