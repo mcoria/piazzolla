@@ -7,12 +7,6 @@ import lombok.Getter;
  */
 class SyzygyConstants {
 
-    static final int TB_PROMOTES_NONE = 0;
-    static final int TB_PROMOTES_QUEEN = 1;
-    static final int TB_PROMOTES_ROOK = 2;
-    static final int TB_PROMOTES_BISHOP = 3;
-    static final int TB_PROMOTES_KNIGHT = 4;
-
     static final byte TB_PAWN = 1;
     static final byte TB_KNIGHT = 2;
     static final byte TB_BISHOP = 3;

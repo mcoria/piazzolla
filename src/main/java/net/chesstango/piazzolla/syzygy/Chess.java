@@ -298,19 +298,19 @@ class Chess {
         pos.knights = do_bb_move(pos0.knights, from, to);
         pos.pawns = do_bb_move(pos0.pawns, from, to);
         pos.ep = 0;
-        if (promotes != TB_PROMOTES_NONE) {
+        if (promotes != Syzygy.TB_PROMOTES_NONE) {
             pos.pawns &= ~board(to);       // Promotion
             switch (promotes) {
-                case TB_PROMOTES_QUEEN:
+                case Syzygy.TB_PROMOTES_QUEEN:
                     pos.queens |= board(to);
                     break;
-                case TB_PROMOTES_ROOK:
+                case Syzygy.TB_PROMOTES_ROOK:
                     pos.rooks |= board(to);
                     break;
-                case TB_PROMOTES_BISHOP:
+                case Syzygy.TB_PROMOTES_BISHOP:
                     pos.bishops |= board(to);
                     break;
-                case TB_PROMOTES_KNIGHT:
+                case Syzygy.TB_PROMOTES_KNIGHT:
                     pos.knights |= board(to);
                     break;
             }
@@ -605,12 +605,12 @@ class Chess {
 
     static int add_move(short[] moves, int idx, boolean promotes, int from, int to) {
         if (!promotes) {
-            moves[idx++] = make_move(TB_PROMOTES_NONE, from, to);
+            moves[idx++] = make_move(Syzygy.TB_PROMOTES_NONE, from, to);
         } else {
-            moves[idx++] = make_move(TB_PROMOTES_QUEEN, from, to);
-            moves[idx++] = make_move(TB_PROMOTES_KNIGHT, from, to);
-            moves[idx++] = make_move(TB_PROMOTES_ROOK, from, to);
-            moves[idx++] = make_move(TB_PROMOTES_BISHOP, from, to);
+            moves[idx++] = make_move(Syzygy.TB_PROMOTES_QUEEN, from, to);
+            moves[idx++] = make_move(Syzygy.TB_PROMOTES_KNIGHT, from, to);
+            moves[idx++] = make_move(Syzygy.TB_PROMOTES_ROOK, from, to);
+            moves[idx++] = make_move(Syzygy.TB_PROMOTES_BISHOP, from, to);
         }
         return idx;
     }

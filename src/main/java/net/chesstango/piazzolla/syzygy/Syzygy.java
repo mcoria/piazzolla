@@ -16,6 +16,12 @@ public interface Syzygy {
     int TB_BLESSED_LOSS = 1;       /* LOSS but 50-move draw */
     int TB_CURSED_WIN = 3;         /* WIN but 50-move draw  */
 
+    int TB_PROMOTES_NONE = 0;
+    int TB_PROMOTES_QUEEN = 1;
+    int TB_PROMOTES_ROOK = 2;
+    int TB_PROMOTES_BISHOP = 3;
+    int TB_PROMOTES_KNIGHT = 4;
+
     static int TB_GET_WDL(int _res) {
         return ((_res) & SyzygyConstants.TB_RESULT_WDL_MASK) >>> SyzygyConstants.TB_RESULT_WDL_SHIFT;
     }
@@ -30,6 +36,10 @@ public interface Syzygy {
 
     static int TB_GET_TO(int _res) {
         return ((_res) & SyzygyConstants.TB_RESULT_TO_MASK) >> SyzygyConstants.TB_RESULT_TO_SHIFT;
+    }
+
+    static int TB_GET_PROMOTES(int _res) {
+        return ((_res) & SyzygyConstants.TB_RESULT_PROMOTES_MASK) >> SyzygyConstants.TB_RESULT_PROMOTES_SHIFT;
     }
 
     int tb_probe_root(SyzygyPosition pos, int[] results);
