@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 /**
  * @author Mauricio Coria
  */
-public class SyzygyImpIntegrationTest {
+public class SyzygyImpProbeRootIntegrationTest {
 
     public static final Path PATH = Path.of("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5");
 
@@ -45,6 +45,11 @@ public class SyzygyImpIntegrationTest {
         assertEquals(145, syzygy.numWdl);
         assertEquals(0, syzygy.numDtm);
         assertEquals(145, syzygy.numDtz);
+    }
+
+    @Test
+    public void testMaxPieces() {
+        assertEquals(5, syzygy.tb_largest());
     }
 
     @Test
@@ -438,63 +443,6 @@ public class SyzygyImpIntegrationTest {
         assertEquals(0, count(results, Syzygy.TB_LOSS));
     }
 
-    @Test
-    public void test_tb_probe_wdl_whiteTurn_win() {
-        FEN fen = FEN.of("8/8/8/8/8/3k4/2R5/1K6 w - - 0 1");
-
-        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
-
-        int res = syzygy.tb_probe_wdl(syzygyPosition);
-
-        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
-
-        assertEquals(Syzygy.TB_WIN, res);
-    }
-
-    @Test
-    public void test_tb_probe_wdl_whiteTurn_loss() {
-        FEN fen = FEN.of("8/8/8/8/8/3k4/2r5/1K6 w - - 0 1");
-
-        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
-
-        int res = syzygy.tb_probe_wdl(syzygyPosition);
-
-        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
-
-        assertEquals(Syzygy.TB_LOSS, res);
-    }
-
-    @Test
-    public void test_tb_probe_wdl_blackTurn_win() {
-        FEN fen = FEN.of("8/8/8/8/8/3k4/2r5/1K6 b - - 0 1");
-
-        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
-
-        int res = syzygy.tb_probe_wdl(syzygyPosition);
-
-        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
-
-        assertEquals(Syzygy.TB_WIN, res);
-    }
-
-    @Test
-    public void test_tb_probe_wdl_blackTurn_loss() {
-        FEN fen = FEN.of("8/8/8/8/8/8/2Rk4/1K6 b - - 0 1");
-
-        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
-
-        int res = syzygy.tb_probe_wdl(syzygyPosition);
-
-        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
-
-        assertEquals(Syzygy.TB_LOSS, res);
-    }
-
-
-    @Test
-    public void testMaxPieces() {
-        assertEquals(5, syzygy.tb_largest());
-    }
 
     static int count(int[] results, int wdl) {
         int count = 0;
