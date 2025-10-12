@@ -1,6 +1,7 @@
 package net.chesstango.piazzolla.syzygy;
 
 
+import lombok.Getter;
 import lombok.Setter;
 import net.chesstango.gardel.fen.FEN;
 
@@ -10,6 +11,7 @@ import static net.chesstango.piazzolla.syzygy.SyzygyConstants.Color.WHITE;
  * @author Mauricio Coria
  */
 @Setter
+@Getter
 public class SyzygyPosition {
     long white;
     long black;

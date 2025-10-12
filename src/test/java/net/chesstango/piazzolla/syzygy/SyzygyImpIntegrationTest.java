@@ -439,7 +439,46 @@ public class SyzygyImpIntegrationTest {
     }
 
     @Test
-    public void test_tb_probe_wdl_KRvK() {
+    public void test_tb_probe_wdl_whiteTurn_win() {
+        FEN fen = FEN.of("8/8/8/8/8/3k4/2R5/1K6 w - - 0 1");
+
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
+
+        int res = syzygy.tb_probe_wdl(syzygyPosition);
+
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
+
+        assertEquals(Syzygy.TB_WIN, res);
+    }
+
+    @Test
+    public void test_tb_probe_wdl_whiteTurn_loss() {
+        FEN fen = FEN.of("8/8/8/8/8/3k4/2r5/1K6 w - - 0 1");
+
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
+
+        int res = syzygy.tb_probe_wdl(syzygyPosition);
+
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
+
+        assertEquals(Syzygy.TB_LOSS, res);
+    }
+
+    @Test
+    public void test_tb_probe_wdl_blackTurn_win() {
+        FEN fen = FEN.of("8/8/8/8/8/3k4/2r5/1K6 b - - 0 1");
+
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
+
+        int res = syzygy.tb_probe_wdl(syzygyPosition);
+
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
+
+        assertEquals(Syzygy.TB_WIN, res);
+    }
+
+    @Test
+    public void test_tb_probe_wdl_blackTurn_loss() {
         FEN fen = FEN.of("8/8/8/8/8/8/2Rk4/1K6 b - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
@@ -450,6 +489,7 @@ public class SyzygyImpIntegrationTest {
 
         assertEquals(Syzygy.TB_LOSS, res);
     }
+
 
     @Test
     public void testMaxPieces() {
