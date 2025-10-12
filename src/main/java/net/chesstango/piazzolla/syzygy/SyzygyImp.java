@@ -279,7 +279,6 @@ public class SyzygyImp implements Syzygy {
     }
 
 
-
     private short probe_root(SyzygyPosition pos, int[] results) {
         dtz = probe_dtz(pos);
         if (success == 0) return 0;
@@ -368,7 +367,7 @@ public class SyzygyImp implements Syzygy {
 
             // Select a "random" move that preserves the draw.
             // Uses calc_key as the PRNG.
-            int count = (int) calcKey(pos, !pos.turn) % num_draw;
+            long count = Math.abs(calcKey(pos, !pos.turn)) % num_draw;
             for (int i = 0; i < len; i++) {
                 int v = scores[i];
                 if (v == SCORE_ILLEGAL)

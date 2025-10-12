@@ -443,6 +443,33 @@ public class SyzygyImpProbeRootIntegrationTest {
         assertEquals(0, count(results, Syzygy.TB_LOSS));
     }
 
+    @Test
+    public void test_tb_probe_root_draw() {
+        FEN fen = FEN.of("8/8/2k1r2K/2n4R/8/8/8/8 w - - 1 2");
+
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
+
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
+
+        //System.out.printf("0x%s", Integer.toHexString(res).toUpperCase());
+        //assertEquals(0x1B029A4, res);
+
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
+
+        assertEquals(Syzygy.TB_DRAW, Syzygy.TB_GET_WDL(res));
+        assertEquals(0, Syzygy.TB_GET_DTZ(res));
+        assertEquals(47, Syzygy.TB_GET_FROM(res));
+        assertEquals(55, Syzygy.TB_GET_TO(res));
+
+        assertEquals(0, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(3, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(0, count(results, Syzygy.TB_LOSS));
+    }
+
 
     static int count(int[] results, int wdl) {
         int count = 0;
