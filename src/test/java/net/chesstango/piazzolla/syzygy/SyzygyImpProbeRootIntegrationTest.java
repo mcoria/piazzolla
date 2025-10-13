@@ -498,7 +498,7 @@ public class SyzygyImpProbeRootIntegrationTest {
         int res = syzygy.tb_probe_root(syzygyPosition, results);
 
         //System.out.printf("0x%s", Integer.toHexString(res).toUpperCase());
-        //assertEquals(0x1B029A4, res);
+        assertEquals(0x1DBE2, res);
 
         assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
 
