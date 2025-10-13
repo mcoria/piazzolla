@@ -28,7 +28,7 @@ public class SyzygyPosition {
     int ep;
     boolean turn;
 
-    static SyzygyPosition from(FEN fen) {
+    public static SyzygyPosition from(FEN fen) {
         SyzygyPositionBuilder syzygyPositionBuilder = new SyzygyPositionBuilder();
         fen.export(syzygyPositionBuilder);
         return syzygyPositionBuilder.getPositionRepresentation();
