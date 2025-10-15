@@ -4,6 +4,7 @@ package net.chesstango.piazzolla.syzygy;
 import net.chesstango.gardel.fen.FEN;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
@@ -513,6 +514,35 @@ public class SyzygyImpProbeRootIntegrationTest {
         assertEquals(1, count(results, Syzygy.TB_DRAW));
         assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
         assertEquals(7, count(results, Syzygy.TB_LOSS));
+    }
+
+    @Test
+    @Disabled // TODO: CHT-377
+    public void test_tb_probe_root_win_white() {
+        FEN fen = FEN.of("6k1/8/6p1/3K2P1/8/8/8/8 w - - 0 1");
+
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
+
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
+
+        //System.out.printf("0x%s", Integer.toHexString(res).toUpperCase());
+        assertEquals(0x908E44, res);
+
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
+
+        assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
+        assertEquals(9, Syzygy.TB_GET_DTZ(res));
+        assertEquals(35, Syzygy.TB_GET_FROM(res));
+        assertEquals(44, Syzygy.TB_GET_TO(res));
+        assertEquals(Syzygy.TB_PROMOTES_NONE, Syzygy.TB_GET_PROMOTES(res));
+
+        assertEquals(8, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(0, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(0, count(results, Syzygy.TB_LOSS));
     }
 
 
