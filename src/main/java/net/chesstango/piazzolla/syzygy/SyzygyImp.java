@@ -88,11 +88,19 @@ public class SyzygyImp implements Syzygy {
         int i = 0;
         int j = 0;
         int k = 0;
+        int l = 0;
+
+        /**
+         * Initialize tablebases with 3 pieces: K_ vs K
+         */
         for (i = 0; i < 5; i++) {
             String tableName = String.format("K%cvK", pieces[i].getSymbol());
             init_tb(tableName);
         }
 
+        /**
+         * Initialize tablebases with 4 pieces: K_ vs K_
+         */
         for (i = 0; i < 5; i++) {
             for (j = i; j < 5; j++) {
                 String tableName = String.format("K%cvK%c", pieces[i].getSymbol(), pieces[j].getSymbol());
@@ -100,6 +108,10 @@ public class SyzygyImp implements Syzygy {
             }
         }
 
+
+        /**
+         * Initialize tablebases with 4 pieces: K__ vs K
+         */
         for (i = 0; i < 5; i++) {
             for (j = i; j < 5; j++) {
                 String tableName = String.format("K%c%cvK", pieces[i].getSymbol(), pieces[j].getSymbol());
@@ -107,6 +119,9 @@ public class SyzygyImp implements Syzygy {
             }
         }
 
+        /**
+         * Initialize tablebases with 5 pieces: K__ vs K_
+         */
         for (i = 0; i < 5; i++) {
             for (j = i; j < 5; j++) {
                 for (k = 0; k < 5; k++) {
@@ -116,6 +131,9 @@ public class SyzygyImp implements Syzygy {
             }
         }
 
+        /**
+         * Initialize tablebases with 5 pieces: K___ vs K
+         */
         for (i = 0; i < 5; i++) {
             for (j = i; j < 5; j++) {
                 for (k = j; k < 5; k++) {
@@ -124,6 +142,49 @@ public class SyzygyImp implements Syzygy {
                 }
             }
         }
+
+        /**
+         * Initialize tablebases with 6 pieces: K__ vs K__
+         */
+        for(l = 0; l < 5; l++) {
+            for (i = 0; i < 5; i++) {
+                for (j = i; j < 5; j++) {
+                    for (k = 0; k < 5; k++) {
+                        String tableName = String.format("K%c%cvK%c%c", pieces[l].getSymbol(), pieces[i].getSymbol(), pieces[j].getSymbol(), pieces[k].getSymbol());
+                        init_tb(tableName);
+                    }
+                }
+            }
+        }
+
+        /**
+         * Initialize tablebases with 6 pieces: K___ vs K_
+         */
+        for(l = 0; l < 5; l++) {
+            for (i = 0; i < 5; i++) {
+                for (j = i; j < 5; j++) {
+                    for (k = 0; k < 5; k++) {
+                        String tableName = String.format("K%c%c%cvK%c", pieces[l].getSymbol(), pieces[i].getSymbol(), pieces[j].getSymbol(), pieces[k].getSymbol());
+                        init_tb(tableName);
+                    }
+                }
+            }
+        }
+
+        /**
+         * Initialize tablebases with 6 pieces: K____ vs K
+         */
+        for(l = 0; l < 5; l++) {
+            for (i = 0; i < 5; i++) {
+                for (j = i; j < 5; j++) {
+                    for (k = 0; k < 5; k++) {
+                        String tableName = String.format("K%c%c%c%cvK", pieces[l].getSymbol(), pieces[i].getSymbol(), pieces[j].getSymbol(), pieces[k].getSymbol());
+                        init_tb(tableName);
+                    }
+                }
+            }
+        }
+
 
         // Update the largest cardinality values
         TB_LARGEST = TB_MaxCardinality;
