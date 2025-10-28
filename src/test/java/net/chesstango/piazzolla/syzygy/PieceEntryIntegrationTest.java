@@ -3,7 +3,9 @@ package net.chesstango.piazzolla.syzygy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileInputStream;
 import java.nio.file.Path;
+import java.security.MessageDigest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,6 +29,9 @@ public class PieceEntryIntegrationTest {
      */
     @Test
     public void test_init_table_KQvK() {
+        assertEquals("F06221548404795B6B33469E247B4560", md5sum("KQvK.rtbw"));
+        assertEquals("AC866466E16EB19A4F8C796F8E1ABD2B", md5sum("KQvK.rtbz"));
+
         syzygy.init_tb("KQvK");
 
         assertEquals(1, syzygy.numWdl);
@@ -146,6 +151,9 @@ public class PieceEntryIntegrationTest {
      */
     @Test
     public void test_init_table_KQvKR() {
+        assertEquals("044B30304AEC99AAD41CED55994AA2D6", md5sum("KQvKR.rtbw"));
+        assertEquals("1A76E02BA0C13C440C33CB95124AD06A", md5sum("KQvKR.rtbz"));
+
         syzygy.init_tb("KQvKR");
 
         assertEquals(1, syzygy.numWdl);
@@ -267,6 +275,9 @@ public class PieceEntryIntegrationTest {
 
     @Test
     public void test_init_table_KQvKQ() {
+        assertEquals("71F3830D337C0FC73517DE3B8A0B7D70", md5sum("KQvKQ.rtbw"));
+        assertEquals("0B33FADA9ADBF8FB8D64CFA0E9525942", md5sum("KQvKQ.rtbz"));
+
         pieceEntry.init_tb("KQvKQ");
 
         assertEquals("KQvKQ", pieceEntry.tableName);
@@ -341,6 +352,29 @@ public class PieceEntryIntegrationTest {
                 0xD00000000000000L, 0x80000000000000L, 0x40000000000000L, 0x0
         }, ei_dtz_precomp.base);
         assertEquals(166, ei_dtz_precomp.symLen.length);
+    }
+
+
+    public String md5sum(String filename) {
+        try {
+            Path tbPath = PATH.resolve(filename);
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            try (FileInputStream fis = new FileInputStream(tbPath.toFile())) {
+                byte[] buffer = new byte[8192];
+                int bytesRead;
+                while ((bytesRead = fis.read(buffer)) != -1) {
+                    md.update(buffer, 0, bytesRead);
+                }
+            }
+            byte[] digest = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for (byte b : digest) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString().toUpperCase();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }

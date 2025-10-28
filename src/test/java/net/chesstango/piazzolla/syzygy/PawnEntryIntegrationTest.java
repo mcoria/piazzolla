@@ -3,7 +3,9 @@ package net.chesstango.piazzolla.syzygy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileInputStream;
 import java.nio.file.Path;
+import java.security.MessageDigest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,6 +29,9 @@ public class PawnEntryIntegrationTest {
      */
     @Test
     public void test_init_tb_KPvKP() {
+        assertEquals("E9390BE76079250CABA06F353F758536", md5sum("KPvKP.rtbw"));
+        assertEquals("17CEC6D51197C92B97B3AD9BC5559EE0", md5sum("KPvKP.rtbz"));
+
         syzygy.init_tb("KPvKP");
 
         assertEquals(1, syzygy.numWdl);
@@ -298,6 +303,9 @@ public class PawnEntryIntegrationTest {
      */
     @Test
     public void test_init_tb_KPvK() {
+        assertEquals("46F6EF491BD26696D7B20281E7C5B721", md5sum("KPvK.rtbw"));
+        assertEquals("54460894C15F087CFD16670BF1513755", md5sum("KPvK.rtbz"));
+
         syzygy.init_tb("KPvK");
 
         assertEquals(1, syzygy.numWdl);
@@ -332,16 +340,16 @@ public class PawnEntryIntegrationTest {
          * WHITE WDL table assertions
          */
         EncInfo ei0_wtm = wdl.ei_wtm[0];
-        assertArrayEquals(new int[]{3906, 1, 63, 0, 0, 0, 0}, ei0_wtm.factor);
+        assertArrayEquals(new int[]{63, 1, 378, 0, 0, 0, 0}, ei0_wtm.factor);
         assertArrayEquals(new byte[]{1, 6, 14, 0, 0, 0, 0}, ei0_wtm.pieces);
         assertArrayEquals(new byte[]{1, 1, 1, 0, 0, 0, 0}, ei0_wtm.norm);
 
         PairsData ei0_precomp_wtm = ei0_wtm.precomp;
-        assertEquals(1670, ei0_precomp_wtm.indexTable.ptr);
-        assertEquals(1718, ei0_precomp_wtm.sizeTable.ptr);
+        assertEquals(1662, ei0_precomp_wtm.indexTable.ptr);
+        assertEquals(1710, ei0_precomp_wtm.sizeTable.ptr);
         assertEquals(1920, ei0_precomp_wtm.data.ptr);
         assertEquals(24, ei0_precomp_wtm.offset.ptr);
-        assertEquals(44, ei0_precomp_wtm.symPat.ptr);
+        assertEquals(42, ei0_precomp_wtm.symPat.ptr);
 
         assertEquals(6, ei0_precomp_wtm.blockSize);
         assertEquals(15, ei0_precomp_wtm.idxBits);
@@ -349,35 +357,34 @@ public class PawnEntryIntegrationTest {
 
         assertArrayEquals(new byte[]{0, 0}, ei0_wtm.precomp.constValue);
         assertArrayEquals(new long[]{
-                0xD000000000000000L, 0x8000000000000000L,
-                0x1000000000000000L, 0x200000000000000L,
-                0
+                0xE000000000000000L, 0x7800000000000000L,
+                0x1000000000000000L, 0
         }, ei0_precomp_wtm.base);
-        assertEquals(50, ei0_precomp_wtm.symLen.length);
+        assertEquals(49, ei0_precomp_wtm.symLen.length);
 
 
         EncInfo ei1_wtm = wdl.ei_wtm[1];
-        assertArrayEquals(new int[]{3906, 1, 63, 0, 0, 0, 0}, ei1_wtm.factor);
+        assertArrayEquals(new int[]{63, 1, 378, 0, 0, 0, 0}, ei1_wtm.factor);
         assertArrayEquals(new byte[]{1, 6, 14, 0, 0, 0, 0}, ei1_wtm.pieces);
         assertArrayEquals(new byte[]{1, 1, 1, 0, 0, 0, 0}, ei1_wtm.norm);
 
         PairsData ei1_precomp_wtm = ei1_wtm.precomp;
-        assertEquals(1682, ei1_precomp_wtm.indexTable.ptr);
-        assertEquals(1748, ei1_precomp_wtm.sizeTable.ptr);
+        assertEquals(1674, ei1_precomp_wtm.indexTable.ptr);
+        assertEquals(1740, ei1_precomp_wtm.sizeTable.ptr);
         assertEquals(2880, ei1_precomp_wtm.data.ptr);
-        assertEquals(374, ei1_precomp_wtm.offset.ptr);
-        assertEquals(396, ei1_precomp_wtm.symPat.ptr);
+        assertEquals(372, ei1_precomp_wtm.offset.ptr);
+        assertEquals(392, ei1_precomp_wtm.symPat.ptr);
 
         assertEquals(6, ei1_precomp_wtm.blockSize);
         assertEquals(15, ei1_precomp_wtm.idxBits);
-        assertEquals(5, ei1_precomp_wtm.minLen);
+        assertEquals(4, ei1_precomp_wtm.minLen);
 
         assertArrayEquals(new byte[]{0, 0}, ei1_precomp_wtm.constValue);
         assertArrayEquals(new long[]{
-                0x9000000000000000L, 0x2C00000000000000L,
-                0x200000000000000L, 0x100000000000000L,
+                0xF000000000000000L, 0xA000000000000000L,
+                0x2800000000000000L, 0x0200000000000000L,
                 0}, ei1_precomp_wtm.base);
-        assertEquals(63, ei1_precomp_wtm.symLen.length);
+        assertEquals(62, ei1_precomp_wtm.symLen.length);
 
 
         EncInfo ei2_wtm = wdl.ei_wtm[2];
@@ -386,11 +393,11 @@ public class PawnEntryIntegrationTest {
         assertArrayEquals(new byte[]{1, 1, 1, 0, 0, 0, 0}, ei2_wtm.norm);
 
         PairsData ei2_precomp_wtm = ei2_wtm.precomp;
-        assertEquals(1694, ei2_precomp_wtm.indexTable.ptr);
-        assertEquals(1800, ei2_precomp_wtm.sizeTable.ptr);
+        assertEquals(1686, ei2_precomp_wtm.indexTable.ptr);
+        assertEquals(1792, ei2_precomp_wtm.sizeTable.ptr);
         assertEquals(4544, ei2_precomp_wtm.data.ptr);
-        assertEquals(804, ei2_precomp_wtm.offset.ptr);
-        assertEquals(826, ei2_precomp_wtm.symPat.ptr);
+        assertEquals(796, ei2_precomp_wtm.offset.ptr);
+        assertEquals(818, ei2_precomp_wtm.symPat.ptr);
 
         assertEquals(6, ei2_precomp_wtm.blockSize);
         assertEquals(15, ei2_precomp_wtm.idxBits);
@@ -411,11 +418,11 @@ public class PawnEntryIntegrationTest {
         assertArrayEquals(new byte[]{1, 1, 1, 0, 0, 0, 0}, ei3_wtm.norm);
 
         PairsData ei3_precomp_wtm = ei3_wtm.precomp;
-        assertEquals(1706, ei3_precomp_wtm.indexTable.ptr);
-        assertEquals(1852, ei3_precomp_wtm.sizeTable.ptr);
+        assertEquals(1698, ei3_precomp_wtm.indexTable.ptr);
+        assertEquals(1844, ei3_precomp_wtm.sizeTable.ptr);
         assertEquals(6208, ei3_precomp_wtm.data.ptr);
-        assertEquals(1236, ei3_precomp_wtm.offset.ptr);
-        assertEquals(1256, ei3_precomp_wtm.symPat.ptr);
+        assertEquals(1228, ei3_precomp_wtm.offset.ptr);
+        assertEquals(1248, ei3_precomp_wtm.symPat.ptr);
 
         assertEquals(6, ei3_precomp_wtm.blockSize);
         assertEquals(15, ei3_precomp_wtm.idxBits);
@@ -440,11 +447,11 @@ public class PawnEntryIntegrationTest {
         assertArrayEquals(new byte[]{1, 1, 1, 0, 0, 0, 0}, ei0_btm.norm);
 
         PairsData ei0_precomp_wbtm = ei0_btm.precomp;
-        assertEquals(1676, ei0_precomp_wbtm.indexTable.ptr);
-        assertEquals(1732, ei0_precomp_wbtm.sizeTable.ptr);
+        assertEquals(1668, ei0_precomp_wbtm.indexTable.ptr);
+        assertEquals(1724, ei0_precomp_wbtm.sizeTable.ptr);
         assertEquals(2368, ei0_precomp_wbtm.data.ptr);
-        assertEquals(196, ei0_precomp_wbtm.offset.ptr);
-        assertEquals(218, ei0_precomp_wbtm.symPat.ptr);
+        assertEquals(192, ei0_precomp_wbtm.offset.ptr);
+        assertEquals(214, ei0_precomp_wbtm.symPat.ptr);
 
         assertEquals(6, ei0_precomp_wbtm.blockSize);
         assertEquals(15, ei0_precomp_wbtm.idxBits);
@@ -464,11 +471,11 @@ public class PawnEntryIntegrationTest {
         assertArrayEquals(new byte[]{1, 1, 1, 0, 0, 0, 0}, ei1_btm.norm);
 
         PairsData ei1_precomp_btm = ei1_btm.precomp;
-        assertEquals(1688, ei1_precomp_btm.indexTable.ptr);
-        assertEquals(1772, ei1_precomp_btm.sizeTable.ptr);
+        assertEquals(1680, ei1_precomp_btm.indexTable.ptr);
+        assertEquals(1764, ei1_precomp_btm.sizeTable.ptr);
         assertEquals(3648, ei1_precomp_btm.data.ptr);
-        assertEquals(586, ei1_precomp_btm.offset.ptr);
-        assertEquals(608, ei1_precomp_btm.symPat.ptr);
+        assertEquals(578, ei1_precomp_btm.offset.ptr);
+        assertEquals(600, ei1_precomp_btm.symPat.ptr);
 
         assertEquals(6, ei1_precomp_btm.blockSize);
         assertEquals(15, ei1_precomp_btm.idxBits);
@@ -488,11 +495,11 @@ public class PawnEntryIntegrationTest {
         assertArrayEquals(new byte[]{1, 1, 1, 0, 0, 0, 0}, ei2_btm.norm);
 
         PairsData ei2_precomp_btm = ei2_btm.precomp;
-        assertEquals(1700, ei2_precomp_btm.indexTable.ptr);
-        assertEquals(1824, ei2_precomp_btm.sizeTable.ptr);
+        assertEquals(1692, ei2_precomp_btm.indexTable.ptr);
+        assertEquals(1816, ei2_precomp_btm.sizeTable.ptr);
         assertEquals(5312, ei2_precomp_btm.data.ptr);
-        assertEquals(1006, ei2_precomp_btm.offset.ptr);
-        assertEquals(1026, ei2_precomp_btm.symPat.ptr);
+        assertEquals(998, ei2_precomp_btm.offset.ptr);
+        assertEquals(1018, ei2_precomp_btm.symPat.ptr);
 
         assertEquals(6, ei2_precomp_btm.blockSize);
         assertEquals(15, ei2_precomp_btm.idxBits);
@@ -512,11 +519,11 @@ public class PawnEntryIntegrationTest {
         assertArrayEquals(new byte[]{1, 1, 1, 0, 0, 0, 0}, ei3_btm.norm);
 
         PairsData ei3_precomp_btm = ei3_btm.precomp;
-        assertEquals(1712, ei3_precomp_btm.indexTable.ptr);
-        assertEquals(1874, ei3_precomp_btm.sizeTable.ptr);
+        assertEquals(1704, ei3_precomp_btm.indexTable.ptr);
+        assertEquals(1866, ei3_precomp_btm.sizeTable.ptr);
         assertEquals(6912, ei3_precomp_btm.data.ptr);
-        assertEquals(1432, ei3_precomp_btm.offset.ptr);
-        assertEquals(1454, ei3_precomp_btm.symPat.ptr);
+        assertEquals(1424, ei3_precomp_btm.offset.ptr);
+        assertEquals(1446, ei3_precomp_btm.symPat.ptr);
 
         assertEquals(6, ei3_precomp_btm.blockSize);
         assertEquals(15, ei3_precomp_btm.idxBits);
@@ -536,21 +543,21 @@ public class PawnEntryIntegrationTest {
         assertNotNull(pawnEntry.dtz);
         PawnDtz dtz = (PawnDtz) pawnEntry.dtz;
 
-        assertEquals(780, dtz.dtzMap.ptr);
+        assertEquals(794, dtz.dtzMap.ptr);
         assertArrayEquals(new short[][]{{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}, dtz.dtzMapIdx);
         assertArrayEquals(new byte[]{0, 0, 0, 0}, dtz.dtzFlags);
 
         EncInfo ei0_dtz = dtz.ei_dtz[0];
-        assertArrayEquals(new int[]{3906, 1, 63, 0, 0, 0, 0}, ei0_dtz.factor);
+        assertArrayEquals(new int[]{1, 6, 378, 0, 0, 0, 0}, ei0_dtz.factor);
         assertArrayEquals(new byte[]{1, 6, 14, 0, 0, 0, 0}, ei0_dtz.pieces);
         assertArrayEquals(new byte[]{1, 1, 1, 0, 0, 0, 0}, ei0_dtz.norm);
 
         PairsData ei0_dtz_precomp = ei0_dtz.precomp;
-        assertEquals(780, ei0_dtz_precomp.indexTable.ptr);
-        assertEquals(804, ei0_dtz_precomp.sizeTable.ptr);
+        assertEquals(794, ei0_dtz_precomp.indexTable.ptr);
+        assertEquals(818, ei0_dtz_precomp.sizeTable.ptr);
         assertEquals(832, ei0_dtz_precomp.data.ptr);
         assertEquals(28, ei0_dtz_precomp.offset.ptr);
-        assertEquals(44, ei0_dtz_precomp.symPat.ptr);
+        assertEquals(46, ei0_dtz_precomp.symPat.ptr);
 
         assertEquals(8, ei0_dtz_precomp.blockSize);
         assertEquals(15, ei0_dtz_precomp.idxBits);
@@ -560,10 +567,11 @@ public class PawnEntryIntegrationTest {
         assertArrayEquals(new long[]{
                 0xC000000000000000L,
                 0xC000000000000000L,
-                0x8000000000000000L,
+                0x9000000000000000L,
                 0x1000000000000000L,
+                0x400000000000000L,
                 0}, ei0_dtz_precomp.base);
-        assertEquals(23, ei0_dtz_precomp.symLen.length);
+        assertEquals(25, ei0_dtz_precomp.symLen.length);
 
 
         EncInfo ei1_dtz = dtz.ei_dtz[1];
@@ -572,11 +580,11 @@ public class PawnEntryIntegrationTest {
         assertArrayEquals(new byte[]{1, 1, 1, 0, 0, 0, 0}, ei1_dtz.norm);
 
         PairsData ei1_dtz_precomp = ei1_dtz.precomp;
-        assertEquals(786, ei1_dtz_precomp.indexTable.ptr);
-        assertEquals(806, ei1_dtz_precomp.sizeTable.ptr);
+        assertEquals(800, ei1_dtz_precomp.indexTable.ptr);
+        assertEquals(820, ei1_dtz_precomp.sizeTable.ptr);
         assertEquals(1088, ei1_dtz_precomp.data.ptr);
-        assertEquals(116, ei1_dtz_precomp.offset.ptr);
-        assertEquals(138, ei1_dtz_precomp.symPat.ptr);
+        assertEquals(124, ei1_dtz_precomp.offset.ptr);
+        assertEquals(146, ei1_dtz_precomp.symPat.ptr);
 
         assertEquals(10, ei1_dtz_precomp.blockSize);
         assertEquals(15, ei1_dtz_precomp.idxBits);
@@ -596,11 +604,11 @@ public class PawnEntryIntegrationTest {
         assertArrayEquals(new byte[]{1, 1, 1, 0, 0, 0, 0}, ei2_dtz.norm);
 
         PairsData ei2_dtz_precomp = ei2_dtz.precomp;
-        assertEquals(792, ei2_dtz_precomp.indexTable.ptr);
-        assertEquals(808, ei2_dtz_precomp.sizeTable.ptr);
+        assertEquals(806, ei2_dtz_precomp.indexTable.ptr);
+        assertEquals(822, ei2_dtz_precomp.sizeTable.ptr);
         assertEquals(2112, ei2_dtz_precomp.data.ptr);
-        assertEquals(316, ei2_dtz_precomp.offset.ptr);
-        assertEquals(338, ei2_dtz_precomp.symPat.ptr);
+        assertEquals(324, ei2_dtz_precomp.offset.ptr);
+        assertEquals(346, ei2_dtz_precomp.symPat.ptr);
 
         assertEquals(10, ei2_dtz_precomp.blockSize);
         assertEquals(15, ei2_dtz_precomp.idxBits);
@@ -615,16 +623,16 @@ public class PawnEntryIntegrationTest {
 
 
         EncInfo ei3_dtz = dtz.ei_dtz[3];
-        assertArrayEquals(new int[]{3906, 1, 63, 0, 0, 0, 0}, ei3_dtz.factor);
+        assertArrayEquals(new int[]{63, 1, 378, 0, 0, 0, 0}, ei3_dtz.factor);
         assertArrayEquals(new byte[]{1, 6, 14, 0, 0, 0, 0}, ei3_dtz.pieces);
         assertArrayEquals(new byte[]{1, 1, 1, 0, 0, 0, 0}, ei3_dtz.norm);
 
         PairsData ei3_dtz_precomp = ei3_dtz.precomp;
-        assertEquals(798, ei3_dtz_precomp.indexTable.ptr);
-        assertEquals(810, ei3_dtz_precomp.sizeTable.ptr);
+        assertEquals(812, ei3_dtz_precomp.indexTable.ptr);
+        assertEquals(824, ei3_dtz_precomp.sizeTable.ptr);
         assertEquals(3136, ei3_dtz_precomp.data.ptr);
-        assertEquals(542, ei3_dtz_precomp.offset.ptr);
-        assertEquals(564, ei3_dtz_precomp.symPat.ptr);
+        assertEquals(550, ei3_dtz_precomp.offset.ptr);
+        assertEquals(572, ei3_dtz_precomp.symPat.ptr);
 
         assertEquals(10, ei3_dtz_precomp.blockSize);
         assertEquals(15, ei3_dtz_precomp.idxBits);
@@ -632,18 +640,36 @@ public class PawnEntryIntegrationTest {
 
         assertArrayEquals(new byte[]{0, 0}, ei3_dtz_precomp.constValue);
         assertArrayEquals(new long[]{
-                0xF000000000000000L, 0x9800000000000000L,
-                0x4000000000000000L, 0xA00000000000000L,
-                0x100000000000000L, 0}, ei3_dtz_precomp.base);
-        assertEquals(72, ei3_dtz_precomp.symLen.length);
+                0xF000000000000000L,
+                0xA800000000000000L,
+                0x4400000000000000L,
+                0x800000000000000L,
+                0x100000000000000L,
+                0}, ei3_dtz_precomp.base);
+        assertEquals(74, ei3_dtz_precomp.symLen.length);
     }
 
 
-    /**
-     * Test for the "KPPvKP" tableType: tableType with PAWNs
-     */
-    @Test
-    public void test_init_tb_KPPvKP() {
-        syzygy.init_tb("KPPvKP");
+
+    public String md5sum(String filename) {
+        try {
+            Path tbPath = PATH.resolve(filename);
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            try (FileInputStream fis = new FileInputStream(tbPath.toFile())) {
+                byte[] buffer = new byte[8192];
+                int bytesRead;
+                while ((bytesRead = fis.read(buffer)) != -1) {
+                    md.update(buffer, 0, bytesRead);
+                }
+            }
+            byte[] digest = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for (byte b : digest) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString().toUpperCase();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
