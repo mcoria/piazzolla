@@ -86,8 +86,15 @@ class PawnDtz extends TableBase {
 
     @Override
     int probe_table_imp(SyzygyPosition pos, long key, int score) {
-        boolean flip = key != pawnEntry.key;
-        boolean bside = pos.turn == flip;
+        boolean flip;
+        boolean bside;
+        if(!pawnEntry.symmetric) {
+            flip = key != pawnEntry.key;
+            bside = pos.turn == flip;
+        }else{
+            flip = !pos.turn;
+            bside = false;
+        }
 
         int[] p = new int[TB_PIECES];
 
