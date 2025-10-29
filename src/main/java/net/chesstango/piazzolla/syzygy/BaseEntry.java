@@ -87,12 +87,12 @@ abstract class BaseEntry {
         }
     }
 
-    int probe_wdl(SyzygyPosition syzygyPosition, long key, int s) {
-        return wdl.probe_table(syzygyPosition, key, s);
+    int probe_wdl(SyzygyPosition syzygyPosition, long key, int score) {
+        return wdl.probe_table(syzygyPosition, key, score);
     }
 
-    int probe_dtz(SyzygyPosition syzygyPosition, long key, int s) {
-        return dtz.probe_table(syzygyPosition, key, s);
+    int probe_dtz(SyzygyPosition syzygyPosition, long key, int score) {
+        return dtz.probe_table(syzygyPosition, key, score);
     }
 
     static long calc_key_from_pcs(int[] pcs, boolean mirror) {

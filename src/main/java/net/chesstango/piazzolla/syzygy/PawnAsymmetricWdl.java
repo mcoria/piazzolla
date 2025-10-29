@@ -8,7 +8,11 @@ import static net.chesstango.piazzolla.syzygy.TableBase.TableType.WDL;
  */
 class PawnAsymmetricWdl extends TableBase {
     final PawnEntry pawnEntry;
+
+    // White to move
     final PawnEncInfo[] ei_wtm;
+
+    // Black to move
     final PawnEncInfo[] ei_btm;
 
     PawnAsymmetricWdl(PawnEntry pawnEntry) {

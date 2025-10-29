@@ -638,7 +638,7 @@ public class SyzygyImp implements Syzygy {
         return probe_table(pos, wdl, DTZ);
     }
 
-    private int probe_table(SyzygyPosition syzygyPosition, int s, TableBase.TableType type) {
+    private int probe_table(SyzygyPosition syzygyPosition, int score, TableBase.TableType type) {
         long key = calcKey(syzygyPosition);
 
         int hashIdx = (int) (key >>> (64 - TB_HASHBITS));
@@ -654,8 +654,8 @@ public class SyzygyImp implements Syzygy {
         BaseEntry be = tbHash[hashIdx].ptr;
 
         return switch (type) {
-            case WDL -> be.probe_wdl(syzygyPosition, key, s);
-            case DTZ -> be.probe_dtz(syzygyPosition, key, s);
+            case WDL -> be.probe_wdl(syzygyPosition, key, score);
+            case DTZ -> be.probe_dtz(syzygyPosition, key, score);
             default -> throw new IllegalArgumentException("Unknown table type: " + type);
         };
     }
