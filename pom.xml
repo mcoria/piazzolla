@@ -54,7 +54,7 @@
         <junit-jupiter.version>5.13.4</junit-jupiter.version>
 
         <!-- Decoding/encoding to different chess representations: FEN, EPD, PGN, SAN, LAN -->
-        <gardel.varsion>1.0.10</gardel.varsion>
+        <gardel.varsion>1.0.15</gardel.varsion>
     </properties>
 
     <dependencies>
