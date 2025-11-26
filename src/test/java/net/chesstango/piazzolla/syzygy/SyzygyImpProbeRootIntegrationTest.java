@@ -543,6 +543,7 @@ public class SyzygyImpProbeRootIntegrationTest {
         assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
         assertEquals(0, count(results, Syzygy.TB_LOSS));
     }
+    
 
 
     static int count(int[] results, int wdl) {

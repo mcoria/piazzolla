@@ -1,5 +1,7 @@
 package net.chesstango.piazzolla.polyglot;
 
+import java.io.Serializable;
+
 /**
  * http://hgm.nubati.net/book_format.html
  * <p>
@@ -16,7 +18,7 @@ package net.chesstango.piazzolla.polyglot;
  * @author Mauricio Coria
  */
 
-public record PolyglotEntry(long key, int from_file, int from_rank, int to_file, int to_rank, int weight) {
+public record PolyglotEntry(long key, int from_file, int from_rank, int to_file, int to_rank, int weight) implements Serializable {
 
     @Override
     public String toString() {

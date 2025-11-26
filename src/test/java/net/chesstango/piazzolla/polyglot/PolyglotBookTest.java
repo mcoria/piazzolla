@@ -16,7 +16,7 @@ public class PolyglotBookTest {
     @Test
     @Disabled
     public void testReadPerfect_2021() throws IOException {
-        try (PolyglotBook book = PolyglotBook.open(Path.of("C:\\Java\\projects\\chess\\chess-utils\\books\\openings\\Perfect_2021\\BIN\\Perfect2021.bin"))) {
+        try (PolyglotBook book = PolyglotBook.open(Path.of("C:/java/projects/chess/chess-utils/books/openings/polyglot-collection/komodo.bin"))) {
 
             //book.load(Path.of("C:\\Java\\projects\\chess\\chess-utils\\books\\openings\\polyglot-collection\\final-book.bin"));
             //book.load(Path.of("C:\\Java\\projects\\chess\\chess-utils\\books\\openings\\Perfect_2021\\BIN\\Perfect2021.bin"));
@@ -32,10 +32,10 @@ public class PolyglotBookTest {
             //long polyglotKey = getPolyglotKey("rn1qkbnr/pp2pppp/2p5/3p4/6b1/5NP1/PPPPPPBP/RNBQ1RK1 b kq - 3 4");
             //long polyglotKey = getPolyglotKey("r2qkbnr/pp1npppp/2p5/3p4/6b1/5NP1/PPPPPPBP/RNBQ1RK1 w kq - 4 5");
             //long polyglotKey = getPolyglotKey("r2qkbnr/pp1npppp/2p5/3p4/6b1/3P1NP1/PPP1PPBP/RNBQ1RK1 b kq - 0 5");
-            //long polyglotKey = getPolyglotKey("r2qk1nr/pp1bppbp/2np2p1/1B6/4P3/2NQ1N2/PPP2PPP/R1B2RK1 b kq - 3 8");
+            long polyglotKey = getPolyglotKey("r2qkbnr/pp1n1pp1/2p1p2p/3pPb2/3P4/2P2N2/PP2BPPP/RNBQK2R w KQkq - 0 7");
 
             //long polyglotKey = 0xDA48997503D0L;    // First entry in the book
-            long polyglotKey = 0xFFFD4170FE7E8A0AL;  // Last entry in the book
+            //long polyglotKey = 0xFFFD4170FE7E8A0AL;  // Last entry in the book
 
             List<PolyglotEntry> possibleMoves = book.search(polyglotKey);
 

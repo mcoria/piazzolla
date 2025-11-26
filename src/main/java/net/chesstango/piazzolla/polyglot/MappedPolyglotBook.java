@@ -6,10 +6,7 @@ import java.nio.channels.FileChannel;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author Mauricio Coria
@@ -37,10 +34,12 @@ class MappedPolyglotBook implements PolyglotBook {
 
     @Override
     public List<PolyglotEntry> search(long key) {
+        List<PolyglotEntry> polyglotEntryList = Collections.emptyList();
+
         int idx = findIndex(key, 0, maxUpperBoundIdx + 1);
 
         if (getKey(idx) == key) {
-            List<PolyglotEntry> polyglotEntryList = new ArrayList<>();
+            polyglotEntryList = new LinkedList<>();
 
             // Corregir idx para encontrar la base
             while (idx > 0 && getKey(idx - 1) == key) {
@@ -57,11 +56,9 @@ class MappedPolyglotBook implements PolyglotBook {
 
                 idx++;
             }
-
-            return polyglotEntryList;
         }
 
-        return Collections.emptyList();
+        return polyglotEntryList;
     }
 
     private int findIndex(final long key, final int lowerBoundIdx, final int upperBoundIdx) {
@@ -88,6 +85,10 @@ class MappedPolyglotBook implements PolyglotBook {
         return mappedByteBuffer.getLong(idx * ENTRY_SIZE);
     }
 
+
+    /**
+     * Deberia leer y decodificar por separado a move y weight
+     */
     private static PolyglotEntry createPolyglotEntry(long key, int moveAndWeight) {
         int weight = moveAndWeight & 0b00000000_00000000_11111111_11111111;
 
