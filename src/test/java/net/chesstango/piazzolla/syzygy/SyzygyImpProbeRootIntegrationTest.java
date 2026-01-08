@@ -434,6 +434,31 @@ public class SyzygyImpProbeRootIntegrationTest {
     }
 
     @Test
+    public void test_tb_probe_root_longest_6() {
+        FEN fen = FEN.of("6N1/5KR1/2n5/8/8/8/2n5/1k6 w - - 0 1");
+
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
+
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
+
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
+
+        assertEquals(Syzygy.TB_CURSED_WIN, Syzygy.TB_GET_WDL(res));
+        assertEquals(484, Syzygy.TB_GET_DTZ(res));
+        assertEquals(53, Syzygy.TB_GET_FROM(res));
+        assertEquals(44, Syzygy.TB_GET_TO(res));
+        assertEquals(Syzygy.TB_PROMOTES_NONE, Syzygy.TB_GET_PROMOTES(res));
+
+        assertEquals(0, count(results, Syzygy.TB_WIN));
+        assertEquals(1, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(14, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(0, count(results, Syzygy.TB_LOSS));
+    }
+
+    @Test
     public void test_tb_probe_root_KRvK() {
         FEN fen = FEN.of("8/8/8/8/8/4k3/2R5/1K6 w - - 0 1");
 

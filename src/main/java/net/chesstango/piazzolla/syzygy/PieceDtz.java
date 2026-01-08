@@ -85,6 +85,7 @@ class PieceDtz extends TableBase {
         boolean flagFlag = (flags & 1) != 0;
         if (flagFlag != bside && !pieceEntry.symmetric) {
             pieceEntry.syzygy.success = -1;
+            //throw  new RuntimeException("not implemented: flagFlag != bside && !pieceEntry.symmetric");
             return 0;
         }
 
