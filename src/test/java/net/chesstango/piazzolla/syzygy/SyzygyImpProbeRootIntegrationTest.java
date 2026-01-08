@@ -39,19 +39,19 @@ public class SyzygyImpProbeRootIntegrationTest {
         assertEquals(861, syzygy.pawnEntry.length);
         assertEquals(4096, syzygy.tbHash.length);
 
-        assertEquals(5, syzygy.TB_LARGEST);
-        assertEquals(5, syzygy.TB_MaxCardinality);
+        assertEquals(6, syzygy.TB_LARGEST);
+        assertEquals(6, syzygy.TB_MaxCardinality);
         assertEquals(0, syzygy.TB_MaxCardinalityDTM);
-        assertEquals(84, syzygy.tbNumPiece);
-        assertEquals(61, syzygy.tbNumPawn);
-        assertEquals(145, syzygy.numWdl);
+        assertEquals(564, syzygy.tbNumPiece);
+        assertEquals(706, syzygy.tbNumPawn);
+        assertEquals(460, syzygy.numWdl);
         assertEquals(0, syzygy.numDtm);
-        assertEquals(145, syzygy.numDtz);
+        assertEquals(460, syzygy.numDtz);
     }
 
     @Test
     public void testMaxPieces() {
-        assertEquals(5, syzygy.tb_largest());
+        assertEquals(6, syzygy.tb_largest());
     }
 
     @Test
