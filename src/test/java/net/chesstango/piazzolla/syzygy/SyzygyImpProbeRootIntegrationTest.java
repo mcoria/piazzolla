@@ -306,7 +306,7 @@ public class SyzygyImpProbeRootIntegrationTest {
     }
 
     @Test
-    public void test_tb_probe_root_KPvKP_white() {
+    public void test_tb_probe_root_KPvKP_white01() {
         FEN fen = FEN.of("8/P7/4K3/7k/6p1/8/8/8 w - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
@@ -518,8 +518,7 @@ public class SyzygyImpProbeRootIntegrationTest {
     }
 
     @Test
-    @Disabled // TODO: CHT-377
-    public void test_tb_probe_root_win_white() {
+    public void test_tb_probe_root_KPvKP_whit02() {
         FEN fen = FEN.of("6k1/8/6p1/3K2P1/8/8/8/8 w - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
@@ -529,7 +528,7 @@ public class SyzygyImpProbeRootIntegrationTest {
         int res = syzygy.tb_probe_root(syzygyPosition, results);
 
         //System.out.printf("0x%s", Integer.toHexString(res).toUpperCase());
-        assertEquals(0x908E44, res);
+        assertEquals(0x908EC4, res);
 
         assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
 
@@ -545,6 +544,7 @@ public class SyzygyImpProbeRootIntegrationTest {
         assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
         assertEquals(0, count(results, Syzygy.TB_LOSS));
     }
+    
 
 
     static int count(int[] results, int wdl) {

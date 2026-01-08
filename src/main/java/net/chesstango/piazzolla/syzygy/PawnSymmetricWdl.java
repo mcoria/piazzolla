@@ -8,6 +8,8 @@ import static net.chesstango.piazzolla.syzygy.TableBase.TableType.WDL;
  */
 class PawnSymmetricWdl extends TableBase {
     final PawnEntry pawnEntry;
+
+    // White to move, there is no black
     final PawnEncInfo[] ei_wtm;
 
     PawnSymmetricWdl(PawnEntry pawnEntry) {

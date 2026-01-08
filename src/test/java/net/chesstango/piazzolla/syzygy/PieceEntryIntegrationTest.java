@@ -3,7 +3,9 @@ package net.chesstango.piazzolla.syzygy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileInputStream;
 import java.nio.file.Path;
+import java.security.MessageDigest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,6 +29,9 @@ public class PieceEntryIntegrationTest {
      */
     @Test
     public void test_init_table_KQvK() {
+        assertEquals("F06221548404795B6B33469E247B4560", md5sum("KQvK.rtbw"));
+        assertEquals("AC866466E16EB19A4F8C796F8E1ABD2B", md5sum("KQvK.rtbz"));
+
         syzygy.init_tb("KQvK");
 
         assertEquals(1, syzygy.numWdl);
@@ -71,8 +76,8 @@ public class PieceEntryIntegrationTest {
         assertArrayEquals(new byte[]{3, 0, 0, 0, 0, 0, 0}, ei_wtm.norm);
 
         PairsData ei_wtm_precomp = ei_wtm.precomp;
-        assertEquals(112, ei_wtm_precomp.indexTable.ptr);
-        assertEquals(118, ei_wtm_precomp.sizeTable.ptr);
+        assertEquals(90, ei_wtm_precomp.indexTable.ptr);
+        assertEquals(96, ei_wtm_precomp.sizeTable.ptr);
         assertEquals(128, ei_wtm_precomp.data.ptr);
         assertNull(ei_wtm_precomp.offset);  //POR QUE ES NULL ?????
         assertNull(ei_wtm_precomp.symPat);  //POR QUE ES NULL ?????
@@ -87,26 +92,31 @@ public class PieceEntryIntegrationTest {
 
         EncInfo ei_btm = wdl.ei_btm;
         assertArrayEquals(new int[]{1, 0, 0, 0, 0, 0, 0}, ei_btm.factor);
-        assertArrayEquals(new byte[]{14, 6, 5, 0, 0, 0, 0}, ei_btm.pieces);
+        assertArrayEquals(new byte[]{14, 5, 6, 0, 0, 0, 0}, ei_btm.pieces);
         assertArrayEquals(new byte[]{3, 0, 0, 0, 0, 0, 0}, ei_btm.norm);
 
         PairsData ei_btm_precomp = ei_btm.precomp;
-        assertEquals(112, ei_btm_precomp.indexTable.ptr);
-        assertEquals(118, ei_btm_precomp.sizeTable.ptr);
+        assertEquals(90, ei_btm_precomp.indexTable.ptr);
+        assertEquals(96, ei_btm_precomp.sizeTable.ptr);
         assertEquals(128, ei_btm_precomp.data.ptr);
         assertEquals(20, ei_btm_precomp.offset.ptr);
-        assertEquals(40, ei_btm_precomp.symPat.ptr);
+        assertEquals(38, ei_btm_precomp.symPat.ptr);
 
         assertEquals(6, ei_btm_precomp.blockSize);
         assertEquals(15, ei_btm_precomp.idxBits);
         assertEquals(1, ei_btm_precomp.minLen);
 
         assertArrayEquals(new byte[]{0, 0}, ei_btm_precomp.constValue);
-        assertArrayEquals(new long[]{0x8000000000000000L, 0x8000000000000000L, 0x8000000000000000L,
-                0x6000000000000000L, 0x2000000000000000L, 0x400000000000000L, 0x200000000000000L,
+        assertArrayEquals(new long[]{
+                0x8000000000000000L,
+                0x8000000000000000L,
+                0x8000000000000000L,
+                0x4000000000000000L,
+                0x1000000000000000L,
+                0x400000000000000L,
                 0x0L}, ei_btm_precomp.base);
-        assertArrayEquals(new byte[]{63, 54, 11, 127, 17, 8, 15, 1, 3, 6, 31, -65, 123, 7, 0, 1,
-                47, 59, 7, 1, -1, 0, 61, 5}, ei_btm_precomp.symLen);
+        assertArrayEquals(new byte[]{3, 3, 4, 1, 31, 7, 127, 11, 7, 63, 6, 1, 47, 0, 0, -1, 15},
+                ei_btm_precomp.symLen);
 
         /**
          * DTZ table assertions
@@ -114,19 +124,19 @@ public class PieceEntryIntegrationTest {
         assertNotNull(pieceEntry.dtz);
         PieceDtz dtz = (PieceDtz) pieceEntry.dtz;
 
-        assertEquals(662, dtz.dtzMap.ptr);
+        assertEquals(686, dtz.dtzMap.ptr);
         assertArrayEquals(new short[]{0, 0, 0, 0}, dtz.dtzMapIdx);
         assertEquals(0, dtz.dtzFlags);
 
         EncInfo ei_dtz = dtz.ei_dtz;
         assertArrayEquals(new int[]{1, 0, 0, 0, 0, 0, 0}, ei_dtz.factor);
-        assertArrayEquals(new byte[]{14, 6, 5, 0, 0, 0, 0}, ei_dtz.pieces);
+        assertArrayEquals(new byte[]{6, 14, 5, 0, 0, 0, 0}, ei_dtz.pieces);
         assertArrayEquals(new byte[]{3, 0, 0, 0, 0, 0, 0}, ei_dtz.norm);
 
         PairsData ei_dtz_precomp = ei_dtz.precomp;
-        assertEquals(662, ei_dtz_precomp.indexTable.ptr);
-        assertEquals(668, ei_dtz_precomp.sizeTable.ptr);
-        assertEquals(704, ei_dtz_precomp.data.ptr);
+        assertEquals(686, ei_dtz_precomp.indexTable.ptr);
+        assertEquals(692, ei_dtz_precomp.sizeTable.ptr);
+        assertEquals(768, ei_dtz_precomp.data.ptr);
         assertEquals(8, ei_dtz_precomp.offset.ptr);
         assertEquals(34, ei_dtz_precomp.symPat.ptr);
 
@@ -135,10 +145,14 @@ public class PieceEntryIntegrationTest {
         assertEquals(6, ei_dtz_precomp.minLen);
 
         assertArrayEquals(new byte[]{0, 0}, ei_dtz_precomp.constValue);
-        assertArrayEquals(new long[]{0xAC00000000000000L, 0x6600000000000000L, 0x2C00000000000000L, 0x280000000000000L,
-                0x40000000000000L,
+        assertArrayEquals(new long[]{
+                0xB400000000000000L,
+                0x7000000000000000L,
+                0x2E00000000000000L,
+                0x0200000000000000L,
+                0x040000000000000L,
                 0x0L}, ei_dtz_precomp.base);
-        assertEquals(209, ei_dtz_precomp.symLen.length);
+        assertEquals(217, ei_dtz_precomp.symLen.length);
     }
 
     /**
@@ -146,6 +160,9 @@ public class PieceEntryIntegrationTest {
      */
     @Test
     public void test_init_table_KQvKR() {
+        assertEquals("044B30304AEC99AAD41CED55994AA2D6", md5sum("KQvKR.rtbw"));
+        assertEquals("1A76E02BA0C13C440C33CB95124AD06A", md5sum("KQvKR.rtbz"));
+
         syzygy.init_tb("KQvKR");
 
         assertEquals(1, syzygy.numWdl);
@@ -267,6 +284,9 @@ public class PieceEntryIntegrationTest {
 
     @Test
     public void test_init_table_KQvKQ() {
+        assertEquals("71F3830D337C0FC73517DE3B8A0B7D70", md5sum("KQvKQ.rtbw"));
+        assertEquals("0B33FADA9ADBF8FB8D64CFA0E9525942", md5sum("KQvKQ.rtbz"));
+
         pieceEntry.init_tb("KQvKQ");
 
         assertEquals("KQvKQ", pieceEntry.tableName);
@@ -341,6 +361,29 @@ public class PieceEntryIntegrationTest {
                 0xD00000000000000L, 0x80000000000000L, 0x40000000000000L, 0x0
         }, ei_dtz_precomp.base);
         assertEquals(166, ei_dtz_precomp.symLen.length);
+    }
+
+
+    public String md5sum(String filename) {
+        try {
+            Path tbPath = PATH.resolve(filename);
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            try (FileInputStream fis = new FileInputStream(tbPath.toFile())) {
+                byte[] buffer = new byte[8192];
+                int bytesRead;
+                while ((bytesRead = fis.read(buffer)) != -1) {
+                    md.update(buffer, 0, bytesRead);
+                }
+            }
+            byte[] digest = md.digest();
+            StringBuilder sb = new StringBuilder();
+            for (byte b : digest) {
+                sb.append(String.format("%02x", b));
+            }
+            return sb.toString().toUpperCase();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
 }
