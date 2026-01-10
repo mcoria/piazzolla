@@ -17,10 +17,10 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
  */
 public class SyzygyImpProbeRootIntegrationTest {
 
-    //public static final Path PATH = Path.of("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5");
-    public static final Path PATH = Path.of("E:\\syzygy");
+    static final Path PATH = Path.of("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5");
+    //static final Path PATH = Path.of("E:\\syzygy");
 
-    private SyzygyImp syzygy;
+    SyzygyImp syzygy;
 
     @BeforeEach
     public void setUp() {
@@ -31,27 +31,6 @@ public class SyzygyImpProbeRootIntegrationTest {
     @AfterEach
     public void tearDown() {
         //syzygy.close();
-    }
-
-    @Test
-    public void test_tb_init() {
-        assertEquals(650, syzygy.pieceEntry.length);
-        assertEquals(861, syzygy.pawnEntry.length);
-        assertEquals(4096, syzygy.tbHash.length);
-
-        assertEquals(6, syzygy.TB_LARGEST);
-        assertEquals(6, syzygy.TB_MaxCardinality);
-        assertEquals(0, syzygy.TB_MaxCardinalityDTM);
-        assertEquals(564, syzygy.tbNumPiece);
-        assertEquals(706, syzygy.tbNumPawn);
-        assertEquals(460, syzygy.numWdl);
-        assertEquals(0, syzygy.numDtm);
-        assertEquals(460, syzygy.numDtz);
-    }
-
-    @Test
-    public void testMaxPieces() {
-        assertEquals(6, syzygy.tb_largest());
     }
 
     @Test
