@@ -1,8 +1,8 @@
 package net.chesstango.piazzolla.syzygy;
 
+import static net.chesstango.piazzolla.syzygy.SyzygyConstants.TB_PIECES;
 import static net.chesstango.piazzolla.syzygy.SyzygyImp.PAFlags;
 import static net.chesstango.piazzolla.syzygy.SyzygyImp.WdlToMap;
-import static net.chesstango.piazzolla.syzygy.SyzygyConstants.TB_PIECES;
 import static net.chesstango.piazzolla.syzygy.TableBase.TableType.DTZ;
 
 /**
@@ -88,10 +88,10 @@ class PawnDtz extends TableBase {
     int probe_table_imp(SyzygyPosition pos, long key, int score) {
         boolean flip;
         boolean bside;
-        if(!pawnEntry.symmetric) {
+        if (!pawnEntry.symmetric) {
             flip = key != pawnEntry.key;
             bside = pos.turn == flip;
-        }else{
+        } else {
             flip = !pos.turn;
             bside = false;
         }
@@ -120,14 +120,14 @@ class PawnDtz extends TableBase {
 
         byte[] w = ei.precomp.decompress_pairs(idx);
 
-        int v = w[0] + ((w[1] & 0x0f) << 8);
+        int v = (w[0] & 0xFF) + ((w[1] & 0x0F) << 8);
 
         if ((flags & 2) != 0) {
             int m = WdlToMap[score + 2];
             if ((flags & 16) == 0) {
-                v = dtzMap.read_uint8_t(dtzMapIdx[t][m] + v);
+                v = 0xFF & dtzMap.read_uint8_t(dtzMapIdx[t][m] + v);
             } else {
-                v = dtzMap.read_le_u16(dtzMapIdx[t][m] + v);
+                v = 0xFF & dtzMap.read_le_u16(dtzMapIdx[t][m] + v);
             }
         }
         if ((flags & PAFlags[score + 2]) == 0 || (score & 1) != 0) {
