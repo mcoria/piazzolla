@@ -99,14 +99,14 @@ class PieceDtz extends TableBase {
 
         byte[] w = ei_dtz.precomp.decompress_pairs(idx);
 
-        int v = w[0] + ((w[1] & 0x0f) << 8);
+        int v = (w[0] & 0xFF)  + ((w[1] & 0x0F) << 8);
 
         if ((flags & 2) != 0) {
             int m = WdlToMap[score + 2];
             if ((flags & 16) == 0) {
-                v = dtzMap.read_uint8_t(dtzMapIdx[m] + v);
+                v = 0xFF & dtzMap.read_uint8_t(dtzMapIdx[m] + v);
             } else {
-                v = dtzMap.read_le_u16(dtzMapIdx[m] + v);
+                v = 0xFF & dtzMap.read_le_u16(dtzMapIdx[m] + v);
             }
         }
         if ((flags & PAFlags[score + 2]) == 0 || (score & 1) != 0) {
