@@ -47,8 +47,6 @@ class PieceDtz extends TableBase {
                     dtzMapIdx[i] = (short) (data.ptr + 1 - dtzMap.ptr);
                     data.incPtr(1 + data.read_uint8_t(0) & 0xFF);
                 }
-            } else {
-                throw new RuntimeException("not implemented: pieceEntry.dtzFlags & 16 == 0");
             }
         }
         data.ptr += data.ptr & 1;
@@ -85,7 +83,6 @@ class PieceDtz extends TableBase {
         boolean flagFlag = (flags & 1) != 0;
         if (flagFlag != bside && !pieceEntry.symmetric) {
             pieceEntry.syzygy.success = -1;
-            //throw  new RuntimeException("not implemented: flagFlag != bside && !pieceEntry.symmetric");
             return 0;
         }
 
