@@ -1,5 +1,6 @@
 package net.chesstango.piazzolla.syzygy;
 
+import net.chesstango.gardel.fen.FEN;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -47,4 +48,22 @@ public class Syszygy_3_4_5_IntegrationTest {
     public void testMaxPieces() {
         assertEquals(5, syzygy.tb_largest());
     }
+
+
+    /**
+     * Probe fails, position with 6 pieces
+     */
+    @Test
+    public void test_tb_probe_root_6_fails() {
+        FEN fen = FEN.of("6N1/5KR1/2n5/8/8/8/2n5/1k6 w - - 0 1");
+
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
+
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
+
+        assertEquals(Syzygy.TB_RESULT_FAILED, res);
+    }
+
 }

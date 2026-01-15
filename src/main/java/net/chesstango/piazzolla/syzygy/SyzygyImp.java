@@ -235,6 +235,10 @@ public class SyzygyImp implements Syzygy {
      */
     @Override
     public int tb_probe_root(SyzygyPosition pos, int[] results) {
+        if (Long.bitCount(pos.black | pos.white) > this.TB_LARGEST) {
+            return TB_RESULT_FAILED;
+        }
+
         if (pos.castling != 0)
             return TB_RESULT_FAILED;
 
@@ -285,6 +289,10 @@ public class SyzygyImp implements Syzygy {
 
     @Override
     public int tb_probe_wdl(SyzygyPosition pos) {
+        if (Long.bitCount(pos.black | pos.white) > this.TB_LARGEST) {
+            return TB_RESULT_FAILED;
+        }
+
         if (pos.castling != 0)
             return TB_RESULT_FAILED;
 
