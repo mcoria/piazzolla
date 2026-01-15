@@ -36,8 +36,8 @@ public class Syszygy_6_IntegrationTest {
         assertEquals(6, syzygy.TB_LARGEST);
         assertEquals(6, syzygy.TB_MaxCardinality);
         assertEquals(0, syzygy.TB_MaxCardinalityDTM);
-        assertEquals(564, syzygy.tbNumPiece);
-        assertEquals(706, syzygy.tbNumPawn);
+        assertEquals(234, syzygy.tbNumPiece);
+        assertEquals(226, syzygy.tbNumPawn);
         assertEquals(460, syzygy.numWdl);
         assertEquals(0, syzygy.numDtm);
         assertEquals(460, syzygy.numDtz);

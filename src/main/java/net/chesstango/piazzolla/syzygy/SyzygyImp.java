@@ -47,6 +47,7 @@ public class SyzygyImp implements Syzygy {
     int numWdl;
     int numDtm;
     int numDtz;
+
     int TB_MaxCardinality;
     int TB_MaxCardinalityDTM;
     int TB_LARGEST;
@@ -146,7 +147,7 @@ public class SyzygyImp implements Syzygy {
         /**
          * Initialize tablebases with 6 pieces: K__ vs K__
          */
-        for(l = 0; l < 5; l++) {
+        for (l = 0; l < 5; l++) {
             for (i = 0; i < 5; i++) {
                 for (j = i; j < 5; j++) {
                     for (k = 0; k < 5; k++) {
@@ -160,7 +161,7 @@ public class SyzygyImp implements Syzygy {
         /**
          * Initialize tablebases with 6 pieces: K___ vs K_
          */
-        for(l = 0; l < 5; l++) {
+        for (l = 0; l < 5; l++) {
             for (i = 0; i < 5; i++) {
                 for (j = i; j < 5; j++) {
                     for (k = 0; k < 5; k++) {
@@ -174,7 +175,7 @@ public class SyzygyImp implements Syzygy {
         /**
          * Initialize tablebases with 6 pieces: K____ vs K
          */
-        for(l = 0; l < 5; l++) {
+        for (l = 0; l < 5; l++) {
             for (i = 0; i < 5; i++) {
                 for (j = i; j < 5; j++) {
                     for (k = 0; k < 5; k++) {
