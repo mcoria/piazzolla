@@ -89,5 +89,22 @@ public class SyzygyImpProbeWDLIntegrationTest {
         assertEquals(Syzygy.TB_LOSS, res);
     }
 
+    @Test
+    public void test_tb_probe_wdl_blackTurn_draw() {
+        FEN fen = FEN.of("6N1/5K2/2n3R1/8/k7/8/2P5/8 b - - 0 1");
+
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
+
+        int res = syzygy.tb_probe_wdl(syzygyPosition);
+
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
+
+        assertEquals(Syzygy.TB_DRAW, Syzygy.TB_GET_WDL(res));
+        assertEquals(1, Syzygy.TB_GET_DTZ(res));
+        assertEquals(10, Syzygy.TB_GET_FROM(res));
+        assertEquals(18, Syzygy.TB_GET_TO(res));
+        assertEquals(Syzygy.TB_PROMOTES_NONE, Syzygy.TB_GET_PROMOTES(res));
+    }
+
 }
 

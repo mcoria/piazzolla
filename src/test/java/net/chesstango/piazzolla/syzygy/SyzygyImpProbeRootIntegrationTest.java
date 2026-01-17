@@ -438,6 +438,56 @@ public class SyzygyImpProbeRootIntegrationTest {
     }
 
     @Test
+    public void test_tb_probe_root_KRNPvKN_white() {
+        FEN fen = FEN.of("6N1/5KR1/2n5/8/k7/8/2P5/8 w - - 0 1");
+
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
+
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
+
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
+
+        assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
+        assertEquals(1, Syzygy.TB_GET_DTZ(res));
+        assertEquals(10, Syzygy.TB_GET_FROM(res));
+        assertEquals(18, Syzygy.TB_GET_TO(res));
+        assertEquals(Syzygy.TB_PROMOTES_NONE, Syzygy.TB_GET_PROMOTES(res));
+
+        assertEquals(16, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(1, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(0, count(results, Syzygy.TB_LOSS));
+    }
+
+    @Test
+    public void test_tb_probe_root_KRNPvKN_black() {
+        FEN fen = FEN.of("6N1/5K2/2n3R1/8/k7/8/2P5/8 b - - 0 1");
+
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
+
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
+
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
+
+        assertEquals(Syzygy.TB_DRAW, Syzygy.TB_GET_WDL(res));
+        assertEquals(1, Syzygy.TB_GET_DTZ(res));
+        assertEquals(10, Syzygy.TB_GET_FROM(res));
+        assertEquals(18, Syzygy.TB_GET_TO(res));
+        assertEquals(Syzygy.TB_PROMOTES_NONE, Syzygy.TB_GET_PROMOTES(res));
+
+        assertEquals(16, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(1, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(0, count(results, Syzygy.TB_LOSS));
+    }
+
+    @Test
     public void test_tb_probe_root_KRvK() {
         FEN fen = FEN.of("8/8/8/8/8/4k3/2R5/1K6 w - - 0 1");
 

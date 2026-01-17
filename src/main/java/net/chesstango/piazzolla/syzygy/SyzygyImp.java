@@ -585,7 +585,7 @@ public class SyzygyImp implements Syzygy {
     //  0 : draw
     //  1 : win, but draw under 50-move rule
     //  2 : win
-    private int probe_wdl(SyzygyPosition pos) {
+    private int  probe_wdl(SyzygyPosition pos) {
         success = 1;
 
         // Generate (at least) all legal captures including (under)promotions.
@@ -605,7 +605,8 @@ public class SyzygyImp implements Syzygy {
             if (!do_move(pos1, pos, move))
                 continue; // illegal move
             int v = -probe_ab(pos1, -2, -bestCap);
-            if (success == 0) return 0;
+            if (success == 0)
+                return 0;
             if (v > bestCap) {
                 if (v == 2) {
                     success = 2;

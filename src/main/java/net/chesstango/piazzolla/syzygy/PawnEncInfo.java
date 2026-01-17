@@ -12,7 +12,7 @@ class PawnEncInfo extends EncInfo {
         this.pawnEntry = pawnEntry;
     }
 
-    int init_enc_info(U_INT8_PTR UINT8PTR, int shift, int t) {
+    long init_enc_info(U_INT8_PTR UINT8PTR, int shift, int t) {
         boolean morePawns = (pawnEntry.pawns[1] & 0xFF) > 0;
 
         for (int i = 0; i < pawnEntry.num; i++) {
@@ -38,23 +38,23 @@ class PawnEncInfo extends EncInfo {
         }
 
         int n = 64 - k;
-        int f = 1;
+        long f = 1;
 
         for (int i = 0; k < pawnEntry.num || i == order || i == order2; i++) {
             if (i == order) {
-                factor[0] = f;
+                factor[0] = (int) f;
                 f *= PawnFactorFile[norm[0] - 1][t];
             } else if (i == order2) {
-                factor[norm[0]] = f;
+                factor[norm[0]] = (int) f;
                 f *= subfactor(norm[norm[0]], 48 - norm[0]);
             } else {
-                factor[k] = f;
+                factor[k] = (int) f;
                 f *= subfactor(norm[k], n);
                 n -= norm[k];
                 k += norm[k];
             }
         }
-        return f;
+        return (int) f; // debe retornar long
     }
 
     int leading_pawn(int[] p) {
