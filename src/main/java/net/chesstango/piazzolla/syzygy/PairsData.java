@@ -53,10 +53,10 @@ class PairsData {
 
         ptr.ptr = data.ptr + (12 + 2 * h + 3 * numSyms + (numSyms & 1));
 
-        long num_indices = (tb_size + (1 << idxBits) - 1) >>> idxBits;
-        size[0] = 6 * num_indices;
-        size[1] = 2 * numBlocks;
-        size[2] = realNumBlocks << blockSize;
+        long num_indices = (tb_size + (1L << idxBits) - 1) >>> idxBits;
+        size[0] = 6L * num_indices;
+        size[1] = 2L * numBlocks;
+        size[2] = (long) realNumBlocks << blockSize;
 
         assert (numSyms < TB_MAX_SYMS);
         byte[] tmp = new byte[TB_MAX_SYMS];
@@ -81,7 +81,7 @@ class PairsData {
 
     void calc_symLen(int s, byte[] tmp) {
         U_INT8_PTR w = this.symPat.clone();
-        w.incPtr(3 * s);
+        w.incPtr(3L * s);
         int w2 = (w.read_uint8_t(2) & 0xFF) << 4;
         int w1 = (w.read_uint8_t(1) & 0xFF) >>> 4;
 
