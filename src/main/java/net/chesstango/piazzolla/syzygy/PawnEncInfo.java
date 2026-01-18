@@ -54,7 +54,7 @@ class PawnEncInfo extends EncInfo {
                 k += norm[k];
             }
         }
-        return (int) f; // debe retornar long
+        return f; // debe retornar long
     }
 
     int leading_pawn(int[] p) {

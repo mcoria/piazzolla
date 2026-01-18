@@ -35,7 +35,7 @@ class PieceDtz extends TableBase {
         // Next, there may be a padding byte to align the position within the tablebase file to a multiple of 2 bytes.
         data.ptr += data.ptr & 1;
 
-        int[] size = new int[3];
+        long[] size = new long[3];
         dtzFlags = data.read_uint8_t(0);
         ei_dtz.precomp = new PairsData(DTZ, data, tb_size, size);
 

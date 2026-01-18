@@ -49,19 +49,19 @@ class MappedFile implements Closeable {
         }
     }
 
-    byte read_uint8_t(int idx) {
+    byte read_uint8_t(long idx) {
         return memorySegment.get(ValueLayout.JAVA_BYTE, idx);
     }
 
-    short read_le_u16(int idx) {
+    short read_le_u16(long idx) {
         return memorySegment.get(ValueLayout.JAVA_SHORT_UNALIGNED, idx);
     }
 
-    int read_le_u32(int idx) {
+    int read_le_u32(long idx) {
         return memorySegment.get(ValueLayout.JAVA_INT_UNALIGNED, idx);
     }
 
-    long read_le_u64(int idx) {
+    long read_le_u64(long idx) {
         return memorySegment.get(ValueLayout.JAVA_LONG_UNALIGNED, idx);
     }
 

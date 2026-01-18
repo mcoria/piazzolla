@@ -709,8 +709,26 @@ public class PawnEntryIntegrationTest {
 
         assertArrayEquals(new byte[]{0, 0}, ei0_wtm.precomp.constValue);
         assertArrayEquals(new long[]{
-                0xE000000000000000L, 0x7800000000000000L,
-                0x1000000000000000L, 0
+                0x8000000000000000L,
+                0x8000000000000000L,
+                0x8000000000000000L,
+                0x8000000000000000L,
+                0x8000000000000000L,
+                0x8000000000000000L,
+                0x8000000000000000L,
+                0x8000000000000000L,
+                0x7000000000000000L,
+                0x5500000000000000L,
+                0x3C60000000000000L,
+                0x2BD0000000000000L,
+                0x1BE0000000000000L,
+                0xEB8000000000000L,
+                0x1B6000000000000L,
+                0x18000000000000L,
+                0x4800000000000L,
+                0x800000000000L,
+                0x200000000000L,
+                0L
         }, ei0_precomp_wtm.base);
         assertEquals(49, ei0_precomp_wtm.symLen.length);
 

@@ -29,8 +29,8 @@ class PawnAsymmetricWdl extends TableBase {
 
         final int NUM = 4;
 
-        int[] tb_size_white = new int[NUM];
-        int[] tb_size_black = new int[NUM];
+        long[] tb_size_white = new long[NUM];
+        long[] tb_size_black = new long[NUM];
 
         for (int t = 0; t < NUM; t++) {
             ei_wtm[t] = new PawnEncInfo(pawnEntry);
@@ -43,8 +43,8 @@ class PawnAsymmetricWdl extends TableBase {
         // Next, there may be a padding byte to align the position within the tablebase file to a multiple of 2 bytes.
         data.ptr += data.ptr & 1;
 
-        int[][] size_white = new int[NUM][3];
-        int[][] size_black = new int[NUM][3];
+        long[][] size_white = new long[NUM][3];
+        long[][] size_black = new long[NUM][3];
         for (int t = 0; t < NUM; t++) {
             ei_wtm[t].precomp = new PairsData(WDL, data, tb_size_white[t], size_white[t]);
             ei_btm[t].precomp = new PairsData(WDL, data, tb_size_black[t], size_black[t]);

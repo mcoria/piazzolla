@@ -5,17 +5,17 @@ package net.chesstango.piazzolla.syzygy;
  */
 class U_INT16_PTR implements Cloneable{
     final MappedFile mappedFile;
-    int ptr = 0;
+    long ptr = 0;
 
     U_INT16_PTR(MappedFile mappedFile) {
         this.mappedFile = mappedFile;
     }
 
-    void incPtr(int inc) {
+    void incPtr(long inc) {
         ptr += 2 * inc;
     }
 
-    short read_le_u16(int offset) {
+    short read_le_u16(long offset) {
         return mappedFile.read_le_u16(ptr + 2 * offset);
     }
 

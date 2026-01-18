@@ -19,7 +19,7 @@ class PairsData {
     byte[] constValue = new byte[2];
     long[] base;
 
-    PairsData(TableBase.TableType tableType, U_INT8_PTR ptr, int tb_size, int[] size) {
+    PairsData(TableBase.TableType tableType, U_INT8_PTR ptr, long tb_size, long[] size) {
         U_INT8_PTR data = ptr.clone();
 
         if ((data.read_uint8_t(0) & 0x80) != 0) {
@@ -53,7 +53,7 @@ class PairsData {
 
         ptr.ptr = data.ptr + (12 + 2 * h + 3 * numSyms + (numSyms & 1));
 
-        int num_indices = (tb_size + (1 << idxBits) - 1) >>> idxBits;
+        long num_indices = (tb_size + (1 << idxBits) - 1) >>> idxBits;
         size[0] = 6 * num_indices;
         size[1] = 2 * numBlocks;
         size[2] = realNumBlocks << blockSize;
@@ -98,13 +98,13 @@ class PairsData {
     }
 
 
-    byte[] decompress_pairs(int idx) {
+    byte[] decompress_pairs(long idx) {
         if (idxBits == 0) {
             return constValue;
         }
 
-        int mainIdx = idx >>> idxBits;
-        int litIdx = (idx & ((1 << idxBits) - 1)) - (1 << (idxBits - 1));
+        long mainIdx = idx >>> idxBits;
+        long litIdx = (idx & ((1L << idxBits) - 1)) - (1L << (idxBits - 1));
         int block = indexTable.read_le_u32(6 * mainIdx);
 
         short idxOffset = indexTable.read_le_u16(6 * mainIdx + 4);

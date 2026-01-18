@@ -29,7 +29,7 @@ class PawnDtz extends TableBase {
         data.incPtr(5);
 
         final int num = 4;
-        int[] tb_size = new int[num];
+        long[] tb_size = new long[num];
         for (int i = 0; i < num; i++) {
             ei_dtz[i] = new PawnEncInfo(pawnEntry);
             tb_size[i] = ei_dtz[i].init_enc_info(data, 0, i);
@@ -39,7 +39,7 @@ class PawnDtz extends TableBase {
         // Next, there may be a padding byte to align the position within the tablebase file to a multiple of 2 bytes.
         data.ptr += data.ptr & 1;
 
-        int[][] size = new int[4][3];
+        long[][] size = new long[4][3];
         for (int t = 0; t < num; t++) {
             dtzFlags[t] = data.read_uint8_t(0);
             ei_dtz[t].precomp = new PairsData(DTZ, data, tb_size[t], size[t]);

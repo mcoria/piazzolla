@@ -25,7 +25,7 @@ class PawnSymmetricWdl extends TableBase {
 
         final int NUM = 4;
 
-        int[] tb_size = new int[NUM];
+        long[] tb_size = new long[NUM];
         for (int i = 0; i < NUM; i++) {
             ei_wtm[i] = new PawnEncInfo(pawnEntry);
             tb_size[i] = ei_wtm[i].init_enc_info(data, 0, i);
@@ -35,7 +35,7 @@ class PawnSymmetricWdl extends TableBase {
         // Next, there may be a padding byte to align the position within the tablebase file to a multiple of 2 bytes.
         data.ptr += data.ptr & 1;
 
-        int[][] size = new int[NUM][3];
+        long[][] size = new long[NUM][3];
         for (int t = 0; t < NUM; t++) {
             ei_wtm[t].precomp = new PairsData(WDL, data, tb_size[t], size[t]);
         }
