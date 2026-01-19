@@ -1021,110 +1021,166 @@ public class PawnEntryIntegrationTest {
         assertNotNull(pawnEntry.dtz);
         PawnDtz dtz = (PawnDtz) pawnEntry.dtz;
 
-        assertEquals(794, dtz.dtzMap.ptr);
-        assertArrayEquals(new short[][]{{0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}, {0, 0, 0, 0}}, dtz.dtzMapIdx);
-        assertArrayEquals(new byte[]{0, 0, 0, 0}, dtz.dtzFlags);
+        assertEquals(49374, dtz.dtzMap.ptr);
+        assertArrayEquals(new short[][]{{1,12,14,15}, {16,25,29,30}, {31,41,43,44}, {45,54,56,58}}, dtz.dtzMapIdx);
+        assertArrayEquals(new byte[]{2,2,2,2}, dtz.dtzFlags);
 
         EncInfo ei0_dtz = dtz.ei_dtz[0];
-        assertArrayEquals(new long[]{1, 6, 378, 0, 0, 0, 0}, ei0_dtz.factor);
-        assertArrayEquals(new byte[]{1, 6, 14, 0, 0, 0, 0}, ei0_dtz.pieces);
-        assertArrayEquals(new byte[]{1, 1, 1, 0, 0, 0, 0}, ei0_dtz.norm);
+        assertArrayEquals(new long[]{14295960, 1, 63, 3906, 238266, 85775760, 0}, ei0_dtz.factor);
+        assertArrayEquals(new byte[]{1, 2, 4, 14, 6, 10, 0}, ei0_dtz.pieces);
+        assertArrayEquals(new byte[]{1, 1, 1, 1, 1, 1, 0}, ei0_dtz.norm);
 
         PairsData ei0_dtz_precomp = ei0_dtz.precomp;
-        assertEquals(794, ei0_dtz_precomp.indexTable.ptr);
-        assertEquals(818, ei0_dtz_precomp.sizeTable.ptr);
-        assertEquals(832, ei0_dtz_precomp.data.ptr);
-        assertEquals(28, ei0_dtz_precomp.offset.ptr);
-        assertEquals(46, ei0_dtz_precomp.symPat.ptr);
+        assertEquals(49432, ei0_dtz_precomp.indexTable.ptr);
+        assertEquals(281104, ei0_dtz_precomp.sizeTable.ptr);
+        assertEquals(2631808, ei0_dtz_precomp.data.ptr);
+        assertEquals(42, ei0_dtz_precomp.offset.ptr);
+        assertEquals(86, ei0_dtz_precomp.symPat.ptr);
 
-        assertEquals(8, ei0_dtz_precomp.blockSize);
-        assertEquals(15, ei0_dtz_precomp.idxBits);
-        assertEquals(2, ei0_dtz_precomp.minLen);
+        assertEquals(7, ei0_dtz_precomp.blockSize);
+        assertEquals(19, ei0_dtz_precomp.idxBits);
+        assertEquals(1, ei0_dtz_precomp.minLen);
 
         assertArrayEquals(new byte[]{0, 0}, ei0_dtz_precomp.constValue);
         assertArrayEquals(new long[]{
-                0xC000000000000000L,
-                0xC000000000000000L,
-                0x9000000000000000L,
-                0x1000000000000000L,
-                0x400000000000000L,
-                0}, ei0_dtz_precomp.base);
-        assertEquals(21, ei0_dtz_precomp.symLen.length);
+                0x8000000000000000L,
+                0x8000000000000000L,
+                0x8000000000000000L,
+                0x8000000000000000L,
+                0x8000000000000000L,
+                0x8000000000000000L,
+                0x7C00000000000000L,
+                0x7400000000000000L,
+                0x6480000000000000L,
+                0x4FC0000000000000L,
+                0x3BC0000000000000L,
+                0x2A10000000000000L,
+                0x1A20000000000000L,
+                0xDF4000000000000L,
+                0x368000000000000L,
+                0xB000000000000L,
+                0x1000000000000L,
+                0x800000000000L,
+                0x200000000000L,
+                0L}, ei0_dtz_precomp.base);
+        assertEquals(4095, ei0_dtz_precomp.symLen.length);
 
 
         EncInfo ei1_dtz = dtz.ei_dtz[1];
-        assertArrayEquals(new long[]{3906, 1, 63, 0, 0, 0, 0}, ei1_dtz.factor);
-        assertArrayEquals(new byte[]{1, 6, 14, 0, 0, 0, 0}, ei1_dtz.pieces);
-        assertArrayEquals(new byte[]{1, 1, 1, 0, 0, 0, 0}, ei1_dtz.norm);
+        assertArrayEquals(new long[]{843461640, 1, 63, 3906, 238266, 14295960, 0}, ei1_dtz.factor);
+        assertArrayEquals(new byte[]{1, 2, 4, 14, 6, 10, 0}, ei1_dtz.pieces);
+        assertArrayEquals(new byte[]{1, 1, 1, 1, 1, 1, 0}, ei1_dtz.norm);
 
         PairsData ei1_dtz_precomp = ei1_dtz.precomp;
-        assertEquals(800, ei1_dtz_precomp.indexTable.ptr);
-        assertEquals(820, ei1_dtz_precomp.sizeTable.ptr);
-        assertEquals(1088, ei1_dtz_precomp.data.ptr);
-        assertEquals(124, ei1_dtz_precomp.offset.ptr);
-        assertEquals(146, ei1_dtz_precomp.symPat.ptr);
+        assertEquals(107350, ei1_dtz_precomp.indexTable.ptr);
+        assertEquals(825508, ei1_dtz_precomp.sizeTable.ptr);
+        assertEquals(37473664, ei1_dtz_precomp.data.ptr);
+        assertEquals(12378, ei1_dtz_precomp.offset.ptr);
+        assertEquals(12418, ei1_dtz_precomp.symPat.ptr);
 
-        assertEquals(10, ei1_dtz_precomp.blockSize);
-        assertEquals(15, ei1_dtz_precomp.idxBits);
-        assertEquals(4, ei1_dtz_precomp.minLen);
+        assertEquals(7, ei1_dtz_precomp.blockSize);
+        assertEquals(19, ei1_dtz_precomp.idxBits);
+        assertEquals(2, ei1_dtz_precomp.minLen);
 
         assertArrayEquals(new byte[]{0, 0}, ei1_dtz_precomp.constValue);
         assertArrayEquals(new long[]{
-                0xE000000000000000L, 0x7800000000000000L,
-                0x2C00000000000000L, 0x400000000000000L,
-                0x100000000000000L, 0}, ei1_dtz_precomp.base);
-        assertEquals(59, ei1_dtz_precomp.symLen.length);
+                0xC000000000000000L,
+                0xC000000000000000L,
+                0xC000000000000000L,
+                0xC000000000000000L,
+                0xC000000000000000L,
+                0xB800000000000000L,
+                0xA700000000000000L,
+                0x8A00000000000000L,
+                0x6500000000000000L,
+                0x4980000000000000L,
+                0x3030000000000000L,
+                0x1C38000000000000L,
+                0xC14000000000000L,
+                0x28000000000000L,
+                0x3000000000000L,
+                0x800000000000L,
+                0}, ei1_dtz_precomp.base);
+        assertEquals(4095, ei1_dtz_precomp.symLen.length);
 
 
         EncInfo ei2_dtz = dtz.ei_dtz[2];
-        assertArrayEquals(new long[]{3906, 1, 63, 0, 0, 0, 0}, ei2_dtz.factor);
-        assertArrayEquals(new byte[]{1, 6, 14, 0, 0, 0, 0}, ei2_dtz.pieces);
-        assertArrayEquals(new byte[]{1, 1, 1, 0, 0, 0, 0}, ei2_dtz.norm);
+        assertArrayEquals(new long[]{3906, 1, 63, 23436, 1429596, 85775760, 0}, ei2_dtz.factor);
+        assertArrayEquals(new byte[]{1, 2, 4, 10, 14, 6, 0}, ei2_dtz.pieces);
+        assertArrayEquals(new byte[]{1, 1, 1, 1, 1, 1, 0}, ei2_dtz.norm);
 
         PairsData ei2_dtz_precomp = ei2_dtz.precomp;
-        assertEquals(806, ei2_dtz_precomp.indexTable.ptr);
-        assertEquals(822, ei2_dtz_precomp.sizeTable.ptr);
-        assertEquals(2112, ei2_dtz_precomp.data.ptr);
-        assertEquals(324, ei2_dtz_precomp.offset.ptr);
-        assertEquals(346, ei2_dtz_precomp.symPat.ptr);
+        assertEquals(165268, ei2_dtz_precomp.indexTable.ptr);
+        assertEquals(1406992, ei2_dtz_precomp.sizeTable.ptr);
+        assertEquals(74688640, ei2_dtz_precomp.data.ptr);
+        assertEquals(24710, ei2_dtz_precomp.offset.ptr);
+        assertEquals(24754, ei2_dtz_precomp.symPat.ptr);
 
-        assertEquals(10, ei2_dtz_precomp.blockSize);
-        assertEquals(15, ei2_dtz_precomp.idxBits);
-        assertEquals(5, ei2_dtz_precomp.minLen);
+        assertEquals(7, ei2_dtz_precomp.blockSize);
+        assertEquals(19, ei2_dtz_precomp.idxBits);
+        assertEquals(2, ei2_dtz_precomp.minLen);
 
         assertArrayEquals(new byte[]{0, 0}, ei2_dtz_precomp.constValue);
         assertArrayEquals(new long[]{
-                0xA800000000000000L, 0x2800000000000000L,
-                0x400000000000000L, 0x200000000000000L,
+                0xC000000000000000L,
+                0xC000000000000000L,
+                0xC000000000000000L,
+                0xC000000000000000L,
+                0xC000000000000000L,
+                0xBC00000000000000L,
+                0xAB00000000000000L,
+                0x9000000000000000L,
+                0x6540000000000000L,
+                0x4960000000000000L,
+                0x30A0000000000000L,
+                0x1CB8000000000000L,
+                0xB8C000000000000L,
+                0x18000000000000L,
+                0x2000000000000L,
+                0x800000000000L,
+                0x400000000000L,
+                0x200000000000L,
                 0}, ei2_dtz_precomp.base);
-        assertEquals(67, ei2_dtz_precomp.symLen.length);
+        assertEquals(4095, ei2_dtz_precomp.symLen.length);
 
 
         EncInfo ei3_dtz = dtz.ei_dtz[3];
-        assertArrayEquals(new long[]{63, 1, 378, 0, 0, 0, 0}, ei3_dtz.factor);
-        assertArrayEquals(new byte[]{1, 6, 14, 0, 0, 0, 0}, ei3_dtz.pieces);
-        assertArrayEquals(new byte[]{1, 1, 1, 0, 0, 0, 0}, ei3_dtz.norm);
+        assertArrayEquals(new long[]{843461640, 1, 63, 3906, 238266, 14295960, 0}, ei3_dtz.factor);
+        assertArrayEquals(new byte[]{1, 2, 4, 6, 10, 14, 0}, ei3_dtz.pieces);
+        assertArrayEquals(new byte[]{1, 1, 1, 1, 1, 1, 0}, ei3_dtz.norm);
 
         PairsData ei3_dtz_precomp = ei3_dtz.precomp;
-        assertEquals(812, ei3_dtz_precomp.indexTable.ptr);
-        assertEquals(824, ei3_dtz_precomp.sizeTable.ptr);
-        assertEquals(3136, ei3_dtz_precomp.data.ptr);
-        assertEquals(550, ei3_dtz_precomp.offset.ptr);
-        assertEquals(572, ei3_dtz_precomp.symPat.ptr);
+        assertEquals(223186, ei3_dtz_precomp.indexTable.ptr);
+        assertEquals(2022448, ei3_dtz_precomp.sizeTable.ptr);
+        assertEquals(114077824, ei3_dtz_precomp.data.ptr);
+        assertEquals(37046, ei3_dtz_precomp.offset.ptr);
+        assertEquals(37088, ei3_dtz_precomp.symPat.ptr);
 
-        assertEquals(10, ei3_dtz_precomp.blockSize);
-        assertEquals(15, ei3_dtz_precomp.idxBits);
-        assertEquals(4, ei3_dtz_precomp.minLen);
+        assertEquals(7, ei3_dtz_precomp.blockSize);
+        assertEquals(19, ei3_dtz_precomp.idxBits);
+        assertEquals(2, ei3_dtz_precomp.minLen);
 
         assertArrayEquals(new byte[]{0, 0}, ei3_dtz_precomp.constValue);
         assertArrayEquals(new long[]{
-                0xF000000000000000L,
-                0xA800000000000000L,
-                0x4400000000000000L,
-                0x800000000000000L,
-                0x100000000000000L,
+                0xC000000000000000L,
+                0xC000000000000000L,
+                0xC000000000000000L,
+                0xC000000000000000L,
+                0xC000000000000000L,
+                0xBE00000000000000L,
+                0xAA00000000000000L,
+                0x9100000000000000L,
+                0x6480000000000000L,
+                0x4980000000000000L,
+                0x3010000000000000L,
+                0x1CB8000000000000L,
+                0xBBC000000000000L,
+                0x14000000000000L,
+                0x2000000000000L,
+                0x800000000000L,
+                0x400000000000L,
                 0}, ei3_dtz_precomp.base);
-        assertEquals(74, ei3_dtz_precomp.symLen.length);
+        assertEquals(4095, ei3_dtz_precomp.symLen.length);
     }
 
 
