@@ -67,9 +67,9 @@ class PawnEncInfo extends EncInfo {
         return FileToFile[p[0] & 7];
     }
 
-    int encode_pawn(int[] p) {
+    long encode_pawn(int[] p) {
         int n = pawnEntry.num;
-        int idx = 0;
+        long idx = 0;
         int k = 0;
 
         if ((p[0] & 0x04) != 0)

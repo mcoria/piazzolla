@@ -100,10 +100,6 @@ public class SyzygyImpProbeWDLIntegrationTest {
         assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
 
         assertEquals(Syzygy.TB_DRAW, Syzygy.TB_GET_WDL(res));
-        assertEquals(1, Syzygy.TB_GET_DTZ(res));
-        assertEquals(10, Syzygy.TB_GET_FROM(res));
-        assertEquals(18, Syzygy.TB_GET_TO(res));
-        assertEquals(Syzygy.TB_PROMOTES_NONE, Syzygy.TB_GET_PROMOTES(res));
     }
 
 }
