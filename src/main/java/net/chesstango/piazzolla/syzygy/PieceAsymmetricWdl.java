@@ -24,8 +24,8 @@ class PieceAsymmetricWdl extends TableBase {
         U_INT8_PTR data = new U_INT8_PTR(mappedFile);
         data.incPtr(5);
 
-        int tb_size_white = ei_wtm.init_enc_info(data, 0);
-        int tb_size_black = ei_btm.init_enc_info(data, 4);
+        long tb_size_white = ei_wtm.init_enc_info(data, 0);
+        long tb_size_black = ei_btm.init_enc_info(data, 4);
 
         data.incPtr(pieceEntry.num + 1);
 
@@ -77,7 +77,7 @@ class PieceAsymmetricWdl extends TableBase {
             i = ei.fill_squares(pos, flip, 0, p, i);
         }
 
-        int idx = ei.encode_piece(p);
+        long idx = ei.encode_piece(p);
 
         byte[] w = ei.precomp.decompress_pairs(idx);
 

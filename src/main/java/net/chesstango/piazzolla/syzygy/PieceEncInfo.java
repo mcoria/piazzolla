@@ -10,7 +10,7 @@ class PieceEncInfo extends EncInfo {
         this.pieceEntry = pieceEntry;
     }
 
-    int init_enc_info(U_INT8_PTR UINT8PTR, int shift) {
+    long init_enc_info(U_INT8_PTR UINT8PTR, int shift) {
         for (int i = 0; i < pieceEntry.num; i++) {
             pieces[i] = (byte) ((UINT8PTR.read_uint8_t(i + 1) >>> shift) & 0x0f);
             norm[i] = 0;
@@ -29,7 +29,7 @@ class PieceEncInfo extends EncInfo {
         }
 
         int n = 64 - k;
-        int f = 1;
+        long f = 1;
         for (int i = 0; k < pieceEntry.num || i == order || i == order2; i++) {
             if (i == order) {
                 factor[0] = f;
@@ -47,9 +47,9 @@ class PieceEncInfo extends EncInfo {
         return f;
     }
 
-    int encode_piece(int[] p) {
+    long encode_piece(int[] p) {
         int n = pieceEntry.num;
-        int idx;
+        long idx;
         int k;
 
         if ((p[0] & 0x04) != 0)

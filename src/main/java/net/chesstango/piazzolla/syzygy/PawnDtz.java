@@ -55,8 +55,6 @@ class PawnDtz extends TableBase {
                         dtzMapIdx[t][i] = (short) (data.ptr + 1 - dtzMap.ptr);
                         data.incPtr(1 + data.read_uint8_t(0) & 0xFF);
                     }
-                } else {
-                    throw new RuntimeException("not implemented: pieceEntry.dtzFlags & 16 == 0");
                 }
             }
         }

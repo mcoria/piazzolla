@@ -148,7 +148,7 @@ class PairsData {
 
 
         while (symLen[sym] != 0) {
-            U_INT8_PTR w = symPat.clone().incPtr(3 * sym);
+            U_INT8_PTR w = symPat.clone().incPtr(3L * sym);
             int s1 = (((w.read_uint8_t(1) & 0x0F) << 8) | (w.read_uint8_t(0) & 0xFF));
             if (litIdx < (symLen[s1] & 0xFF) + 1) {
                 sym = s1;
@@ -158,6 +158,6 @@ class PairsData {
             }
         }
 
-        return new byte[]{symPat.read_uint8_t(3 * sym), symPat.read_uint8_t(3 * sym + 1)};
+        return new byte[]{symPat.read_uint8_t(3L * sym), symPat.read_uint8_t(3L * sym + 1)};
     }
 }

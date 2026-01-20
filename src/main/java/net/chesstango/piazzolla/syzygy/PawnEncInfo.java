@@ -42,19 +42,19 @@ class PawnEncInfo extends EncInfo {
 
         for (int i = 0; k < pawnEntry.num || i == order || i == order2; i++) {
             if (i == order) {
-                factor[0] = (int) f;
+                factor[0] = f;
                 f *= PawnFactorFile[norm[0] - 1][t];
             } else if (i == order2) {
-                factor[norm[0]] = (int) f;
+                factor[norm[0]] = f;
                 f *= subfactor(norm[norm[0]], 48 - norm[0]);
             } else {
-                factor[k] = (int) f;
+                factor[k] = f;
                 f *= subfactor(norm[k], n);
                 n -= norm[k];
                 k += norm[k];
             }
         }
-        return f; // debe retornar long
+        return f;
     }
 
     int leading_pawn(int[] p) {

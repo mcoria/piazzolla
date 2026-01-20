@@ -28,7 +28,7 @@ class PieceDtz extends TableBase {
         U_INT8_PTR data = new U_INT8_PTR(mappedFile);
         data.incPtr(5);
 
-        int tb_size = ei_dtz.init_enc_info(data, 0);
+        long tb_size = ei_dtz.init_enc_info(data, 0);
 
         data.incPtr(pieceEntry.num + 1);
 
@@ -92,7 +92,7 @@ class PieceDtz extends TableBase {
             i = ei_dtz.fill_squares(pos, flip, 0, p, i);
         }
 
-        int idx = ei_dtz.encode_piece(p);
+        long idx = ei_dtz.encode_piece(p);
 
         byte[] w = ei_dtz.precomp.decompress_pairs(idx);
 
