@@ -27,8 +27,6 @@ class PawnAsymmetricWdl extends TableBase {
         U_INT8_PTR data = new U_INT8_PTR(mappedFile);
         data.incPtr(5);
 
-        final int NUM = 4;
-
         long[] tb_size_white = new long[NUM];
         long[] tb_size_black = new long[NUM];
 

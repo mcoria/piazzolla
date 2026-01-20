@@ -28,9 +28,8 @@ class PawnDtz extends TableBase {
         U_INT8_PTR data = new U_INT8_PTR(mappedFile);
         data.incPtr(5);
 
-        final int num = 4;
-        long[] tb_size = new long[num];
-        for (int i = 0; i < num; i++) {
+        long[] tb_size = new long[NUM];
+        for (int i = 0; i < NUM; i++) {
             ei_dtz[i] = new PawnEncInfo(pawnEntry);
             tb_size[i] = ei_dtz[i].init_enc_info(data, 0, i);
             data.incPtr(pawnEntry.num + 1 + (pawnEntry.pawns[1] > 0 ? 1 : 0));
@@ -40,7 +39,7 @@ class PawnDtz extends TableBase {
         data.ptr += data.ptr & 1;
 
         long[][] size = new long[4][3];
-        for (int t = 0; t < num; t++) {
+        for (int t = 0; t < NUM; t++) {
             dtzFlags[t] = data.read_uint8_t(0);
             ei_dtz[t].precomp = new PairsData(DTZ, data, tb_size[t], size[t]);
         }
@@ -48,7 +47,7 @@ class PawnDtz extends TableBase {
 
         // DTZ specific attributes
         dtzMap = data.clone();
-        for (int t = 0; t < num; t++) {
+        for (int t = 0; t < NUM; t++) {
             if ((dtzFlags[t] & 2) != 0) {
                 if ((dtzFlags[t] & 16) == 0) {
                     for (int i = 0; i < 4; i++) {
@@ -61,19 +60,19 @@ class PawnDtz extends TableBase {
         data.ptr += data.ptr & 1;
 
         // indexTable ptr
-        for (int t = 0; t < num; t++) {
+        for (int t = 0; t < NUM; t++) {
             ei_dtz[t].precomp.indexTable = data.clone();
             data.incPtr(size[t][0]);
         }
 
         // sizeTable ptr
-        for (int t = 0; t < num; t++) {
+        for (int t = 0; t < NUM; t++) {
             ei_dtz[t].precomp.sizeTable = data.createU_INT16_PTR(0);
             data.incPtr(size[t][1]);
         }
 
         // data ptr
-        for (int t = 0; t < num; t++) {
+        for (int t = 0; t < NUM; t++) {
             data.ptr = (data.ptr + 0x3f) & ~0x3f;
             ei_dtz[t].precomp.data = data.clone();
             data.incPtr(size[t][2]);

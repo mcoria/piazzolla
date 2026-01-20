@@ -23,8 +23,6 @@ class PawnSymmetricWdl extends TableBase {
         U_INT8_PTR data = new U_INT8_PTR(mappedFile);
         data.incPtr(5);
 
-        final int NUM = 4;
-
         long[] tb_size = new long[NUM];
         for (int i = 0; i < NUM; i++) {
             ei_wtm[i] = new PawnEncInfo(pawnEntry);
