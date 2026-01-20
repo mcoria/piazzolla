@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Mauricio Coria
  */
 public class PieceEntryIntegrationTest {
-    public static final Path PATH = Path.of("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5");
+    public static final Path PATH = Path.of("E:\\syzygy");
 
     private SyzygyImp syzygy;
     private PieceEntry pieceEntry;
@@ -28,7 +28,7 @@ public class PieceEntryIntegrationTest {
      * Test for the "KQvK" tableType: tableType without PAWNs
      */
     @Test
-    public void test_init_table_KQvK() {
+    public void test_init_tb_KQvK() {
         assertEquals("F06221548404795B6B33469E247B4560", md5sum("KQvK.rtbw"));
         assertEquals("AC866466E16EB19A4F8C796F8E1ABD2B", md5sum("KQvK.rtbz"));
 
@@ -71,7 +71,7 @@ public class PieceEntryIntegrationTest {
         PieceAsymmetricWdl wdl = (PieceAsymmetricWdl) pieceEntry.wdl;
 
         EncInfo ei_wtm = wdl.ei_wtm;
-        assertArrayEquals(new int[]{1, 0, 0, 0, 0, 0, 0}, ei_wtm.factor);
+        assertArrayEquals(new long[]{1, 0, 0, 0, 0, 0, 0}, ei_wtm.factor);
         assertArrayEquals(new byte[]{14, 6, 5, 0, 0, 0, 0}, ei_wtm.pieces);
         assertArrayEquals(new byte[]{3, 0, 0, 0, 0, 0, 0}, ei_wtm.norm);
 
@@ -91,7 +91,7 @@ public class PieceEntryIntegrationTest {
         assertNull(ei_wtm_precomp.symLen);
 
         EncInfo ei_btm = wdl.ei_btm;
-        assertArrayEquals(new int[]{1, 0, 0, 0, 0, 0, 0}, ei_btm.factor);
+        assertArrayEquals(new long[]{1, 0, 0, 0, 0, 0, 0}, ei_btm.factor);
         assertArrayEquals(new byte[]{14, 5, 6, 0, 0, 0, 0}, ei_btm.pieces);
         assertArrayEquals(new byte[]{3, 0, 0, 0, 0, 0, 0}, ei_btm.norm);
 
@@ -129,7 +129,7 @@ public class PieceEntryIntegrationTest {
         assertEquals(0, dtz.dtzFlags);
 
         EncInfo ei_dtz = dtz.ei_dtz;
-        assertArrayEquals(new int[]{1, 0, 0, 0, 0, 0, 0}, ei_dtz.factor);
+        assertArrayEquals(new long[]{1, 0, 0, 0, 0, 0, 0}, ei_dtz.factor);
         assertArrayEquals(new byte[]{6, 14, 5, 0, 0, 0, 0}, ei_dtz.pieces);
         assertArrayEquals(new byte[]{3, 0, 0, 0, 0, 0, 0}, ei_dtz.norm);
 
@@ -159,7 +159,7 @@ public class PieceEntryIntegrationTest {
      * Test for the "KQvKR" tableType: tableType without PAWNs
      */
     @Test
-    public void test_init_table_KQvKR() {
+    public void test_init_tb_KQvKR() {
         assertEquals("044B30304AEC99AAD41CED55994AA2D6", md5sum("KQvKR.rtbw"));
         assertEquals("1A76E02BA0C13C440C33CB95124AD06A", md5sum("KQvKR.rtbz"));
 
@@ -202,7 +202,7 @@ public class PieceEntryIntegrationTest {
         PieceAsymmetricWdl wdl = (PieceAsymmetricWdl) pieceEntry.wdl;
 
         EncInfo ei_wtm = wdl.ei_wtm;
-        assertArrayEquals(new int[]{61, 0, 0, 1, 0, 0, 0}, ei_wtm.factor);
+        assertArrayEquals(new long[]{61, 0, 0, 1, 0, 0, 0}, ei_wtm.factor);
         assertArrayEquals(new byte[]{6, 12, 5, 14, 0, 0, 0}, ei_wtm.pieces);
         assertArrayEquals(new byte[]{3, 0, 0, 1, 0, 0, 0}, ei_wtm.norm);
 
@@ -227,7 +227,7 @@ public class PieceEntryIntegrationTest {
 
 
         EncInfo ei_btm = wdl.ei_btm;
-        assertArrayEquals(new int[]{61, 0, 0, 1, 0, 0, 0}, ei_btm.factor);
+        assertArrayEquals(new long[]{61, 0, 0, 1, 0, 0, 0}, ei_btm.factor);
         assertArrayEquals(new byte[]{5, 14, 6, 12, 0, 0, 0}, ei_btm.pieces);
         assertArrayEquals(new byte[]{3, 0, 0, 1, 0, 0, 0}, ei_btm.norm);
 
@@ -260,7 +260,7 @@ public class PieceEntryIntegrationTest {
         assertEquals(2, dtz.dtzFlags);
 
         EncInfo ei_dtz = dtz.ei_dtz;
-        assertArrayEquals(new int[]{61, 0, 0, 1, 0, 0, 0}, ei_dtz.factor);
+        assertArrayEquals(new long[]{61, 0, 0, 1, 0, 0, 0}, ei_dtz.factor);
         assertArrayEquals(new byte[]{14, 5, 12, 6, 0, 0, 0}, ei_dtz.pieces);
         assertArrayEquals(new byte[]{3, 0, 0, 1, 0, 0, 0}, ei_dtz.norm);
 
@@ -303,7 +303,7 @@ public class PieceEntryIntegrationTest {
         PieceSymmetricWdl wdl = (PieceSymmetricWdl) pieceEntry.wdl;
 
         EncInfo ei_wtm = wdl.ei_wtm;
-        assertArrayEquals(new int[]{61, 0, 0, 1, 0, 0, 0}, ei_wtm.factor);
+        assertArrayEquals(new long[]{61, 0, 0, 1, 0, 0, 0}, ei_wtm.factor);
         assertArrayEquals(new byte[]{13, 6, 14, 5, 0, 0, 0}, ei_wtm.pieces);
         assertArrayEquals(new byte[]{3, 0, 0, 1, 0, 0, 0}, ei_wtm.norm);
 
@@ -339,7 +339,7 @@ public class PieceEntryIntegrationTest {
         assertEquals(2, dtz.dtzFlags);
 
         EncInfo ei_dtz = dtz.ei_dtz;
-        assertArrayEquals(new int[]{61, 0, 0, 1, 0, 0, 0}, ei_dtz.factor);
+        assertArrayEquals(new long[]{61, 0, 0, 1, 0, 0, 0}, ei_dtz.factor);
         assertArrayEquals(new byte[]{14, 6, 13, 5, 0, 0, 0}, ei_dtz.pieces);
         assertArrayEquals(new byte[]{3, 0, 0, 1, 0, 0, 0}, ei_dtz.norm);
 

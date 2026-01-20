@@ -32,6 +32,10 @@ abstract class BaseEntry {
     }
 
     void init_tb(String tbName) {
+        if (!test_tb(syzygy.syzygyDirectory, tbName, WDL.getSuffix())) {
+            return;
+        }
+
         this.tableName = tbName;
 
         // Convert the tableType name into an array of piece counts
@@ -56,14 +60,14 @@ abstract class BaseEntry {
             this.syzygy.TB_MaxCardinality = this.num;
         }
 
-        if (test_tb(this.syzygy.syzygyDirectory, tbName, WDL.getSuffix())) {
+        if (test_tb(syzygy.syzygyDirectory, tbName, WDL.getSuffix())) {
             this.wdl = createTable(WDL);
             if (this.wdl.init_table()) {
                 this.syzygy.numWdl++;
             }
         }
 
-        if (test_tb(this.syzygy.syzygyDirectory, tbName, DTM.getSuffix())) {
+        if (test_tb(syzygy.syzygyDirectory, tbName, DTM.getSuffix())) {
             this.dtm = createTable(DTM);
             if (this.dtm.init_table()) {
                 this.syzygy.numDtm++;

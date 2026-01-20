@@ -47,6 +47,7 @@ public class SyzygyImp implements Syzygy {
     int numWdl;
     int numDtm;
     int numDtz;
+
     int TB_MaxCardinality;
     int TB_MaxCardinalityDTM;
     int TB_LARGEST;
@@ -88,11 +89,19 @@ public class SyzygyImp implements Syzygy {
         int i = 0;
         int j = 0;
         int k = 0;
+        int l = 0;
+
+        /**
+         * Initialize tablebases with 3 pieces: K_ vs K
+         */
         for (i = 0; i < 5; i++) {
             String tableName = String.format("K%cvK", pieces[i].getSymbol());
             init_tb(tableName);
         }
 
+        /**
+         * Initialize tablebases with 4 pieces: K_ vs K_
+         */
         for (i = 0; i < 5; i++) {
             for (j = i; j < 5; j++) {
                 String tableName = String.format("K%cvK%c", pieces[i].getSymbol(), pieces[j].getSymbol());
@@ -100,6 +109,10 @@ public class SyzygyImp implements Syzygy {
             }
         }
 
+
+        /**
+         * Initialize tablebases with 4 pieces: K__ vs K
+         */
         for (i = 0; i < 5; i++) {
             for (j = i; j < 5; j++) {
                 String tableName = String.format("K%c%cvK", pieces[i].getSymbol(), pieces[j].getSymbol());
@@ -107,6 +120,9 @@ public class SyzygyImp implements Syzygy {
             }
         }
 
+        /**
+         * Initialize tablebases with 5 pieces: K__ vs K_
+         */
         for (i = 0; i < 5; i++) {
             for (j = i; j < 5; j++) {
                 for (k = 0; k < 5; k++) {
@@ -116,6 +132,9 @@ public class SyzygyImp implements Syzygy {
             }
         }
 
+        /**
+         * Initialize tablebases with 5 pieces: K___ vs K
+         */
         for (i = 0; i < 5; i++) {
             for (j = i; j < 5; j++) {
                 for (k = j; k < 5; k++) {
@@ -124,6 +143,49 @@ public class SyzygyImp implements Syzygy {
                 }
             }
         }
+
+        /**
+         * Initialize tablebases with 6 pieces: K__ vs K__
+         */
+        for (l = 0; l < 5; l++) {
+            for (i = 0; i < 5; i++) {
+                for (j = i; j < 5; j++) {
+                    for (k = 0; k < 5; k++) {
+                        String tableName = String.format("K%c%cvK%c%c", pieces[l].getSymbol(), pieces[i].getSymbol(), pieces[j].getSymbol(), pieces[k].getSymbol());
+                        init_tb(tableName);
+                    }
+                }
+            }
+        }
+
+        /**
+         * Initialize tablebases with 6 pieces: K___ vs K_
+         */
+        for (l = 0; l < 5; l++) {
+            for (i = 0; i < 5; i++) {
+                for (j = i; j < 5; j++) {
+                    for (k = 0; k < 5; k++) {
+                        String tableName = String.format("K%c%c%cvK%c", pieces[l].getSymbol(), pieces[i].getSymbol(), pieces[j].getSymbol(), pieces[k].getSymbol());
+                        init_tb(tableName);
+                    }
+                }
+            }
+        }
+
+        /**
+         * Initialize tablebases with 6 pieces: K____ vs K
+         */
+        for (l = 0; l < 5; l++) {
+            for (i = 0; i < 5; i++) {
+                for (j = i; j < 5; j++) {
+                    for (k = 0; k < 5; k++) {
+                        String tableName = String.format("K%c%c%c%cvK", pieces[l].getSymbol(), pieces[i].getSymbol(), pieces[j].getSymbol(), pieces[k].getSymbol());
+                        init_tb(tableName);
+                    }
+                }
+            }
+        }
+
 
         // Update the largest cardinality values
         TB_LARGEST = TB_MaxCardinality;
@@ -173,6 +235,10 @@ public class SyzygyImp implements Syzygy {
      */
     @Override
     public int tb_probe_root(SyzygyPosition pos, int[] results) {
+        if (Long.bitCount(pos.black | pos.white) > this.TB_LARGEST) {
+            return TB_RESULT_FAILED;
+        }
+
         if (pos.castling != 0)
             return TB_RESULT_FAILED;
 
@@ -223,6 +289,10 @@ public class SyzygyImp implements Syzygy {
 
     @Override
     public int tb_probe_wdl(SyzygyPosition pos) {
+        if (Long.bitCount(pos.black | pos.white) > this.TB_LARGEST) {
+            return TB_RESULT_FAILED;
+        }
+
         if (pos.castling != 0)
             return TB_RESULT_FAILED;
 
@@ -515,7 +585,7 @@ public class SyzygyImp implements Syzygy {
     //  0 : draw
     //  1 : win, but draw under 50-move rule
     //  2 : win
-    private int probe_wdl(SyzygyPosition pos) {
+    private int  probe_wdl(SyzygyPosition pos) {
         success = 1;
 
         // Generate (at least) all legal captures including (under)promotions.
@@ -535,7 +605,8 @@ public class SyzygyImp implements Syzygy {
             if (!do_move(pos1, pos, move))
                 continue; // illegal move
             int v = -probe_ab(pos1, -2, -bestCap);
-            if (success == 0) return 0;
+            if (success == 0)
+                return 0;
             if (v > bestCap) {
                 if (v == 2) {
                     success = 2;

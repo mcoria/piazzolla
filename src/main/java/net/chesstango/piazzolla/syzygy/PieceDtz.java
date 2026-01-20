@@ -28,14 +28,14 @@ class PieceDtz extends TableBase {
         U_INT8_PTR data = new U_INT8_PTR(mappedFile);
         data.incPtr(5);
 
-        int tb_size = ei_dtz.init_enc_info(data, 0);
+        long tb_size = ei_dtz.init_enc_info(data, 0);
 
         data.incPtr(pieceEntry.num + 1);
 
         // Next, there may be a padding byte to align the position within the tablebase file to a multiple of 2 bytes.
         data.ptr += data.ptr & 1;
 
-        int[] size = new int[3];
+        long[] size = new long[3];
         dtzFlags = data.read_uint8_t(0);
         ei_dtz.precomp = new PairsData(DTZ, data, tb_size, size);
 
@@ -47,8 +47,6 @@ class PieceDtz extends TableBase {
                     dtzMapIdx[i] = (short) (data.ptr + 1 - dtzMap.ptr);
                     data.incPtr(1 + data.read_uint8_t(0) & 0xFF);
                 }
-            } else {
-                throw new RuntimeException("not implemented: pieceEntry.dtzFlags & 16 == 0");
             }
         }
         data.ptr += data.ptr & 1;
@@ -94,18 +92,18 @@ class PieceDtz extends TableBase {
             i = ei_dtz.fill_squares(pos, flip, 0, p, i);
         }
 
-        int idx = ei_dtz.encode_piece(p);
+        long idx = ei_dtz.encode_piece(p);
 
         byte[] w = ei_dtz.precomp.decompress_pairs(idx);
 
-        int v = w[0] + ((w[1] & 0x0f) << 8);
+        int v = (w[0] & 0xFF)  + ((w[1] & 0x0F) << 8);
 
         if ((flags & 2) != 0) {
             int m = WdlToMap[score + 2];
             if ((flags & 16) == 0) {
-                v = dtzMap.read_uint8_t(dtzMapIdx[m] + v);
+                v = 0xFF & dtzMap.read_uint8_t(dtzMapIdx[m] + v);
             } else {
-                v = dtzMap.read_le_u16(dtzMapIdx[m] + v);
+                v = 0xFF & dtzMap.read_le_u16(dtzMapIdx[m] + v);
             }
         }
         if ((flags & PAFlags[score + 2]) == 0 || (score & 1) != 0) {

@@ -1,8 +1,8 @@
 package net.chesstango.piazzolla.syzygy;
 
+import static net.chesstango.piazzolla.syzygy.SyzygyConstants.TB_PIECES;
 import static net.chesstango.piazzolla.syzygy.SyzygyImp.PAFlags;
 import static net.chesstango.piazzolla.syzygy.SyzygyImp.WdlToMap;
-import static net.chesstango.piazzolla.syzygy.SyzygyConstants.TB_PIECES;
 import static net.chesstango.piazzolla.syzygy.TableBase.TableType.DTZ;
 
 /**
@@ -28,9 +28,8 @@ class PawnDtz extends TableBase {
         U_INT8_PTR data = new U_INT8_PTR(mappedFile);
         data.incPtr(5);
 
-        final int num = 4;
-        int[] tb_size = new int[num];
-        for (int i = 0; i < num; i++) {
+        long[] tb_size = new long[NUM];
+        for (int i = 0; i < NUM; i++) {
             ei_dtz[i] = new PawnEncInfo(pawnEntry);
             tb_size[i] = ei_dtz[i].init_enc_info(data, 0, i);
             data.incPtr(pawnEntry.num + 1 + (pawnEntry.pawns[1] > 0 ? 1 : 0));
@@ -39,8 +38,8 @@ class PawnDtz extends TableBase {
         // Next, there may be a padding byte to align the position within the tablebase file to a multiple of 2 bytes.
         data.ptr += data.ptr & 1;
 
-        int[][] size = new int[4][3];
-        for (int t = 0; t < num; t++) {
+        long[][] size = new long[4][3];
+        for (int t = 0; t < NUM; t++) {
             dtzFlags[t] = data.read_uint8_t(0);
             ei_dtz[t].precomp = new PairsData(DTZ, data, tb_size[t], size[t]);
         }
@@ -48,34 +47,32 @@ class PawnDtz extends TableBase {
 
         // DTZ specific attributes
         dtzMap = data.clone();
-        for (int t = 0; t < num; t++) {
+        for (int t = 0; t < NUM; t++) {
             if ((dtzFlags[t] & 2) != 0) {
                 if ((dtzFlags[t] & 16) == 0) {
                     for (int i = 0; i < 4; i++) {
                         dtzMapIdx[t][i] = (short) (data.ptr + 1 - dtzMap.ptr);
                         data.incPtr(1 + data.read_uint8_t(0) & 0xFF);
                     }
-                } else {
-                    throw new RuntimeException("not implemented: pieceEntry.dtzFlags & 16 == 0");
                 }
             }
         }
         data.ptr += data.ptr & 1;
 
         // indexTable ptr
-        for (int t = 0; t < num; t++) {
+        for (int t = 0; t < NUM; t++) {
             ei_dtz[t].precomp.indexTable = data.clone();
             data.incPtr(size[t][0]);
         }
 
         // sizeTable ptr
-        for (int t = 0; t < num; t++) {
+        for (int t = 0; t < NUM; t++) {
             ei_dtz[t].precomp.sizeTable = data.createU_INT16_PTR(0);
             data.incPtr(size[t][1]);
         }
 
         // data ptr
-        for (int t = 0; t < num; t++) {
+        for (int t = 0; t < NUM; t++) {
             data.ptr = (data.ptr + 0x3f) & ~0x3f;
             ei_dtz[t].precomp.data = data.clone();
             data.incPtr(size[t][2]);
@@ -88,10 +85,10 @@ class PawnDtz extends TableBase {
     int probe_table_imp(SyzygyPosition pos, long key, int score) {
         boolean flip;
         boolean bside;
-        if(!pawnEntry.symmetric) {
+        if (!pawnEntry.symmetric) {
             flip = key != pawnEntry.key;
             bside = pos.turn == flip;
-        }else{
+        } else {
             flip = !pos.turn;
             bside = false;
         }
@@ -116,18 +113,18 @@ class PawnDtz extends TableBase {
             i = ei.fill_squares(pos, flip, flip ? 0x38 : 0, p, i);
         }
 
-        int idx = ei.encode_pawn(p);
+        long idx = ei.encode_pawn(p);
 
         byte[] w = ei.precomp.decompress_pairs(idx);
 
-        int v = w[0] + ((w[1] & 0x0f) << 8);
+        int v = (w[0] & 0xFF) + ((w[1] & 0x0F) << 8);
 
         if ((flags & 2) != 0) {
             int m = WdlToMap[score + 2];
             if ((flags & 16) == 0) {
-                v = dtzMap.read_uint8_t(dtzMapIdx[t][m] + v);
+                v = 0xFF & dtzMap.read_uint8_t(dtzMapIdx[t][m] + v);
             } else {
-                v = dtzMap.read_le_u16(dtzMapIdx[t][m] + v);
+                v = 0xFF & dtzMap.read_le_u16(dtzMapIdx[t][m] + v);
             }
         }
         if ((flags & PAFlags[score + 2]) == 0 || (score & 1) != 0) {

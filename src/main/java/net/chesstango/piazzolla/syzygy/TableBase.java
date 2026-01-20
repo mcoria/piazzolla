@@ -6,6 +6,9 @@ import lombok.Getter;
  * @author Mauricio Coria
  */
 abstract class TableBase {
+
+    final static int NUM = 4;
+
     @Getter
     enum TableType {
         WDL(".rtbw", 0x5d23e871),

@@ -7,7 +7,7 @@ import static net.chesstango.piazzolla.syzygy.Chess.poplsb;
  */
 class EncInfo {
     PairsData precomp;
-    int[] factor = new int[SyzygyConstants.TB_PIECES];
+    long[] factor = new long[SyzygyConstants.TB_PIECES];
     byte[] pieces = new byte[SyzygyConstants.TB_PIECES];
     byte[] norm = new byte[SyzygyConstants.TB_PIECES];
 

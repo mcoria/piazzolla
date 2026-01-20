@@ -12,7 +12,7 @@ class PawnEncInfo extends EncInfo {
         this.pawnEntry = pawnEntry;
     }
 
-    int init_enc_info(U_INT8_PTR UINT8PTR, int shift, int t) {
+    long init_enc_info(U_INT8_PTR UINT8PTR, int shift, int t) {
         boolean morePawns = (pawnEntry.pawns[1] & 0xFF) > 0;
 
         for (int i = 0; i < pawnEntry.num; i++) {
@@ -38,7 +38,7 @@ class PawnEncInfo extends EncInfo {
         }
 
         int n = 64 - k;
-        int f = 1;
+        long f = 1;
 
         for (int i = 0; k < pawnEntry.num || i == order || i == order2; i++) {
             if (i == order) {
@@ -67,9 +67,9 @@ class PawnEncInfo extends EncInfo {
         return FileToFile[p[0] & 7];
     }
 
-    int encode_pawn(int[] p) {
+    long encode_pawn(int[] p) {
         int n = pawnEntry.num;
-        int idx = 0;
+        long idx = 0;
         int k = 0;
 
         if ((p[0] & 0x04) != 0)

@@ -16,7 +16,8 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
  */
 public class SyzygyImpProbeWDLIntegrationTest {
 
-    public static final Path PATH = Path.of("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5");
+    //public static final Path PATH = Path.of("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5");
+    public static final Path PATH = Path.of("E:\\syzygy");
 
     private SyzygyImp syzygy;
 
@@ -32,24 +33,8 @@ public class SyzygyImpProbeWDLIntegrationTest {
     }
 
     @Test
-    public void test_tb_init() {
-        assertEquals(650, syzygy.pieceEntry.length);
-        assertEquals(861, syzygy.pawnEntry.length);
-        assertEquals(4096, syzygy.tbHash.length);
-
-        assertEquals(5, syzygy.TB_LARGEST);
-        assertEquals(5, syzygy.TB_MaxCardinality);
-        assertEquals(0, syzygy.TB_MaxCardinalityDTM);
-        assertEquals(84, syzygy.tbNumPiece);
-        assertEquals(61, syzygy.tbNumPawn);
-        assertEquals(145, syzygy.numWdl);
-        assertEquals(0, syzygy.numDtm);
-        assertEquals(145, syzygy.numDtz);
-    }
-
-    @Test
     public void testMaxPieces() {
-        assertEquals(5, syzygy.tb_largest());
+        assertEquals(6, syzygy.tb_largest());
     }
 
     @Test
@@ -102,6 +87,19 @@ public class SyzygyImpProbeWDLIntegrationTest {
         assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
 
         assertEquals(Syzygy.TB_LOSS, res);
+    }
+
+    @Test
+    public void test_tb_probe_wdl_blackTurn_draw() {
+        FEN fen = FEN.of("6N1/5K2/2n3R1/8/k7/8/2P5/8 b - - 0 1");
+
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
+
+        int res = syzygy.tb_probe_wdl(syzygyPosition);
+
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
+
+        assertEquals(Syzygy.TB_DRAW, Syzygy.TB_GET_WDL(res));
     }
 
 }

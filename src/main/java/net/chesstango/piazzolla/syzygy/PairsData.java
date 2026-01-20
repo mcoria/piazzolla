@@ -19,7 +19,7 @@ class PairsData {
     byte[] constValue = new byte[2];
     long[] base;
 
-    PairsData(TableBase.TableType tableType, U_INT8_PTR ptr, int tb_size, int[] size) {
+    PairsData(TableBase.TableType tableType, U_INT8_PTR ptr, long tb_size, long[] size) {
         U_INT8_PTR data = ptr.clone();
 
         if ((data.read_uint8_t(0) & 0x80) != 0) {
@@ -53,10 +53,10 @@ class PairsData {
 
         ptr.ptr = data.ptr + (12 + 2 * h + 3 * numSyms + (numSyms & 1));
 
-        int num_indices = (tb_size + (1 << idxBits) - 1) >>> idxBits;
-        size[0] = 6 * num_indices;
-        size[1] = 2 * numBlocks;
-        size[2] = realNumBlocks << blockSize;
+        long num_indices = (tb_size + (1L << idxBits) - 1) >>> idxBits;
+        size[0] = 6L * num_indices;
+        size[1] = 2L * numBlocks;
+        size[2] = (long) realNumBlocks << blockSize;
 
         assert (numSyms < TB_MAX_SYMS);
         byte[] tmp = new byte[TB_MAX_SYMS];
@@ -81,7 +81,7 @@ class PairsData {
 
     void calc_symLen(int s, byte[] tmp) {
         U_INT8_PTR w = this.symPat.clone();
-        w.incPtr(3 * s);
+        w.incPtr(3L * s);
         int w2 = (w.read_uint8_t(2) & 0xFF) << 4;
         int w1 = (w.read_uint8_t(1) & 0xFF) >>> 4;
 
@@ -98,13 +98,13 @@ class PairsData {
     }
 
 
-    byte[] decompress_pairs(int idx) {
+    byte[] decompress_pairs(long idx) {
         if (idxBits == 0) {
             return constValue;
         }
 
-        int mainIdx = idx >>> idxBits;
-        int litIdx = (idx & ((1 << idxBits) - 1)) - (1 << (idxBits - 1));
+        long mainIdx = idx >>> idxBits;
+        long litIdx = (idx & ((1L << idxBits) - 1)) - (1L << (idxBits - 1));
         int block = indexTable.read_le_u32(6 * mainIdx);
 
         short idxOffset = indexTable.read_le_u16(6 * mainIdx + 4);
@@ -148,7 +148,7 @@ class PairsData {
 
 
         while (symLen[sym] != 0) {
-            U_INT8_PTR w = symPat.clone().incPtr(3 * sym);
+            U_INT8_PTR w = symPat.clone().incPtr(3L * sym);
             int s1 = (((w.read_uint8_t(1) & 0x0F) << 8) | (w.read_uint8_t(0) & 0xFF));
             if (litIdx < (symLen[s1] & 0xFF) + 1) {
                 sym = s1;
@@ -158,6 +158,6 @@ class PairsData {
             }
         }
 
-        return new byte[]{symPat.read_uint8_t(3 * sym), symPat.read_uint8_t(3 * sym + 1)};
+        return new byte[]{symPat.read_uint8_t(3L * sym), symPat.read_uint8_t(3L * sym + 1)};
     }
 }

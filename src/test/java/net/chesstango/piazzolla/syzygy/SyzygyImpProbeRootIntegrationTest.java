@@ -17,9 +17,10 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
  */
 public class SyzygyImpProbeRootIntegrationTest {
 
-    public static final Path PATH = Path.of("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5");
+    //static final Path PATH = Path.of("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5");
+    static final Path PATH = Path.of("E:\\syzygy");
 
-    private SyzygyImp syzygy;
+    SyzygyImp syzygy;
 
     @BeforeEach
     public void setUp() {
@@ -30,27 +31,6 @@ public class SyzygyImpProbeRootIntegrationTest {
     @AfterEach
     public void tearDown() {
         //syzygy.close();
-    }
-
-    @Test
-    public void test_tb_init() {
-        assertEquals(650, syzygy.pieceEntry.length);
-        assertEquals(861, syzygy.pawnEntry.length);
-        assertEquals(4096, syzygy.tbHash.length);
-
-        assertEquals(5, syzygy.TB_LARGEST);
-        assertEquals(5, syzygy.TB_MaxCardinality);
-        assertEquals(0, syzygy.TB_MaxCardinalityDTM);
-        assertEquals(84, syzygy.tbNumPiece);
-        assertEquals(61, syzygy.tbNumPawn);
-        assertEquals(145, syzygy.numWdl);
-        assertEquals(0, syzygy.numDtm);
-        assertEquals(145, syzygy.numDtz);
-    }
-
-    @Test
-    public void testMaxPieces() {
-        assertEquals(5, syzygy.tb_largest());
     }
 
     @Test
@@ -430,6 +410,81 @@ public class SyzygyImpProbeRootIntegrationTest {
         assertEquals(6, count(results, Syzygy.TB_DRAW));
         assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
         assertEquals(0, count(results, Syzygy.TB_LOSS));
+    }
+
+    @Test
+    public void test_tb_probe_root_longest_6() {
+        FEN fen = FEN.of("6N1/5KR1/2n5/8/8/8/2n5/1k6 w - - 0 1");
+
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
+
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
+
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
+
+        assertEquals(Syzygy.TB_CURSED_WIN, Syzygy.TB_GET_WDL(res));
+        assertEquals(484, Syzygy.TB_GET_DTZ(res));
+        assertEquals(53, Syzygy.TB_GET_FROM(res));
+        assertEquals(44, Syzygy.TB_GET_TO(res));
+        assertEquals(Syzygy.TB_PROMOTES_NONE, Syzygy.TB_GET_PROMOTES(res));
+
+        assertEquals(0, count(results, Syzygy.TB_WIN));
+        assertEquals(1, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(14, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(0, count(results, Syzygy.TB_LOSS));
+    }
+
+    @Test
+    public void test_tb_probe_root_KRNPvKN_white() {
+        FEN fen = FEN.of("6N1/5KR1/2n5/8/k7/8/2P5/8 w - - 0 1");
+
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
+
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
+
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
+
+        assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
+        assertEquals(1, Syzygy.TB_GET_DTZ(res));
+        assertEquals(10, Syzygy.TB_GET_FROM(res));
+        assertEquals(18, Syzygy.TB_GET_TO(res));
+        assertEquals(Syzygy.TB_PROMOTES_NONE, Syzygy.TB_GET_PROMOTES(res));
+
+        assertEquals(16, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(1, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(0, count(results, Syzygy.TB_LOSS));
+    }
+
+    @Test
+    public void test_tb_probe_root_KRNPvKN_black() {
+        FEN fen = FEN.of("6N1/5K2/2n3R1/8/k7/8/2P5/8 b - - 0 1");
+
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
+
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
+
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
+
+        assertEquals(Syzygy.TB_DRAW, Syzygy.TB_GET_WDL(res));
+        assertEquals(0, Syzygy.TB_GET_DTZ(res));
+        assertEquals(42, Syzygy.TB_GET_FROM(res));
+        assertEquals(36, Syzygy.TB_GET_TO(res));
+        assertEquals(Syzygy.TB_PROMOTES_NONE, Syzygy.TB_GET_PROMOTES(res));
+
+        assertEquals(0, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(1, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(11, count(results, Syzygy.TB_LOSS));
     }
 
     @Test
