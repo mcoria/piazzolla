@@ -17,8 +17,8 @@ import static java.nio.channels.FileChannel.MapMode.READ_ONLY;
  */
 class MappedFile implements Closeable {
 
-    RandomAccessFile file;
-    MemorySegment memorySegment;
+    private RandomAccessFile file;
+    private MemorySegment memorySegment;
 
     boolean map_tb(Path directory, String fileName, String suffix) {
         Path pathToRead = directory.resolve(String.format("%s%s", fileName, suffix));

@@ -1,34 +1,46 @@
 package net.chesstango.piazzolla.polyglot;
 
 import java.io.IOException;
-import java.nio.MappedByteBuffer;
+import java.io.RandomAccessFile;
+import java.lang.foreign.Arena;
+import java.lang.foreign.MemorySegment;
+import java.lang.foreign.ValueLayout;
+import java.nio.ByteOrder;
 import java.nio.channels.FileChannel;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
-import java.util.*;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
+import static java.nio.channels.FileChannel.MapMode.READ_ONLY;
 
 /**
  * @author Mauricio Coria
  */
 class MappedPolyglotBook implements PolyglotBook {
-    private final static int ENTRY_SIZE = 16;
-    private FileChannel fileChannel;
-    private MappedByteBuffer mappedByteBuffer;
-    private int maxUpperBoundIdx = 0;
+    private final static long ENTRY_SIZE = 16L;
+
+    private RandomAccessFile file;
+    private MemorySegment memorySegment;
+
+    private long maxUpperBoundIdx = 0;
 
     void load(Path pathToRead) throws IOException {
-        fileChannel = (FileChannel) Files.newByteChannel(pathToRead, EnumSet.of(StandardOpenOption.READ));
+        Arena globalArena = Arena.global();
 
-        maxUpperBoundIdx = (int) (fileChannel.size() / ENTRY_SIZE) - 1;
+        file = new RandomAccessFile(pathToRead.toFile(), "r");
 
-        mappedByteBuffer = fileChannel.map(FileChannel.MapMode.READ_ONLY, 0, fileChannel.size());
+        FileChannel channel = file.getChannel();
+
+        memorySegment = channel.map(READ_ONLY, 0, channel.size(), globalArena);
+
+        maxUpperBoundIdx = (channel.size() / ENTRY_SIZE) - 1L;
     }
 
     @Override
     public void close() throws IOException {
-        if (fileChannel != null) {
-            fileChannel.close();
+        if (file != null) {
+            file.close();
         }
     }
 
@@ -36,7 +48,7 @@ class MappedPolyglotBook implements PolyglotBook {
     public List<PolyglotEntry> search(long key) {
         List<PolyglotEntry> polyglotEntryList = Collections.emptyList();
 
-        int idx = findIndex(key, 0, maxUpperBoundIdx + 1);
+        long idx = findIndex(key, 0, maxUpperBoundIdx + 1);
 
         if (getKey(idx) == key) {
             polyglotEntryList = new LinkedList<>();
@@ -48,7 +60,7 @@ class MappedPolyglotBook implements PolyglotBook {
 
             while (idx <= maxUpperBoundIdx && getKey(idx) == key) {
 
-                int moveAndWeight = mappedByteBuffer.getInt(idx * ENTRY_SIZE + 8);
+                int moveAndWeight = memorySegment.get(ValueLayout.JAVA_INT.withOrder(ByteOrder.BIG_ENDIAN), idx * ENTRY_SIZE + 8);
 
                 PolyglotEntry entry = createPolyglotEntry(key, moveAndWeight);
 
@@ -61,12 +73,12 @@ class MappedPolyglotBook implements PolyglotBook {
         return polyglotEntryList;
     }
 
-    private int findIndex(final long key, final int lowerBoundIdx, final int upperBoundIdx) {
+    private long findIndex(final long key, final long lowerBoundIdx, final long upperBoundIdx) {
         if (lowerBoundIdx + 1 >= upperBoundIdx) {
             return lowerBoundIdx;
         }
 
-        final int middleIdx = (lowerBoundIdx + upperBoundIdx) / 2;
+        final long middleIdx = (lowerBoundIdx + upperBoundIdx) / 2;
 
         final long middleKey = getKey(middleIdx);
 
@@ -81,8 +93,8 @@ class MappedPolyglotBook implements PolyglotBook {
         }
     }
 
-    private long getKey(int idx) {
-        return mappedByteBuffer.getLong(idx * ENTRY_SIZE);
+    private long getKey(long idx) {
+        return memorySegment.get(ValueLayout.JAVA_LONG.withOrder(ByteOrder.BIG_ENDIAN), idx * ENTRY_SIZE);
     }
 
 
