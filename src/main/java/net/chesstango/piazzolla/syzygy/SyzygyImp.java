@@ -147,11 +147,11 @@ public class SyzygyImp implements Syzygy {
         /**
          * Initialize tablebases with 6 pieces: K__ vs K__
          */
-        for (l = 0; l < 5; l++) {
-            for (i = 0; i < 5; i++) {
-                for (j = i; j < 5; j++) {
-                    for (k = 0; k < 5; k++) {
-                        String tableName = String.format("K%c%cvK%c%c", pieces[l].getSymbol(), pieces[i].getSymbol(), pieces[j].getSymbol(), pieces[k].getSymbol());
+        for (i = 0; i < 5; i++){
+            for (j = i; j < 5; j++){
+                for (k = i; k < 5; k++){
+                    for (l = (i == k) ? j : k; l < 5; l++) {
+                        String tableName = String.format("K%c%cvK%c%c", pieces[i].getSymbol(), pieces[j].getSymbol(), pieces[k].getSymbol(), pieces[l].getSymbol());
                         init_tb(tableName);
                     }
                 }

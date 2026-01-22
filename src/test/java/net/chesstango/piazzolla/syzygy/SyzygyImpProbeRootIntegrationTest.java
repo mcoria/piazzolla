@@ -572,7 +572,7 @@ public class SyzygyImpProbeRootIntegrationTest {
     }
 
     @Test
-    public void test_tb_probe_root_KPvKP_whit02() {
+    public void test_tb_probe_root_KPvKP_white02() {
         FEN fen = FEN.of("6k1/8/6p1/3K2P1/8/8/8/8 w - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
@@ -597,6 +597,34 @@ public class SyzygyImpProbeRootIntegrationTest {
         assertEquals(0, count(results, Syzygy.TB_DRAW));
         assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
         assertEquals(0, count(results, Syzygy.TB_LOSS));
+    }
+
+    @Test
+    public void test_tb_probe_root_KNPvKRP_white01() {
+        FEN fen = FEN.of("8/8/2K5/2Np4/1k6/5P2/5r2/8 w - - 0 42");
+
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
+
+        int[] results = new int[Syzygy.TB_MAX_MOVES];
+
+        int res = syzygy.tb_probe_root(syzygyPosition, results);
+
+        //System.out.printf("0x%s", Integer.toHexString(res).toUpperCase());
+        assertEquals(0x208934, res);
+
+        assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
+
+        assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
+        assertEquals(2, Syzygy.TB_GET_DTZ(res));
+        assertEquals(34, Syzygy.TB_GET_FROM(res));
+        assertEquals(19, Syzygy.TB_GET_TO(res));
+        assertEquals(Syzygy.TB_PROMOTES_NONE, Syzygy.TB_GET_PROMOTES(res));
+
+        assertEquals(1, count(results, Syzygy.TB_WIN));
+        assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
+        assertEquals(0, count(results, Syzygy.TB_DRAW));
+        assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
+        assertEquals(14, count(results, Syzygy.TB_LOSS));
     }
     
 
