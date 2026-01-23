@@ -19,14 +19,16 @@ public class SyzygyPositionBuilder extends AbstractPositionBuilder<SyzygyPositio
         syzygyPosition.bishops = this.bishopPositions;
         syzygyPosition.knights = this.knightPositions;
         syzygyPosition.pawns = this.pawnPositions;
-        syzygyPosition.rule50 = this.halfMoveClock;
+        syzygyPosition.rule50 = (byte) this.halfMoveClock;
 
-        syzygyPosition.castling = (castlingBlackKingAllowed ||
+        syzygyPosition.castling = (byte) ((castlingBlackKingAllowed ||
                 castlingBlackQueenAllowed ||
                 castlingWhiteKingAllowed ||
-                castlingWhiteQueenAllowed) ? 1 : 0;
+                castlingWhiteQueenAllowed) ? 1 : 0);
 
-        syzygyPosition.ep = enPassantSquare == 0 ? 0 : 1;
+        int enPassantSquareTrail = Long.numberOfTrailingZeros(enPassantSquare);
+
+        syzygyPosition.ep = (byte) (enPassantSquareTrail < 64 ? enPassantSquareTrail : 0);
         syzygyPosition.turn = this.whiteTurn;
 
         return syzygyPosition;

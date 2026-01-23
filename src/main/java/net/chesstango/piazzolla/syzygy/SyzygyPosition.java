@@ -23,9 +23,9 @@ public class SyzygyPosition {
     long bishops;
     long knights;
     long pawns;
-    int rule50;
-    int castling;
-    int ep;
+    byte rule50;
+    byte castling;
+    byte ep;
     boolean turn;
 
     public static SyzygyPosition from(FEN fen) {

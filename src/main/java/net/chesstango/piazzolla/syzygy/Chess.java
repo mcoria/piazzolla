@@ -319,10 +319,10 @@ class Chess {
             pos.rule50 = 0;                // Pawn move
             if (rank(from) == 1 && rank(to) == 3 &&
                     (pawn_attacks(from + 8, true) & pos0.pawns & pos0.black) != 0)
-                pos.ep = from + 8;
+                pos.ep = (byte) (from + 8);
             else if (rank(from) == 6 && rank(to) == 4 &&
                     (pawn_attacks(from - 8, false) & pos0.pawns & pos0.white) != 0)
-                pos.ep = from - 8;
+                pos.ep = (byte) (from - 8);
             else if (to == pos0.ep) {
                 int ep_to = (pos0.turn ? to - 8 : to + 8);
                 long ep_mask = ~board(ep_to);
@@ -333,7 +333,7 @@ class Chess {
         } else if ((board(to) & (pos0.white | pos0.black)) != 0)
             pos.rule50 = 0;                // Capture
         else
-            pos.rule50 = pos0.rule50 + 1; // Normal move
+            pos.rule50 = (byte) (pos0.rule50 + 1); // Normal move
         if (!is_legal(pos))
             return false;
         return true;
@@ -559,6 +559,8 @@ class Chess {
                 idx = add_move(moves, idx, false, from, to);
             }
         }
+
+        // Iterates our queens, adding queen attacks as moves
         for (b = us & pos.queens; b != 0; b = poplsb(b)) {
             int from = Long.numberOfTrailingZeros(b);
             for (att = queen_attacks(from, occ) & them; att != 0; att = poplsb(att)) {
@@ -566,6 +568,8 @@ class Chess {
                 idx = add_move(moves, idx, false, from, to);
             }
         }
+
+        // Adds rook moves to the move list
         for (b = us & pos.rooks; b != 0; b = poplsb(b)) {
             int from = Long.numberOfTrailingZeros(b);
             for (att = rook_attacks(from, occ) & them; att != 0; att = poplsb(att)) {
@@ -573,6 +577,8 @@ class Chess {
                 idx = add_move(moves, idx, false, from, to);
             }
         }
+
+        // Adds bishop moves to the move list
         for (b = us & pos.bishops; b != 0; b = poplsb(b)) {
             int from = Long.numberOfTrailingZeros(b);
             for (att = bishop_attacks(from, occ) & them; att != 0; att = poplsb(att)) {
@@ -580,6 +586,8 @@ class Chess {
                 idx = add_move(moves, idx, false, from, to);
             }
         }
+
+        // Adds knight moves to the move list
         for (b = us & pos.knights; b != 0; b = poplsb(b)) {
             int from = Long.numberOfTrailingZeros(b);
             for (att = knight_attacks(from) & them; att != 0; att = poplsb(att)) {
@@ -587,6 +595,8 @@ class Chess {
                 idx = add_move(moves, idx, false, from, to);
             }
         }
+
+        // Adds pawn moves, including en passant captures
         for (b = us & pos.pawns; b != 0; b = poplsb(b)) {
             int from = Long.numberOfTrailingZeros(b);
             att = pawn_attacks(from, pos.turn);

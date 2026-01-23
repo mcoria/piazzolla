@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Mauricio Coria
  */
 public class Syszygy_6_IntegrationTest {
-    static final Path PATH = Path.of("E:\\syzygy");
+    static final Path PATH = Path.of("D:\\books\\syzygy");
 
     SyzygyImp syzygy;
 

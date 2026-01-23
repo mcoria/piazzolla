@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Mauricio Coria
  */
 public class PawnEntryIntegrationTest {
-    public static final Path PATH = Path.of("E:\\syzygy");
+    public static final Path PATH = Path.of("D:\\books\\syzygy");
 
     private SyzygyImp syzygy;
     private PawnEntry pawnEntry;

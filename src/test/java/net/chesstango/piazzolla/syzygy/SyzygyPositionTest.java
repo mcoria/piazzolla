@@ -50,4 +50,23 @@ public class SyzygyPositionTest {
         assertTrue(syzygyPosition.turn);
     }
 
+    @Test
+    public void testToPosition03() {
+        FEN fen = FEN.of("8/5K2/5p2/5Pp1/8/8/3k4/8 w - g6 0 1");
+
+        SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
+
+        assertEquals(0x0020002000000000L, syzygyPosition.white);
+        assertEquals(0x0000204000000800L, syzygyPosition.black);
+        assertEquals(0x0020000000000800L, syzygyPosition.kings);
+        assertEquals(0x0000000000000000L, syzygyPosition.queens);
+        assertEquals(0x0000000000000000L, syzygyPosition.rooks);
+        assertEquals(0x0000000000000000L, syzygyPosition.bishops);
+        assertEquals(0x0000000000000000L, syzygyPosition.knights);
+        assertEquals(0x0000206000000000L, syzygyPosition.pawns);
+        assertEquals(0x00, syzygyPosition.rule50);
+        assertEquals(0x2E, syzygyPosition.ep);
+        assertTrue(syzygyPosition.turn);
+    }
+
 }
