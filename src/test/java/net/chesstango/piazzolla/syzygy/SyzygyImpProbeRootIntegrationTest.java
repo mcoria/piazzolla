@@ -643,16 +643,16 @@ public class SyzygyImpProbeRootIntegrationTest {
         assertNotEquals(Syzygy.TB_RESULT_FAILED, res);
 
         assertEquals(Syzygy.TB_WIN, Syzygy.TB_GET_WDL(res));
-        assertEquals(2, Syzygy.TB_GET_DTZ(res));
-        assertEquals(34, Syzygy.TB_GET_FROM(res));
-        assertEquals(19, Syzygy.TB_GET_TO(res));
+        assertEquals(1, Syzygy.TB_GET_DTZ(res));
+        assertEquals(37, Syzygy.TB_GET_FROM(res));
+        assertEquals(46, Syzygy.TB_GET_TO(res));
         assertEquals(Syzygy.TB_PROMOTES_NONE, Syzygy.TB_GET_PROMOTES(res));
 
         assertEquals(1, count(results, Syzygy.TB_WIN));
         assertEquals(0, count(results, Syzygy.TB_CURSED_WIN));
-        assertEquals(0, count(results, Syzygy.TB_DRAW));
+        assertEquals(5, count(results, Syzygy.TB_DRAW));
         assertEquals(0, count(results, Syzygy.TB_BLESSED_LOSS));
-        assertEquals(14, count(results, Syzygy.TB_LOSS));
+        assertEquals(3, count(results, Syzygy.TB_LOSS));
     }
     
 

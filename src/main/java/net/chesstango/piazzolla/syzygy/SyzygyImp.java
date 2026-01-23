@@ -263,7 +263,7 @@ public class SyzygyImp implements Syzygy {
         res = TB_SET_FROM(res, move_from(move));
         res = TB_SET_TO(res, move_to(move));
         res = TB_SET_PROMOTES(res, move_promotes(move));
-        res = TB_SET_EP(res, is_en_passant(pos, move) ? pos.ep : 0);
+        res = TB_SET_EP(res, is_en_passant(pos, move) ? 1 : 0);
 
         return res;
     }
