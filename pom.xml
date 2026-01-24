@@ -117,7 +117,7 @@
                 <version>${maven-failsafe-plugin.version}</version>
                 <configuration>
                     <environmentVariables>
-                        <SYZYGY_DIR>${env.SYZYGY_DIR}</SYZYGY_DIR>
+                        <SYZYGY_PATH>${env.SYZYGY_PATH}</SYZYGY_PATH>
                     </environmentVariables>
                 </configuration>
                 <executions>

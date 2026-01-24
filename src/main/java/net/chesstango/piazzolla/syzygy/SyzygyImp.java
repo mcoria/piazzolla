@@ -1,6 +1,10 @@
 package net.chesstango.piazzolla.syzygy;
 
+import java.io.File;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static net.chesstango.piazzolla.syzygy.Chess.*;
 import static net.chesstango.piazzolla.syzygy.SyzygyConstants.Piece.*;
@@ -37,7 +41,7 @@ public class SyzygyImp implements Syzygy {
     static final int[] WdlToMap = new int[]{1, 3, 0, 2, 0};
     static final byte[] PAFlags = new byte[]{8, 0, 0, 0, 4};
 
-    final Path syzygyDirectory;
+    final Path[] syzygyPath;
     final HashEntry[] tbHash = new HashEntry[1 << TB_HASHBITS];
     final PieceEntry[] pieceEntry = new PieceEntry[TB_MAX_PIECE];
     final PawnEntry[] pawnEntry = new PawnEntry[TB_MAX_PAWN];
@@ -56,8 +60,16 @@ public class SyzygyImp implements Syzygy {
     int score;
     int dtz;
 
-    SyzygyImp(Path syzygyDirectory) {
-        this.syzygyDirectory = syzygyDirectory;
+    SyzygyImp(String syzygyPath) {
+        String[] directories = syzygyPath.split(File.pathSeparator);
+        List<Path> syzygyPathList = new ArrayList<>();
+        for (int i = 0; i < directories.length; i++) {
+            if(Path.of(directories[i]).toFile().isDirectory()) {
+                syzygyPathList.add(Path.of(directories[i]));
+            }
+        }
+
+        this.syzygyPath = syzygyPathList.toArray(Path[]::new);
     }
 
     @Override
@@ -66,7 +78,7 @@ public class SyzygyImp implements Syzygy {
     }
 
     /**
-     * Initializes the tablebase system with the specified syzygyDirectory.
+     * Initializes the tablebase system with the specified syzygyPath.
      * This method resets all counters and properties related to the tablebase,
      * sets the syzygyDirectory for the tablebase files, and initializes the first five
      * tablebases using predefined tableType names. It also updates the largest

@@ -48,9 +48,9 @@ public interface Syzygy {
 
     int tb_largest();
 
-    static Syzygy open(Path syzygyDirectory) {
-        SyzygyImp syzygy = new SyzygyImp(syzygyDirectory);
-        syzygy.tb_init();
-        return syzygy;
+    static Syzygy open(String syzygyPath) {
+        SyzygyImp syzygyImp = new SyzygyImp(syzygyPath);
+        syzygyImp.tb_init();
+        return syzygyImp;
     }
 }

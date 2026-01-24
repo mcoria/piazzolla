@@ -20,23 +20,34 @@ class MappedFile implements Closeable {
     private RandomAccessFile file;
     private MemorySegment memorySegment;
 
-    boolean map_tb(Path directory, String fileName, String suffix) {
-        Path pathToRead = directory.resolve(String.format("%s%s", fileName, suffix));
-        try {
+    boolean map_tb(Path[] syzygyPath, String fileName, String suffix) {
+        Path pathToRead = null;
 
-            Arena globalArena = Arena.global();
-
-            file = new RandomAccessFile(pathToRead.toFile(), "r");
-
-            FileChannel channel = file.getChannel();
-
-            memorySegment = channel.map(READ_ONLY, 0, channel.size(), globalArena);
-
-            return true;
-
-        } catch (IOException e) {
-            e.printStackTrace(System.err);
+        for (Path syzygyDirectory : syzygyPath) {
+            pathToRead = syzygyDirectory.resolve(String.format("%s%s", fileName, suffix));
+            if (Files.exists(pathToRead)) {
+                break;
+            }
         }
+
+        if (pathToRead != null) {
+            try {
+
+                Arena globalArena = Arena.global();
+
+                file = new RandomAccessFile(pathToRead.toFile(), "r");
+
+                FileChannel channel = file.getChannel();
+
+                memorySegment = channel.map(READ_ONLY, 0, channel.size(), globalArena);
+
+                return true;
+
+            } catch (IOException e) {
+                e.printStackTrace(System.err);
+            }
+        }
+
         return false;
     }
 
@@ -65,8 +76,14 @@ class MappedFile implements Closeable {
         return memorySegment.get(ValueLayout.JAVA_LONG_UNALIGNED, idx);
     }
 
-    static boolean test_tb(Path directory, String fileName, String suffix) {
-        Path file = directory.resolve(String.format("%s%s", fileName, suffix));
-        return Files.exists(file);
+    static boolean test_tb(Path[] syzygyPath, String fileName, String suffix) {
+        Path pathToRead;
+        for (Path syzygyDirectory : syzygyPath) {
+            pathToRead = syzygyDirectory.resolve(String.format("%s%s", fileName, suffix));
+            if (Files.exists(pathToRead)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

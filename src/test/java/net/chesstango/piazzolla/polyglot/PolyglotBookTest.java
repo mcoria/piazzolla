@@ -17,7 +17,7 @@ public class PolyglotBookTest {
 
     @Test
     @Disabled
-    public void testReadPerfect_2021() throws IOException {
+    public void testReadBook() throws IOException {
         try (PolyglotBook book = PolyglotBook.open(Path.of("C:/java/projects/chess/chess-utils/books/openings/polyglot-collection/komodo.bin"))) {
 
             //book.load(Path.of("C:\\Java\\projects\\chess\\chess-utils\\books\\openings\\polyglot-collection\\final-book.bin"));
@@ -25,18 +25,7 @@ public class PolyglotBookTest {
 
             long polyglotKey = getPolyglotKey(INITIAL_FEN);
             //long polyglotKey = getPolyglotKey("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1");
-            //long polyglotKey = getPolyglotKey("rnbqkbnr/pppppppp/8/8/8/5N2/PPPPPPPP/RNBQKB1R b KQkq - 1 1");
-            //long polyglotKey = getPolyglotKey("rnbqkbnr/ppp1pppp/8/3p4/8/5N2/PPPPPPPP/RNBQKB1R w KQkq d6 0 2");
-            //long polyglotKey = getPolyglotKey("rnbqkbnr/ppp1pppp/8/3p4/8/5NP1/PPPPPP1P/RNBQKB1R b KQkq - 0 2");
-            //long polyglotKey = getPolyglotKey("rnbqkbnr/pp2pppp/2p5/3p4/8/5NP1/PPPPPP1P/RNBQKB1R w KQkq - 0 3");
-            //long polyglotKey = getPolyglotKey("rnbqkbnr/pp2pppp/2p5/3p4/8/5NP1/PPPPPPBP/RNBQK2R b KQkq - 1 3");
-            //long polyglotKey = getPolyglotKey("rn1qkbnr/pp2pppp/2p5/3p4/6b1/5NP1/PPPPPPBP/RNBQK2R w KQkq - 2 4");
-            //long polyglotKey = getPolyglotKey("rn1qkbnr/pp2pppp/2p5/3p4/6b1/5NP1/PPPPPPBP/RNBQ1RK1 b kq - 3 4");
-            //long polyglotKey = getPolyglotKey("r2qkbnr/pp1npppp/2p5/3p4/6b1/5NP1/PPPPPPBP/RNBQ1RK1 w kq - 4 5");
-            //long polyglotKey = getPolyglotKey("r2qkbnr/pp1npppp/2p5/3p4/6b1/3P1NP1/PPP1PPBP/RNBQ1RK1 b kq - 0 5");
-            //long polyglotKey = getPolyglotKey("r2qkbnr/pp1n1pp1/2p1p2p/3pPb2/3P4/2P2N2/PP2BPPP/RNBQK2R w KQkq - 0 7");
-
-            //long polyglotKey = 0xDA48997503D0L;    // First entry in the book
+            //long polyglotKey = 0xDA48997503D0L;       // First entry in the book
             //long polyglotKey = 0xFFFD4170FE7E8A0AL;  // Last entry in the book
 
             List<PolyglotEntry> possibleMoves = book.search(polyglotKey);
