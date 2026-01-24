@@ -17,8 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
  */
 public class SyzygyImpProbeRootIntegrationTest {
 
-    //static final Path PATH = Path.of("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5");
-    static final String PATH = "D:\\k8s_shared\\syzygy\\3-4-5-6";
+    static final String PATH = "D:\\k8s_shared\\syzygy\\3-4-5;D:\\k8s_shared\\syzygy\\6-WDL;D:\\k8s_shared\\syzygy\\6-DTZ";
 
     SyzygyImp syzygy;
 
