@@ -3,9 +3,13 @@ package net.chesstango.piazzolla.syzygy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.FileInputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.MessageDigest;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Mauricio Coria
  */
 public class PawnEntryIntegrationTest {
-    public static final String PATH = "D:\\k8s_shared\\syzygy\\3-4-5";
+    public static final String PATH = "D:\\k8s_shared\\syzygy\\3-4-5;D:\\k8s_shared\\syzygy\\6-WDL;D:\\k8s_shared\\syzygy\\6-DTZ";
 
     private SyzygyImp syzygy;
     private PawnEntry pawnEntry;
@@ -1185,24 +1189,40 @@ public class PawnEntryIntegrationTest {
 
 
     public String md5sum(String filename) {
-        try {
-            Path tbPath = Path.of(PATH).resolve(filename);
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            try (FileInputStream fis = new FileInputStream(tbPath.toFile())) {
-                byte[] buffer = new byte[8192];
-                int bytesRead;
-                while ((bytesRead = fis.read(buffer)) != -1) {
-                    md.update(buffer, 0, bytesRead);
+        String[] directories = PATH.split(File.pathSeparator);
+        List<Path> syzygyPathList = new ArrayList<>();
+        for (int i = 0; i < directories.length; i++) {
+            if (Path.of(directories[i]).toFile().isDirectory()) {
+                syzygyPathList.add(Path.of(directories[i]));
+            }
+        }
+
+        Path pathToRead = null;
+
+        for (Path syzygyDirectory : syzygyPathList) {
+            pathToRead = syzygyDirectory.resolve(filename);
+            if (Files.exists(pathToRead)) {
+                try {
+                    MessageDigest md = MessageDigest.getInstance("MD5");
+                    try (FileInputStream fis = new FileInputStream(pathToRead.toFile())) {
+                        byte[] buffer = new byte[8192];
+                        int bytesRead;
+                        while ((bytesRead = fis.read(buffer)) != -1) {
+                            md.update(buffer, 0, bytesRead);
+                        }
+                    }
+                    byte[] digest = md.digest();
+                    StringBuilder sb = new StringBuilder();
+                    for (byte b : digest) {
+                        sb.append(String.format("%02x", b));
+                    }
+                    return sb.toString().toUpperCase();
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
                 }
             }
-            byte[] digest = md.digest();
-            StringBuilder sb = new StringBuilder();
-            for (byte b : digest) {
-                sb.append(String.format("%02x", b));
-            }
-            return sb.toString().toUpperCase();
-        } catch (Exception e) {
-            throw new RuntimeException(e);
         }
+
+        return "";
     }
 }
