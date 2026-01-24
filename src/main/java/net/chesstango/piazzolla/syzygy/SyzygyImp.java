@@ -1,5 +1,6 @@
 package net.chesstango.piazzolla.syzygy;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -60,7 +61,7 @@ public class SyzygyImp implements Syzygy {
     int dtz;
 
     SyzygyImp(String syzygyPath) {
-        String[] directories = syzygyPath.split(";");
+        String[] directories = syzygyPath.split(File.pathSeparator);
         List<Path> syzygyPathList = new ArrayList<>();
         for (int i = 0; i < directories.length; i++) {
             if(Path.of(directories[i]).toFile().isDirectory()) {

@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Mauricio Coria
  */
 public class PieceEntryIntegrationTest {
-    public static final String PATH = "D:\\k8s_shared\\syzygy\\3-4-5-6";
+    public static final String PATH = "D:\\k8s_shared\\syzygy\\3-4-5";
 
     private SyzygyImp syzygy;
     private PieceEntry pieceEntry;
