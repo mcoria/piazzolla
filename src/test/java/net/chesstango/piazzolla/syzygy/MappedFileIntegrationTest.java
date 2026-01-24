@@ -14,6 +14,6 @@ public class MappedFileIntegrationTest {
 
     @Test
     public void test_test_tb() {
-        assertFalse(test_tb(Path.of("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5"), "KQvK", ".rtbm"));
+        assertFalse(test_tb(new Path[]{Path.of("C:\\java\\projects\\chess\\chess-utils\\books\\syzygy\\3-4-5")}, "KQvK", ".rtbm"));
     }
 }

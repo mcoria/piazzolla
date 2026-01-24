@@ -32,7 +32,7 @@ abstract class BaseEntry {
     }
 
     void init_tb(String tbName) {
-        if (!test_tb(syzygy.syzygyDirectory, tbName, WDL.getSuffix())) {
+        if (!test_tb(syzygy.syzygyPath, tbName, WDL.getSuffix())) {
             return;
         }
 
@@ -60,14 +60,14 @@ abstract class BaseEntry {
             this.syzygy.TB_MaxCardinality = this.num;
         }
 
-        if (test_tb(syzygy.syzygyDirectory, tbName, WDL.getSuffix())) {
+        if (test_tb(syzygy.syzygyPath, tbName, WDL.getSuffix())) {
             this.wdl = createTable(WDL);
             if (this.wdl.init_table()) {
                 this.syzygy.numWdl++;
             }
         }
 
-        if (test_tb(syzygy.syzygyDirectory, tbName, DTM.getSuffix())) {
+        if (test_tb(syzygy.syzygyPath, tbName, DTM.getSuffix())) {
             this.dtm = createTable(DTM);
             if (this.dtm.init_table()) {
                 this.syzygy.numDtm++;
@@ -77,7 +77,7 @@ abstract class BaseEntry {
             }
         }
 
-        if (test_tb(syzygy.syzygyDirectory, tbName, DTZ.getSuffix())) {
+        if (test_tb(syzygy.syzygyPath, tbName, DTZ.getSuffix())) {
             this.dtz = createTable(DTZ);
             if (this.dtz.init_table()) {
                 this.syzygy.numDtz++;

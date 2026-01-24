@@ -55,7 +55,7 @@ abstract class TableBase {
     boolean init_table() {
         boolean init_success = false;
 
-        if (!ready && mappedFile.map_tb(baseEntry.syzygy.syzygyDirectory, baseEntry.tableName, tableType.getSuffix())) {
+        if (!ready && mappedFile.map_tb(baseEntry.syzygy.syzygyPath, baseEntry.tableName, tableType.getSuffix())) {
 
             /**
              * The main header of the tablebases file:

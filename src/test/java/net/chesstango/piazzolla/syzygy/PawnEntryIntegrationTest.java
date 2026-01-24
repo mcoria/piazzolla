@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Mauricio Coria
  */
 public class PawnEntryIntegrationTest {
-    public static final Path PATH = Path.of("D:\\books\\syzygy");
+    public static final String PATH = "D:\\k8s_shared\\syzygy\\3-4-5-6";
 
     private SyzygyImp syzygy;
     private PawnEntry pawnEntry;
@@ -1186,7 +1186,7 @@ public class PawnEntryIntegrationTest {
 
     public String md5sum(String filename) {
         try {
-            Path tbPath = PATH.resolve(filename);
+            Path tbPath = Path.of(PATH).resolve(filename);
             MessageDigest md = MessageDigest.getInstance("MD5");
             try (FileInputStream fis = new FileInputStream(tbPath.toFile())) {
                 byte[] buffer = new byte[8192];
