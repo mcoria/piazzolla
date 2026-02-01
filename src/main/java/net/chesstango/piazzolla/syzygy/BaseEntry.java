@@ -1,5 +1,8 @@
 package net.chesstango.piazzolla.syzygy;
 
+import java.io.Closeable;
+import java.io.IOException;
+
 import static net.chesstango.piazzolla.syzygy.MappedFile.test_tb;
 import static net.chesstango.piazzolla.syzygy.SyzygyConstants.*;
 import static net.chesstango.piazzolla.syzygy.SyzygyConstants.Piece.*;
@@ -8,7 +11,7 @@ import static net.chesstango.piazzolla.syzygy.TableBase.TableType.*;
 /**
  * @author Mauricio Coria
  */
-abstract class BaseEntry {
+abstract class BaseEntry implements Closeable {
     final SyzygyImp syzygy;
 
     String tableName;
@@ -97,6 +100,16 @@ abstract class BaseEntry {
 
     int probe_dtz(SyzygyPosition syzygyPosition, long key, int score) {
         return dtz.probe_table(syzygyPosition, key, score);
+    }
+
+    @Override
+    public void close() throws IOException {
+        if (wdl != null) {
+            wdl.close();
+        }
+        if (dtz != null) {
+            dtz.close();
+        }
     }
 
     static long calc_key_from_pcs(int[] pcs, boolean mirror) {
