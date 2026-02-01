@@ -1,9 +1,9 @@
 package net.chesstango.piazzolla.syzygy;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static net.chesstango.piazzolla.syzygy.Chess.*;
@@ -32,6 +32,7 @@ import static net.chesstango.piazzolla.syzygy.TableBase.TableType.*;
  * @author Mauricio Coria
  */
 public class SyzygyImp implements Syzygy {
+
     static class HashEntry {
         long key;
         BaseEntry ptr;
@@ -70,11 +71,6 @@ public class SyzygyImp implements Syzygy {
         }
 
         this.syzygyPath = syzygyPathList.toArray(Path[]::new);
-    }
-
-    @Override
-    public int tb_largest() {
-        return TB_LARGEST;
     }
 
     /**
@@ -206,6 +202,12 @@ public class SyzygyImp implements Syzygy {
         }
     }
 
+
+    @Override
+    public int tb_largest() {
+        return TB_LARGEST;
+    }
+
     /**
      * Probe the Distance-To-Zero (DTZ) table.
      * <p>
@@ -317,6 +319,11 @@ public class SyzygyImp implements Syzygy {
             return TB_RESULT_FAILED;
 
         return v + 2;
+    }
+
+    @Override
+    public void close() throws IOException {
+
     }
 
     /**

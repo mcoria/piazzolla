@@ -18,7 +18,10 @@ public class PolyglotBookTest {
     @Test
     @Disabled
     public void testReadBook() throws IOException {
-        try (PolyglotBook book = PolyglotBook.open(Path.of("C:/java/projects/chess/chess-utils/books/openings/polyglot-collection/komodo.bin"))) {
+        //String bookPath = "C:\\java\\projects\\chess\\chess-utils\\books\\openings\\polyglot-collection\\komodo.bin";
+        String bookPath = "C:\\java\\projects\\chess\\chess-utils\\books\\openings\\Perfect_2023\\BIN\\Perfect2023.bin";
+        //String bookPath = "C:\\java\\projects\\chess\\chess-utils\\books\\openings\\chesstango\\chesstango.bin";
+        try (PolyglotBook book = PolyglotBook.open(Path.of(bookPath))) {
 
             //book.load(Path.of("C:\\Java\\projects\\chess\\chess-utils\\books\\openings\\polyglot-collection\\final-book.bin"));
             //book.load(Path.of("C:\\Java\\projects\\chess\\chess-utils\\books\\openings\\Perfect_2021\\BIN\\Perfect2021.bin"));

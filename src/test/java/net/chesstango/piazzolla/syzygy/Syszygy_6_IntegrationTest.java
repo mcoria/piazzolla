@@ -4,7 +4,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.nio.file.Path;
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -23,8 +23,8 @@ public class Syszygy_6_IntegrationTest {
     }
 
     @AfterEach
-    public void tearDown() {
-        //syzygy.close();
+    public void tearDown() throws IOException {
+        syzygy.close();
     }
 
     @Test

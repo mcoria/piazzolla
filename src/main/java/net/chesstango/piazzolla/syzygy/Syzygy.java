@@ -1,11 +1,11 @@
 package net.chesstango.piazzolla.syzygy;
 
-import java.nio.file.Path;
+import java.io.Closeable;
 
 /**
  * @author Mauricio Coria
  */
-public interface Syzygy {
+public interface Syzygy extends Closeable {
     int TB_MAX_MOVES = (192 + 1);
     int TB_WIN = 4;                /* WIN  */
     int TB_RESULT_CHECKMATE = SyzygyConstants.TB_SET_WDL(0, TB_WIN);

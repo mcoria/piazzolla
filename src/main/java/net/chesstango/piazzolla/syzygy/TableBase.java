@@ -2,10 +2,13 @@ package net.chesstango.piazzolla.syzygy;
 
 import lombok.Getter;
 
+import java.io.Closeable;
+import java.io.IOException;
+
 /**
  * @author Mauricio Coria
  */
-abstract class TableBase {
+abstract class TableBase implements Closeable {
 
     final static int NUM = 4;
 
@@ -86,6 +89,11 @@ abstract class TableBase {
         error = !init_success;
         ready = true;
         return init_success;
+    }
+
+    @Override
+    public void close() throws IOException {
+        mappedFile.close();
     }
 
     int probe_table(SyzygyPosition pos, long key, int s) {
