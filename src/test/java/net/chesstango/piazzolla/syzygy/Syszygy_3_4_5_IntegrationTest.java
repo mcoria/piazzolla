@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,7 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * @author Mauricio Coria
  */
 public class Syszygy_3_4_5_IntegrationTest {
-    static final String PATH = "D:\\k8s_shared\\syzygy\\3-4-5";
+    static final Set<Path> PATH = Set.of(Path.of("D:\\k8s_shared\\syzygy\\3-4-5")
+    );
 
     SyzygyImp syzygy;
 

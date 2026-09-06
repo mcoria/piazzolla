@@ -10,6 +10,7 @@ import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,7 +18,10 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Mauricio Coria
  */
 public class PawnEntryIntegrationTest {
-    public static final String PATH = "D:\\k8s_shared\\syzygy\\3-4-5;D:\\k8s_shared\\syzygy\\6-WDL;D:\\k8s_shared\\syzygy\\6-DTZ";
+    static final Set<Path> PATH = Set.of(Path.of("D:\\k8s_shared\\syzygy\\3-4-5"),
+            Path.of("D:\\k8s_shared\\syzygy\\6-WDL"),
+            Path.of("D:\\k8s_shared\\syzygy\\6-DTZ")
+    );
 
     private SyzygyImp syzygy;
     private PawnEntry pawnEntry;
@@ -1189,7 +1193,7 @@ public class PawnEntryIntegrationTest {
 
 
     public String md5sum(String filename) {
-        String[] directories = PATH.split(File.pathSeparator);
+        String[] directories = PATH.stream().map(Path::toString).toArray(String[]::new);
         List<Path> syzygyPathList = new ArrayList<>();
         for (int i = 0; i < directories.length; i++) {
             if (Path.of(directories[i]).toFile().isDirectory()) {

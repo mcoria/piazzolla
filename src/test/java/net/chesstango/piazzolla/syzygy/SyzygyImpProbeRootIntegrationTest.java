@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -17,7 +18,10 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
  */
 public class SyzygyImpProbeRootIntegrationTest {
 
-    static final String PATH = "D:\\k8s_shared\\syzygy\\3-4-5;D:\\k8s_shared\\syzygy\\6-WDL;D:\\k8s_shared\\syzygy\\6-DTZ";
+    static final Set<Path> PATH = Set.of(Path.of("D:\\k8s_shared\\syzygy\\3-4-5"),
+            Path.of("D:\\k8s_shared\\syzygy\\6-WDL"),
+            Path.of("D:\\k8s_shared\\syzygy\\6-DTZ")
+    );
 
     SyzygyImp syzygy;
 

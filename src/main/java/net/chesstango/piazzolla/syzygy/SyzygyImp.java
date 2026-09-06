@@ -1,10 +1,9 @@
 package net.chesstango.piazzolla.syzygy;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import static net.chesstango.piazzolla.syzygy.Chess.*;
 import static net.chesstango.piazzolla.syzygy.SyzygyConstants.Piece.*;
@@ -61,16 +60,10 @@ public class SyzygyImp implements Syzygy {
     int score;
     int dtz;
 
-    SyzygyImp(String syzygyPath) {
-        String[] directories = syzygyPath.split(File.pathSeparator);
-        List<Path> syzygyPathList = new ArrayList<>();
-        for (int i = 0; i < directories.length; i++) {
-            if(Path.of(directories[i]).toFile().isDirectory()) {
-                syzygyPathList.add(Path.of(directories[i]));
-            }
-        }
-
-        this.syzygyPath = syzygyPathList.toArray(Path[]::new);
+    SyzygyImp(Set<Path> syzygyDirs) {
+        this.syzygyPath = syzygyDirs.stream()
+                .filter(Files::isDirectory)
+                .toArray(Path[]::new);
     }
 
     /**
@@ -155,9 +148,9 @@ public class SyzygyImp implements Syzygy {
         /**
          * Initialize tablebases with 6 pieces: K__ vs K__
          */
-        for (i = 0; i < 5; i++){
-            for (j = i; j < 5; j++){
-                for (k = i; k < 5; k++){
+        for (i = 0; i < 5; i++) {
+            for (j = i; j < 5; j++) {
+                for (k = i; k < 5; k++) {
                     for (l = (i == k) ? j : k; l < 5; l++) {
                         String tableName = String.format("K%c%cvK%c%c", pieces[i].getSymbol(), pieces[j].getSymbol(), pieces[k].getSymbol(), pieces[l].getSymbol());
                         init_tb(tableName);
@@ -604,7 +597,7 @@ public class SyzygyImp implements Syzygy {
     //  0 : draw
     //  1 : win, but draw under 50-move rule
     //  2 : win
-    private int  probe_wdl(SyzygyPosition pos) {
+    private int probe_wdl(SyzygyPosition pos) {
         success = 1;
 
         // Generate (at least) all legal captures including (under)promotions.

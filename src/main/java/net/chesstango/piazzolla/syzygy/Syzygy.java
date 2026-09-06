@@ -1,6 +1,8 @@
 package net.chesstango.piazzolla.syzygy;
 
 import java.io.Closeable;
+import java.nio.file.Path;
+import java.util.Set;
 
 /**
  * @author Mauricio Coria
@@ -48,8 +50,8 @@ public interface Syzygy extends Closeable {
 
     int tb_largest();
 
-    static Syzygy open(String syzygyPath) {
-        SyzygyImp syzygyImp = new SyzygyImp(syzygyPath);
+    static Syzygy open(Set<Path> syzygyDirs) {
+        SyzygyImp syzygyImp = new SyzygyImp(syzygyDirs);
         syzygyImp.tb_init();
         return syzygyImp;
     }
