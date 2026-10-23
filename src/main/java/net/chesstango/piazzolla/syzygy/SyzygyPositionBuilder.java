@@ -3,10 +3,23 @@ package net.chesstango.piazzolla.syzygy;
 import net.chesstango.gardel.AbstractPositionBuilder;
 
 /**
+ * Builder for constructing {@link SyzygyPosition} instances from chess position state.
+ *
  * @author Mauricio Coria
  */
 public class SyzygyPositionBuilder extends AbstractPositionBuilder<SyzygyPosition> {
 
+    /**
+     * Constructs a new {@code SyzygyPositionBuilder}.
+     */
+    public SyzygyPositionBuilder() {
+    }
+
+    /**
+     * Builds and returns a {@link SyzygyPosition} representation based on the configured position state.
+     *
+     * @return the constructed {@link SyzygyPosition}
+     */
     @Override
     public SyzygyPosition getPositionRepresentation() {
         SyzygyPosition syzygyPosition = new SyzygyPosition();

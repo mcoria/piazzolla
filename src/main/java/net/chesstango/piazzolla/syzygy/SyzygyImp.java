@@ -12,21 +12,17 @@ import static net.chesstango.piazzolla.syzygy.SyzygyConstants.PieceType.*;
 import static net.chesstango.piazzolla.syzygy.TableBase.TableType.*;
 
 /**
- * Syzygy Bases consist of two sets of files,
- * - WDL files (extension .rtbw) storing win/draw/loss information considering the fifty-move rule for access during search
- * - DTZ files (extension .rtbz) with distance-to-zero information for access at the root.
+ * Implementation of the {@link Syzygy} tablebase prober.
  * <p>
+ * Syzygy Bases consist of two sets of files:
+ * <ul>
+ *   <li><b>WDL files (.rtbw)</b>: Storing win/draw/loss information considering the fifty-move rule for access during search.</li>
+ *   <li><b>DTZ files (.rtbz)</b>: Storing distance-to-zero information for access at the root.</li>
+ * </ul>
  * <p>
- * DTZ measures the shortest distance to zero the position (zeroing = pawn move, capture or checkmate),
- * without compromising the Win/Draw/Loss status. If White only has just sufficient material to mate,
- * then any zeroing is likely to be useful, but if White has way more material than is necessary,
- * White may try to sacrifice its own unit, and Black may try to refuse the sacrifice
- * <p>
- * WDL has full data for two sides but DTZ50 omitted data of one side to save space. Each endgame has a pair of those types.
- * <p>
- * Syzygy WDL is double-sided, DTZ is single-sided.
- * So to know whether a 7-piece position is winning, losing or drawn (or cursed), the engine needs to do only a single probe of a 7-piece WDL tableType. (It may in addition have to do some probes of 6-piece WDL tables if any direct captures are available.)
- * If the engine needs to know the DTZ value (which is only necessary when a TB root position has been reached), the probing code may have to do a 1-ply search to get to the "right" side of the DTZ tableType.
+ * DTZ measures the shortest distance to zero the position (zeroing = pawn move, capture, or checkmate),
+ * without compromising the Win/Draw/Loss status. WDL has full data for both sides, whereas DTZ50 omits data for one side to save space.
+ * Syzygy WDL is double-sided and DTZ is single-sided.
  *
  * @author Mauricio Coria
  */
@@ -67,12 +63,10 @@ public class SyzygyImp implements Syzygy {
     }
 
     /**
-     * Initializes the tablebase system with the specified syzygyPath.
-     * This method resets all counters and properties related to the tablebase,
-     * sets the syzygyDirectory for the tablebase files, and initializes the first five
-     * tablebases using predefined tableType names. It also updates the largest
-     * cardinality values based on the initialized tablebases.
-     *
+     * Initializes the tablebase system with the configured directory paths.
+     * <p>
+     * Resets counters and properties, discovers and initializes tablebases
+     * (3-piece, 4-piece, 5-piece, and 6-piece tables), and updates the maximum available cardinality.
      */
     public void tb_init() {
         // Reset counters and properties
@@ -196,49 +190,30 @@ public class SyzygyImp implements Syzygy {
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int tb_largest() {
         return TB_LARGEST;
     }
 
     /**
-     * Probe the Distance-To-Zero (DTZ) table.
+     * {@inheritDoc}
      * <p>
-     * PARAMETERS:
-     * - white, black, kings, queens, rooks, bishops, knights, pawns: The current position (bitboards).
-     * - rule50: The 50-move half-move clock.
-     * - castling: Castling rights.  Set to zero if no castling is possible.
-     * - ep: The en passant square (if exists).  Set to zero if there is no en passant square.
-     * - turn: true=white, false=black
-     * - results (OPTIONAL):
-     * Alternative results, one for each possible legal move.  The passed array
-     * must be TB_MAX_MOVES in size.
-     * If alternative results are not desired then set results=NULL.
+     * Probes the Distance-To-Zero (DTZ) and Win-Draw-Loss (WDL) tablebases for the given root position.
      * <p>
-     * RETURN:
-     * - A TB_RESULT value comprising:
-     * 1) The WDL value (TB_GET_WDL)
-     * 2) The suggested move (TB_GET_FROM, TB_GET_TO, TB_GET_PROMOTES, TB_GET_EP)
-     * 3) The DTZ value (TB_GET_DTZ)
-     * The suggested move is guaranteed to preserved the WDL value.
-     * <p>
-     * Otherwise:
-     * 1) TB_RESULT_STALEMATE is returned if the position is in stalemate.
-     * 2) TB_RESULT_CHECKMATE is returned if the position is in checkmate.
-     * 3) TB_RESULT_FAILED is returned if the probe failed.
-     * <p>
-     * If results!=NULL, then a TB_RESULT for each legal move will be generated
-     * and stored in the results array.  The results array will be terminated
-     * by TB_RESULT_FAILED.
-     * <p>
-     * NOTES:
-     * - Engines can use this function to probe at the root.  This function should
-     * not be used during search.
-     * - DTZ tablebases can suggest unnatural moves, especially for losing
-     * positions.  Engines may prefer to traditional search combined with WDL
-     * move filtering using the alternative results array.
-     * - This function is NOT thread safe.  For engines this function should only
-     * be called once at the root per search.
+     * <b>Notes:</b>
+     * <ul>
+     *   <li>Engines can use this function to probe at the root. This function should not be used during tree search.</li>
+     *   <li>DTZ tablebases can suggest unnatural moves, especially for losing positions. Engines may prefer traditional search
+     *       combined with WDL move filtering using the alternative results array.</li>
+     *   <li>This function is not thread-safe.</li>
+     * </ul>
+     *
+     * @param pos the chess position representation to probe
+     * @param results an optional array of size at least {@link #TB_MAX_MOVES} to receive results for all legal moves, or {@code null}
+     * @return an encoded result with WDL, DTZ, and best move details, or {@link #TB_RESULT_FAILED}, {@link #TB_RESULT_CHECKMATE}, or {@link #TB_RESULT_STALEMATE}
      */
     @Override
     public int tb_probe_root(SyzygyPosition pos, int[] results) {
@@ -277,23 +252,13 @@ public class SyzygyImp implements Syzygy {
 
 
     /**
-     * Probe the Win-Draw-Loss (WDL) table.
+     * {@inheritDoc}
      * <p>
-     * PARAMETERS:
-     * - white, black, kings, queens, rooks, bishops, knights, pawns: The current position (bitboards).
-     * - rule50: The 50-move half-move clock.
-     * - castling: Castling rights.  Set to zero if no castling is possible.
-     * - ep: The en passant square (if exists).  Set to zero if there is no en passant square.
-     * - turn: true=white, false=black
-     * <p>
-     * RETURN:
-     * - One of {TB_LOSS, TB_BLESSED_LOSS, TB_DRAW, TB_CURSED_WIN, TB_WIN}.
-     * Otherwise returns TB_RESULT_FAILED if the probe failed.
-     * <p>
-     * NOTES:
-     * - Engines should use this function during search.
+     * Probes the Win-Draw-Loss (WDL) tablebases for the given position during tree search.
+     *
+     * @param pos the chess position representation to probe
+     * @return one of {@link #TB_LOSS}, {@link #TB_BLESSED_LOSS}, {@link #TB_DRAW}, {@link #TB_CURSED_WIN}, or {@link #TB_WIN}, or {@link #TB_RESULT_FAILED} if probing failed
      */
-
     @Override
     public int tb_probe_wdl(SyzygyPosition pos) {
         if (Long.bitCount(pos.black | pos.white) > this.TB_LARGEST) {
@@ -314,6 +279,11 @@ public class SyzygyImp implements Syzygy {
         return v + 2;
     }
 
+    /**
+     * Closes any open resources associated with the tablebase files.
+     *
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     public void close() throws IOException {
 
