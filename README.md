@@ -29,7 +29,7 @@ Add the following dependency to your `pom.xml`:
 <dependency>
     <groupId>net.chesstango</groupId>
     <artifactId>piazzolla</artifactId>
-    <version>1.1.3</version>
+    <version>1.1.4</version>
 </dependency>
 ```
 
