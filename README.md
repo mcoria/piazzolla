@@ -1,18 +1,24 @@
 [![Java CI with Maven](https://github.com/mcoria/piazzolla/actions/workflows/maven.yml/badge.svg)](https://github.com/mcoria/piazzolla/actions/workflows/maven.yml)
 # Piazzolla
 
-Piazzolla is a Java library designed for working with Syzygy Endgame Tablebases (EGTB) and Polyglot opening books. It provides tools for loading and searching both types of chess data.
+Piazzolla is a Java library designed for working with Syzygy Endgame Tablebases (EGTB) and Polyglot opening books. It provides fast, memory-mapped probing tools for both endgame tables (WDL and DTZ) and opening book files.
 
 ## Features
 
-- Load and query Syzygy endgame tablebases.
-- Load Polyglot opening books.
-- Search for entries in the opening book using a key.
-- Lightweight and easy to integrate into Java projects.
+- **Syzygy Endgame Tablebases**:
+  - Probe Win-Draw-Loss (WDL) tables (`.rtbw`) for fast evaluation during search.
+  - Probe Distance-To-Zero (DTZ) tables (`.rtbz`) to find optimal moves and DTZ distance at the root.
+  - Support for multi-directory tablebase configurations (3-4-5-6 pieces).
+  - Helper methods to decode result values (WDL outcome, DTZ ply count, move coordinates, promotions).
+- **Polyglot Opening Books**:
+  - Memory-mapped reading and binary search of Polyglot `.bin` opening books.
+  - Polyglot 64-bit Zobrist key generation from chess positions and FEN strings.
+- **Integration**:
+  - Direct integration with [Gardel](https://github.com/mcoria/gardel) for FEN handling.
 
 ## Requirements
 
-- Java 21 or higher
+- Java 25 or higher
 
 ## Installation
 
@@ -28,63 +34,117 @@ Add the following dependency to your `pom.xml`:
 
 ## Usage
 
-### Loading a Polyglot Book
+### Syzygy Endgame Tablebases
+
+#### 1. Probing Win-Draw-Loss (WDL)
 
 ```java
-import net.chesstango.piazzolla.polyglot.PolyglotBook;
-import net.chesstango.piazzolla.polyglot.MappedPolyglotBook;
+import net.chesstango.gardel.fen.FEN;
+import net.chesstango.piazzolla.syzygy.Syzygy;
+import net.chesstango.piazzolla.syzygy.SyzygyPosition;
 
 import java.nio.file.Path;
+import java.util.Set;
 
-public class Main {
+public class SyzygyWdlExample {
     public static void main(String[] args) {
-        PolyglotBook book = new MappedPolyglotBook();
-        book.load(Path.of("syzygyDirectory/to/polyglot/book.bin"));
+        Set<Path> tablebasePaths = Set.of(
+            Path.of("/path/to/syzygy/3-4-5"),
+            Path.of("/path/to/syzygy/6-WDL")
+        );
 
-        if (book.isLoaded()) {
-            System.out.println("Polyglot book loaded successfully!");
+        try (Syzygy syzygy = Syzygy.open(tablebasePaths)) {
+            FEN fen = FEN.from("8/8/8/8/8/3k4/2R5/1K6 w - - 0 1");
+            SyzygyPosition position = SyzygyPosition.from(fen);
+
+            int wdl = syzygy.tb_probe_wdl(position);
+
+            if (wdl != Syzygy.TB_RESULT_FAILED) {
+                switch (wdl) {
+                    case Syzygy.TB_WIN -> System.out.println("Win");
+                    case Syzygy.TB_CURSED_WIN -> System.out.println("Cursed Win (drawn by 50-move rule)");
+                    case Syzygy.TB_DRAW -> System.out.println("Draw");
+                    case Syzygy.TB_BLESSED_LOSS -> System.out.println("Blessed Loss (drawn by 50-move rule)");
+                    case Syzygy.TB_LOSS -> System.out.println("Loss");
+                }
+            } else {
+                System.out.println("Position not found in tablebase");
+            }
         }
     }
 }
 ```
 
-### Searching for Entries
+#### 2. Probing Root Move and Distance-To-Zero (DTZ)
 
 ```java
-import net.chesstango.piazzolla.polyglot.PolyglotBook;
-import net.chesstango.piazzolla.polyglot.MappedPolyglotBook;
-import net.chesstango.piazzolla.polyglot.PolyglotEntry;
+import net.chesstango.gardel.fen.FEN;
+import net.chesstango.piazzolla.syzygy.Syzygy;
+import net.chesstango.piazzolla.syzygy.SyzygyPosition;
 
 import java.nio.file.Path;
-import java.util.List;
+import java.util.Set;
 
-public class Main {
+public class SyzygyRootExample {
     public static void main(String[] args) {
-        PolyglotBook book = new MappedPolyglotBook();
-        book.load(Path.of("syzygyDirectory/to/polyglot/book.bin"));
+        Set<Path> tablebasePaths = Set.of(
+            Path.of("/path/to/syzygy/3-4-5"),
+            Path.of("/path/to/syzygy/6-WDL"),
+            Path.of("/path/to/syzygy/6-DTZ")
+        );
 
-        long key = 123456789L; // Example key
-        List<PolyglotEntry> entries = book.search(key);
+        try (Syzygy syzygy = Syzygy.open(tablebasePaths)) {
+            FEN fen = FEN.from("7k/8/7K/7Q/8/8/8/8 w - - 0 1");
+            SyzygyPosition position = SyzygyPosition.from(fen);
 
-        entries.forEach(entry -> System.out.println(entry));
+            int[] results = new int[Syzygy.TB_MAX_MOVES];
+            int bestMoveResult = syzygy.tb_probe_root(position, results);
+
+            if (bestMoveResult != Syzygy.TB_RESULT_FAILED) {
+                int wdl = Syzygy.TB_GET_WDL(bestMoveResult);
+                int dtz = Syzygy.TB_GET_DTZ(bestMoveResult);
+                int fromSquare = Syzygy.TB_GET_FROM(bestMoveResult);
+                int toSquare = Syzygy.TB_GET_TO(bestMoveResult);
+                int promotes = Syzygy.TB_GET_PROMOTES(bestMoveResult);
+
+                System.out.printf("Best move: %d -> %d (promotes: %d), DTZ: %d plies, WDL: %d%n",
+                        fromSquare, toSquare, promotes, dtz, wdl);
+            }
+        }
     }
 }
 ```
 
-### Loading a Syzygy Tablebase
+### Polyglot Opening Books
+
+#### 1. Searching Moves by Polyglot Key
 
 ```java
-import net.chesstango.piazzolla.syzygy.SyzygyTablebase;
+import net.chesstango.gardel.fen.FEN;
+import net.chesstango.piazzolla.polyglot.PolyglotBook;
+import net.chesstango.piazzolla.polyglot.PolyglotEntry;
+import net.chesstango.piazzolla.polyglot.PolyglotKeyBuilder;
 
+import java.io.IOException;
 import java.nio.file.Path;
+import java.util.List;
 
-public class Main {
-    public static void main(String[] args) {
-        SyzygyTablebase tablebase = new SyzygyTablebase();
-        tablebase.load(Path.of("syzygyDirectory/to/syzygy/tablebase"));
+public class PolyglotExample {
+    public static void main(String[] args) throws IOException {
+        Path bookPath = Path.of("/path/to/polyglot/book.bin");
 
-        if (tablebase.isLoaded()) {
-            System.out.println("Syzygy tablebase loaded successfully!");
+        try (PolyglotBook book = PolyglotBook.open(bookPath)) {
+            // Generate Polyglot 64-bit Zobrist key from FEN
+            PolyglotKeyBuilder keyBuilder = new PolyglotKeyBuilder();
+            FEN.from("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1").export(keyBuilder);
+            long key = keyBuilder.getPositionRepresentation();
+
+            List<PolyglotEntry> entries = book.search(key);
+
+            for (PolyglotEntry entry : entries) {
+                // PolyglotEntry toString formats move in coordinate notation with weight (e.g. "e2 e4 100")
+                System.out.println(entry);
+            }
         }
     }
 }
@@ -93,7 +153,6 @@ public class Main {
 ## License
 
 This project is licensed under the BSD 3-Clause License. See the [LICENSE](https://github.com/mcoria/piazzolla?tab=BSD-3-Clause-1-ov-file) file for details.
-
 
 ## Contributing
 
