@@ -3,17 +3,58 @@ package net.chesstango.piazzolla.polyglot;
 import net.chesstango.gardel.AbstractPositionBuilder;
 
 /**
+ * Builder for computing 64-bit Polyglot Zobrist hash keys from chess position state.
+ * <p>
+ * Implements the standard Polyglot Zobrist hashing specification, including piece-square hashes,
+ * castling rights, active turn indicator, and en passant squares (only hashed when eligible enemy
+ * pawns can capture en passant).
+ *
+ * @see <a href="http://hgm.nubati.net/book_format.html">Polyglot Book Format Specification</a>
  * @author Mauricio Coria
  */
 public class PolyglotKeyBuilder extends AbstractPositionBuilder<Long> {
 
+    /**
+     * Offset index in the Polyglot pseudo-random numbers array for White kingside castling rights.
+     */
     public static final int CASTLE_WHITE_KING_OFFSET = 768;
+
+    /**
+     * Offset index in the Polyglot pseudo-random numbers array for White queenside castling rights.
+     */
     public static final int CASTLE_WHITE_QUEEN_OFFSET = 769;
+
+    /**
+     * Offset index in the Polyglot pseudo-random numbers array for Black kingside castling rights.
+     */
     public static final int CASTLE_BLACK_KING_OFFSET = 770;
+
+    /**
+     * Offset index in the Polyglot pseudo-random numbers array for Black queenside castling rights.
+     */
     public static final int CASTLE_BLACK_QUEEN_OFFSET = 771;
+
+    /**
+     * Base offset index in the Polyglot pseudo-random numbers array for en passant file hashes (files 0 through 7).
+     */
     public static final int EN_PASSANT_OFFSET = 772;
+
+    /**
+     * Offset index in the Polyglot pseudo-random numbers array for White's turn indicator.
+     */
     public static final int TURN_OFFSET = 780;
 
+    /**
+     * Constructs a new {@code PolyglotKeyBuilder}.
+     */
+    public PolyglotKeyBuilder() {
+    }
+
+    /**
+     * Computes and returns the 64-bit Polyglot Zobrist hash key for the configured position.
+     *
+     * @return the 64-bit Polyglot hash key representing the chess position
+     */
     @Override
     public Long getPositionRepresentation() {
         long piece = 0;
@@ -41,6 +82,19 @@ public class PolyglotKeyBuilder extends AbstractPositionBuilder<Long> {
         return piece ^ castle ^ enPassant ^ turn;
     }
 
+    /**
+     * Determines which pawns of the side to move are in position to capture an en passant target square.
+     * <p>
+     * Under the Polyglot specification, an en passant square is only hashed into the position key if
+     * at least one pawn of the side to move can legally perform the en passant capture.
+     *
+     * @param whiteTurn {@code true} if it is White's turn to move; {@code false} if Black's turn
+     * @param whitePositions bitboard indicating all White piece locations
+     * @param blackPositions bitboard indicating all Black piece locations
+     * @param pawnPositions bitboard indicating all pawn locations (both colors)
+     * @param enPassantSquare bitboard containing a single bit set for the en passant target square
+     * @return a bitboard of pawns belonging to the side to move that can attack the en passant square, or 0 if none
+     */
     public static long pawnsAttackingEnPassantSquare(boolean whiteTurn, long whitePositions, long blackPositions, long pawnPositions, long enPassantSquare) {
         long pawns = 0;
         int enPassantSquarePosition = Long.numberOfTrailingZeros(enPassantSquare);
