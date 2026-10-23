@@ -8,8 +8,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
-import static net.chesstango.gardel.fen.FENParser.INITIAL_FEN;
-
 /**
  * @author Mauricio Coria
  */
@@ -26,7 +24,7 @@ public class PolyglotBookTest {
             //book.load(Path.of("C:\\Java\\projects\\chess\\chess-utils\\books\\openings\\polyglot-collection\\final-book.bin"));
             //book.load(Path.of("C:\\Java\\projects\\chess\\chess-utils\\books\\openings\\Perfect_2021\\BIN\\Perfect2021.bin"));
 
-            //long polyglotKey = getPolyglotKey(INITIAL_FEN);
+            //long polyglotKey = getPolyglotKey(START_POSITION_STRING);
             long polyglotKey = getPolyglotKey("r1bqkb1r/1p1n1ppp/p2ppn2/6B1/3NPP2/2N5/PPP1Q1PP/R3KB1R b KQkq - 1 8");
             //long polyglotKey = 0xDA48997503D0L;       // First entry in the book
             //long polyglotKey = 0xFFFD4170FE7E8A0AL;  // Last entry in the book
@@ -43,7 +41,7 @@ public class PolyglotBookTest {
 
     private long getPolyglotKey(String fen) {
         PolyglotKeyBuilder polyglotKeyBuilder = new PolyglotKeyBuilder();
-        FEN.of(fen).export(polyglotKeyBuilder);
+        FEN.from(fen).export(polyglotKeyBuilder);
         return polyglotKeyBuilder.getPositionRepresentation();
     }
 }

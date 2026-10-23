@@ -38,7 +38,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_KQvK_white() {
-        FEN fen = FEN.of("7k/8/7K/7Q/8/8/8/8 w - - 0 1");
+        FEN fen = FEN.from("7k/8/7K/7Q/8/8/8/8 w - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -63,7 +63,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_KQvK_black() {
-        FEN fen = FEN.of("7k/8/7K/7Q/8/8/8/8 b - - 0 1");
+        FEN fen = FEN.from("7k/8/7K/7Q/8/8/8/8 b - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -88,7 +88,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_KQvKR_white() {
-        FEN fen = FEN.of("7k/r7/7K/7Q/8/8/8/8 w - - 0 1");
+        FEN fen = FEN.from("7k/r7/7K/7Q/8/8/8/8 w - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -113,7 +113,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_KQvKR_black() {
-        FEN fen = FEN.of("7k/r7/7K/7Q/8/8/8/8 b - - 0 1");
+        FEN fen = FEN.from("7k/r7/7K/7Q/8/8/8/8 b - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -138,7 +138,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_KQvKQ_white() {
-        FEN fen = FEN.of("7k/q7/7K/7Q/8/8/8/8 w - - 0 1");
+        FEN fen = FEN.from("7k/q7/7K/7Q/8/8/8/8 w - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -163,7 +163,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_KQvKQ_black() {
-        FEN fen = FEN.of("7k/q7/7K/7Q/8/8/8/8 b - - 0 1");
+        FEN fen = FEN.from("7k/q7/7K/7Q/8/8/8/8 b - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -188,7 +188,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_KQNvKQ_white() {
-        FEN fen = FEN.of("7k/q7/7K/7Q/4N3/8/8/8 w - - 0 1");
+        FEN fen = FEN.from("7k/q7/7K/7Q/4N3/8/8/8 w - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -213,7 +213,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_KQNvKQ_black() {
-        FEN fen = FEN.of("7k/q7/7K/7Q/4N3/8/8/8 b - - 0 1");
+        FEN fen = FEN.from("7k/q7/7K/7Q/4N3/8/8/8 b - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -239,7 +239,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_KPvK_white() {
-        FEN fen = FEN.of("8/P7/4K3/7k/8/8/8/8 w - - 0 1");
+        FEN fen = FEN.from("8/P7/4K3/7k/8/8/8/8 w - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -264,7 +264,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_KPvK_black() {
-        FEN fen = FEN.of("8/P7/4K3/7k/8/8/8/8 b - - 0 1");
+        FEN fen = FEN.from("8/P7/4K3/7k/8/8/8/8 b - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -289,7 +289,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_KPvKP_white01() {
-        FEN fen = FEN.of("8/P7/4K3/7k/6p1/8/8/8 w - - 0 1");
+        FEN fen = FEN.from("8/P7/4K3/7k/6p1/8/8/8 w - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -314,7 +314,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_KPPvKP_black() {
-        FEN fen = FEN.of("8/8/1k2P2K/6P1/8/3p4/8/8 b - - 0 1");
+        FEN fen = FEN.from("8/8/1k2P2K/6P1/8/3p4/8/8 b - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -339,7 +339,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_longest_3() {
-        FEN fen = FEN.of("8/8/8/8/8/8/2Rk4/1K6 b - - 0 1");
+        FEN fen = FEN.from("8/8/8/8/8/8/2Rk4/1K6 b - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -367,7 +367,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_longest_4() {
-        FEN fen = FEN.of("8/8/8/6B1/8/8/4k3/1K5N b - - 0 1");
+        FEN fen = FEN.from("8/8/8/6B1/8/8/4k3/1K5N b - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -392,7 +392,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_longest_5() {
-        FEN fen = FEN.of("K7/N7/k7/8/3p4/8/N7/8 w - - 0 1");
+        FEN fen = FEN.from("K7/N7/k7/8/3p4/8/N7/8 w - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -417,7 +417,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_longest_6() {
-        FEN fen = FEN.of("6N1/5KR1/2n5/8/8/8/2n5/1k6 w - - 0 1");
+        FEN fen = FEN.from("6N1/5KR1/2n5/8/8/8/2n5/1k6 w - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -442,7 +442,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_KRNPvKN_white() {
-        FEN fen = FEN.of("6N1/5KR1/2n5/8/k7/8/2P5/8 w - - 0 1");
+        FEN fen = FEN.from("6N1/5KR1/2n5/8/k7/8/2P5/8 w - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -467,7 +467,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_KRNPvKN_black() {
-        FEN fen = FEN.of("6N1/5K2/2n3R1/8/k7/8/2P5/8 b - - 0 1");
+        FEN fen = FEN.from("6N1/5K2/2n3R1/8/k7/8/2P5/8 b - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -492,7 +492,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_KRvK() {
-        FEN fen = FEN.of("8/8/8/8/8/4k3/2R5/1K6 w - - 0 1");
+        FEN fen = FEN.from("8/8/8/8/8/4k3/2R5/1K6 w - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -520,7 +520,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_draw01() {
-        FEN fen = FEN.of("8/8/2k1r2K/2n4R/8/8/8/8 w - - 1 2");
+        FEN fen = FEN.from("8/8/2k1r2K/2n4R/8/8/8/8 w - - 1 2");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -548,7 +548,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_draw02() {
-        FEN fen = FEN.of("8/6P1/8/7K/3k4/8/8/1q6 w - - 0 1");
+        FEN fen = FEN.from("8/6P1/8/7K/3k4/8/8/1q6 w - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -576,7 +576,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_KPvKP_white02() {
-        FEN fen = FEN.of("6k1/8/6p1/3K2P1/8/8/8/8 w - - 0 1");
+        FEN fen = FEN.from("6k1/8/6p1/3K2P1/8/8/8/8 w - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -604,7 +604,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_KNPvKRP_white01() {
-        FEN fen = FEN.of("8/8/2K5/2Np4/1k6/5P2/5r2/8 w - - 0 42");
+        FEN fen = FEN.from("8/8/2K5/2Np4/1k6/5P2/5r2/8 w - - 0 42");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -632,7 +632,7 @@ public class SyzygyImpProbeRootIntegrationTest {
 
     @Test
     public void test_tb_probe_root_KPPvKP_white01() {
-        FEN fen = FEN.of("8/5K2/5p2/5Pp1/8/8/3k4/8 w - g6 0 1");
+        FEN fen = FEN.from("8/5K2/5p2/5Pp1/8/8/3k4/8 w - g6 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 

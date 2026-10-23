@@ -14,7 +14,7 @@ public class SyzygyPositionTest {
 
     @Test
     public void testToPosition01() {
-        FEN fen = FEN.of("7k/8/7K/7Q/8/8/8/8 w - - 0 1");
+        FEN fen = FEN.from("7k/8/7K/7Q/8/8/8/8 w - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -33,7 +33,7 @@ public class SyzygyPositionTest {
 
     @Test
     public void testToPosition02() {
-        FEN fen = FEN.of("7k/8/7K/7Q/8/8/8/8 w - - 5 10");
+        FEN fen = FEN.from("7k/8/7K/7Q/8/8/8/8 w - - 5 10");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -52,7 +52,7 @@ public class SyzygyPositionTest {
 
     @Test
     public void testToPosition03() {
-        FEN fen = FEN.of("8/5K2/5p2/5Pp1/8/8/3k4/8 w - g6 0 1");
+        FEN fen = FEN.from("8/5K2/5p2/5Pp1/8/8/3k4/8 w - g6 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 

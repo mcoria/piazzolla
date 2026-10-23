@@ -42,7 +42,7 @@ public class SyzygyImpProbeWDLIntegrationTest {
 
     @Test
     public void test_tb_probe_wdl_whiteTurn_win() {
-        FEN fen = FEN.of("8/8/8/8/8/3k4/2R5/1K6 w - - 0 1");
+        FEN fen = FEN.from("8/8/8/8/8/3k4/2R5/1K6 w - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -55,7 +55,7 @@ public class SyzygyImpProbeWDLIntegrationTest {
 
     @Test
     public void test_tb_probe_wdl_whiteTurn_loss() {
-        FEN fen = FEN.of("8/8/8/8/8/3k4/2r5/1K6 w - - 0 1");
+        FEN fen = FEN.from("8/8/8/8/8/3k4/2r5/1K6 w - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -68,7 +68,7 @@ public class SyzygyImpProbeWDLIntegrationTest {
 
     @Test
     public void test_tb_probe_wdl_blackTurn_win() {
-        FEN fen = FEN.of("8/8/8/8/8/3k4/2r5/1K6 b - - 0 1");
+        FEN fen = FEN.from("8/8/8/8/8/3k4/2r5/1K6 b - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -81,7 +81,7 @@ public class SyzygyImpProbeWDLIntegrationTest {
 
     @Test
     public void test_tb_probe_wdl_blackTurn_loss() {
-        FEN fen = FEN.of("8/8/8/8/8/8/2Rk4/1K6 b - - 0 1");
+        FEN fen = FEN.from("8/8/8/8/8/8/2Rk4/1K6 b - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -94,7 +94,7 @@ public class SyzygyImpProbeWDLIntegrationTest {
 
     @Test
     public void test_tb_probe_wdl_blackTurn_draw() {
-        FEN fen = FEN.of("6N1/5K2/2n3R1/8/k7/8/2P5/8 b - - 0 1");
+        FEN fen = FEN.from("6N1/5K2/2n3R1/8/k7/8/2P5/8 b - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 

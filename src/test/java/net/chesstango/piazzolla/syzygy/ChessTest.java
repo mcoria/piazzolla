@@ -14,7 +14,7 @@ public class ChessTest {
 
     @Test
     void testEnPassantCapture() {
-        FEN fen = FEN.of("8/5K2/5p2/5Pp1/8/8/3k4/8 w - g6 0 1");
+        FEN fen = FEN.from("8/5K2/5p2/5Pp1/8/8/3k4/8 w - g6 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 

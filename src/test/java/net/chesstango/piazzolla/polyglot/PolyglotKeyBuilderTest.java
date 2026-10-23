@@ -1,7 +1,6 @@
 package net.chesstango.piazzolla.polyglot;
 
 import net.chesstango.gardel.fen.FEN;
-import net.chesstango.gardel.fen.FENParser;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -21,7 +20,7 @@ public class PolyglotKeyBuilderTest {
     @Test
     public void generateKeyINITIAL_FEN() {
         FEN
-                .of(FENParser.INITIAL_FEN)
+                .from(FEN.START_POSITION_STRING)
                 .export(polyglotKeyBuilder);
 
         Long polyglotKey = polyglotKeyBuilder.getPositionRepresentation();
@@ -40,7 +39,7 @@ public class PolyglotKeyBuilderTest {
     @Test
     public void generateKey01() {
         FEN
-                .of("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1")
+                .from("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1")
                 .export(polyglotKeyBuilder);
 
         Long polyglotKey = polyglotKeyBuilder.getPositionRepresentation();
@@ -60,7 +59,7 @@ public class PolyglotKeyBuilderTest {
     @Test
     public void generateKey02() {
         FEN
-                .of("rnbqkbnr/ppp1pppp/8/3p4/4P3/8/PPPP1PPP/RNBQKBNR w KQkq d6 0 2")
+                .from("rnbqkbnr/ppp1pppp/8/3p4/4P3/8/PPPP1PPP/RNBQKBNR w KQkq d6 0 2")
                 .export(polyglotKeyBuilder);
 
         Long polyglotKey = polyglotKeyBuilder.getPositionRepresentation();
@@ -79,7 +78,7 @@ public class PolyglotKeyBuilderTest {
     @Test
     public void generateKey03() {
         FEN
-                .of("rnbqkbnr/ppp1pppp/8/3pP3/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2")
+                .from("rnbqkbnr/ppp1pppp/8/3pP3/8/8/PPPP1PPP/RNBQKBNR b KQkq - 0 2")
                 .export(polyglotKeyBuilder);
 
         Long polyglotKey = polyglotKeyBuilder.getPositionRepresentation();
@@ -97,7 +96,7 @@ public class PolyglotKeyBuilderTest {
     @Test
     public void generateKey04() {
         FEN
-                .of("rnbqkbnr/ppp1p1pp/8/3pPp2/8/8/PPPP1PPP/RNBQKBNR w KQkq f6 0 3")
+                .from("rnbqkbnr/ppp1p1pp/8/3pPp2/8/8/PPPP1PPP/RNBQKBNR w KQkq f6 0 3")
                 .export(polyglotKeyBuilder);
 
         Long polyglotKey = polyglotKeyBuilder.getPositionRepresentation();
@@ -116,7 +115,7 @@ public class PolyglotKeyBuilderTest {
     @Test
     public void generateKey05() {
         FEN
-                .of("rnbqkbnr/ppp1p1pp/8/3pPp2/8/8/PPPPKPPP/RNBQ1BNR b kq - 0 3")
+                .from("rnbqkbnr/ppp1p1pp/8/3pPp2/8/8/PPPPKPPP/RNBQ1BNR b kq - 0 3")
                 .export(polyglotKeyBuilder);
 
         Long polyglotKey = polyglotKeyBuilder.getPositionRepresentation();
@@ -134,7 +133,7 @@ public class PolyglotKeyBuilderTest {
     @Test
     public void generateKey06() {
         FEN
-                .of("rnbq1bnr/ppp1pkpp/8/3pPp2/8/8/PPPPKPPP/RNBQ1BNR w - - 0 4")
+                .from("rnbq1bnr/ppp1pkpp/8/3pPp2/8/8/PPPPKPPP/RNBQ1BNR w - - 0 4")
                 .export(polyglotKeyBuilder);
 
         Long polyglotKey = polyglotKeyBuilder.getPositionRepresentation();
@@ -153,7 +152,7 @@ public class PolyglotKeyBuilderTest {
     @Test
     public void generateKey07() {
         FEN
-                .of("rnbqkbnr/p1pppppp/8/8/PpP4P/8/1P1PPPP1/RNBQKBNR b KQkq c3 0 3")
+                .from("rnbqkbnr/p1pppppp/8/8/PpP4P/8/1P1PPPP1/RNBQKBNR b KQkq c3 0 3")
                 .export(polyglotKeyBuilder);
 
         Long polyglotKey = polyglotKeyBuilder.getPositionRepresentation();
@@ -172,7 +171,7 @@ public class PolyglotKeyBuilderTest {
     @Test
     public void generateKey08() {
         FEN
-                .of("rnbqkbnr/p1pppppp/8/8/P6P/R1p5/1P1PPPP1/1NBQKBNR b Kkq - 0 4")
+                .from("rnbqkbnr/p1pppppp/8/8/P6P/R1p5/1P1PPPP1/1NBQKBNR b Kkq - 0 4")
                 .export(polyglotKeyBuilder);
 
         Long polyglotKey = polyglotKeyBuilder.getPositionRepresentation();

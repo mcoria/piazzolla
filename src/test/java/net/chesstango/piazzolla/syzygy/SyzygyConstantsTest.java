@@ -44,7 +44,7 @@ public class SyzygyConstantsTest {
 
     @Test
     public void test_calcKey() {
-        FEN fen = FEN.of("7k/8/7K/7Q/8/8/8/8 w - - 0 1");
+        FEN fen = FEN.from("7k/8/7K/7Q/8/8/8/8 w - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
@@ -56,7 +56,7 @@ public class SyzygyConstantsTest {
 
     @Test
     public void test_prt_str() {
-        FEN fen = FEN.of("7k/8/7K/7Q/8/8/8/8 w - - 0 1");
+        FEN fen = FEN.from("7k/8/7K/7Q/8/8/8/8 w - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 

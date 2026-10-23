@@ -58,7 +58,7 @@ public class Syszygy_3_4_5_IntegrationTest {
      */
     @Test
     public void test_tb_probe_root_6_fails() {
-        FEN fen = FEN.of("6N1/5KR1/2n5/8/8/8/2n5/1k6 w - - 0 1");
+        FEN fen = FEN.from("6N1/5KR1/2n5/8/8/8/2n5/1k6 w - - 0 1");
 
         SyzygyPosition syzygyPosition = SyzygyPosition.from(fen);
 
