@@ -6,6 +6,7 @@ Piazzolla is a Java library designed for working with Syzygy Endgame Tablebases 
 ## Features
 
 - **Syzygy Endgame Tablebases**:
+  - Pure Java implementation, NO bridge to external libraries through JNI nor FFM.
   - Probe Win-Draw-Loss (WDL) tables (`.rtbw`) for fast evaluation during search.
   - Probe Distance-To-Zero (DTZ) tables (`.rtbz`) to find optimal moves and DTZ distance at the root.
   - Support for multi-directory tablebase configurations (3-4-5-6 pieces).
@@ -149,6 +150,11 @@ public class PolyglotExample {
     }
 }
 ```
+
+## Acknowledgement
+
+Thanks to Ronald de Man for his [Syzygy tablebases](https://github.com/syzygy1/tb).
+The probing code is closely based on his implementation for Stockfish.
 
 ## License
 
